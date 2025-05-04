@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学マスSSRサポカ所持率チェッカー</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/support-checker.css" />
+
+    <!-- ▼ Twitterカードの設定 ▼ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="学マスSSRサポカ所持率チェッカー">
+    <meta name="twitter:description" content="全◯種中◯種（所持率◯％）をチェックできるツール">
+    <meta name="twitter:image" content="https://haru-1125.github.io/assets/sozai/schecker.jpg">
+
+</head>
+
+<body>
+    <header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ所持チェック</a></li>
+                <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ所持チェック</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>学マスSSRサポカ所持率チェッカー</h1>
+    <div id="sstats">全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）</div>
+
+    <div id="vocalStats">vocal:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span>
+        ）
+    </div>
+    <div id="danceStats">dance:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span>
+        ）
+    </div>
+    <div id="visualStats">visual:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span
+            class="red">0%</span> ）
+    </div>
+
+    <div class="buttons">
+        <button class="twitter-share-button" onclick="shareOnTwitter()">Twitterでシェア</button>
+    </div>
+
+    <div class="buttons">
+        <button onclick="selectAll(true)">すべてチェック</button>
+        <button onclick="selectAll(false)">すべてチェックを外す</button>
+    </div>
+
+    <div class="sgrid" id="supportGrid"></div>
+
+    <!-- ↓ ページ下部に画像を追加 -->
+    <div class="footer-image">
+        <img src="../assets/sozai/schecker.jpg" alt="サポカ所持率チェッカー" />
+    </div>
+
+    <script src="../data/supports.js"></script>
+    <script src="../js/support-checker.js"></script>
+
+    <script>
+        const path = window.location.pathname;
+        if (path.includes("character-checker")) {
+            document.getElementById("char-link").classList.add("active");
+        } else if (path.includes("support-checker")) {
+            document.getElementById("support-link").classList.add("active");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学マスSSRキャラ所持率チェッカー</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/character-checker.css" />
+
+    <!-- ▼ Twitterカードの設定 ▼ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="学マスSSRキャラ所持率チェッカー">
+    <meta name="twitter:description" content="全◯種中◯種（所持率◯％）をチェックできるツール">
+    <meta name="twitter:image" content="https://haru-1125.github.io/assets/sozai/cchecker.jpg">
+
+</head>
+
+<body>
+    <header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ所持チェック</a></li>
+                <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ所持チェック</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>学マスSSRキャラ所持率チェッカー</h1>
+    <div id="cstats">全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）</div>
+
+    <div id="sakiStats">咲季:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="temariStats">手毬:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="kotoneStats">ことね:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="maoStats">麻央:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="ririyaStats">リーリヤ:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span>
+        ）
+    </div>
+    <div id="tinaStats">千奈:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="sumikaStats">清夏:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="hiroStats">広:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="senaStats">星南:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="umeStats">佑芽:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+    <div id="rinamiStats">莉波:全<span class="red">0</span>種中<span class="red">0</span>種（ 所持率<span class="red">0%</span> ）
+    </div>
+
+    <div class="buttons">
+        <button class="twitter-share-button" onclick="shareOnTwitter()">Twitterでシェア</button>
+    </div>
+
+    <div class="buttons">
+        <button onclick="selectAll(true)">すべてチェック</button>
+        <button onclick="selectAll(false)">すべてチェックを外す</button>
+    </div>
+
+    <div class="grid" id="characterGrid"></div>
+
+    <!-- ↓ ページ下部に画像を追加 -->
+    <div class="footer-image">
+        <img src="../assets/sozai/cchecker.jpg" alt="キャラ所持率チェッカー" />
+    </div>
+
+    <script src="../data/characters.js"></script>
+    <script src="../js/character-checker.js"></script>
+
+    <script>
+        const path = window.location.pathname;
+        if (path.includes("character-checker")) {
+            document.getElementById("char-link").classList.add("active");
+        } else if (path.includes("support-checker")) {
+            document.getElementById("support-link").classList.add("active");
+        }
+    </script>
+
+</body>
+
+</html>

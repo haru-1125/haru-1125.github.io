@@ -1,0 +1,124 @@
+#cstats {
+    font-size: 2em;
+    margin: 25px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#sakiStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#temariStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#kotoneStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#maoStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#ririyaStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#tinaStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#sumikaStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#hiroStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#senaStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#umeStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+#rinamiStats {
+    font-size: 1.3em;
+    margin: 0px 0;
+    font-weight: 500;
+    color: #444;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+    padding: 0 10px;
+}
+
+.character {
+    background: white;
+    border-radius: 16px;
+    padding: 10px;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.character:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.character.owned {
+    border: 2px solid #6fb1fc;
+    box-shadow: 0 0 10px rgba(111, 177, 252, 0.4);
+}
+
+.character img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+.character-name {
+    font-size: 0.85em;
+    color: #555;
+    font-weight: 500;
+    margin-top: 6px;
+}

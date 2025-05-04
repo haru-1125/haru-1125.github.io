@@ -1,0 +1,123 @@
+header {
+    background-color: #e0f7fa;
+    /* 薄い水色 */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    margin: 0;
+    padding-top: 60px;
+    /* ヘッダーの高さに合わせて余白 */
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.main-nav li {
+    margin: 0 20px;
+}
+
+.main-nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.main-nav a:hover {
+    color: #d84315;
+    /* 濃いオレンジ */
+}
+
+.main-nav a.active {
+    color: #ff9800;
+    /* 現在のページ：オレンジ */
+}
+
+
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: linear-gradient(to bottom, #f5f7fa, #e4ebf1);
+    color: #333;
+    padding: 40px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.4em;
+    margin-bottom: 20px;
+    color: #222;
+    font-weight: 700;
+}
+
+.red {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.buttons {
+    margin-bottom: 30px;
+}
+
+.buttons button {
+    background: linear-gradient(to right, #6fb1fc, #4364f7);
+    color: white;
+    font-size: 1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(67, 100, 247, 0.2);
+}
+
+.buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(67, 100, 247, 0.3);
+}
+
+
+
+
+.twitter-share-button {
+    background: linear-gradient(to right, #1DA1F2, #0d8ddb);
+    color: white;
+    font-size: 1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(29, 161, 242, 0.2);
+}
+
+.twitter-share-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(29, 161, 242, 0.3);
+}
+
+
+.footer-image {
+    margin-top: 60px;
+}
+
+.footer-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
