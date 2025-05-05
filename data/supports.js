@@ -54,6 +54,6 @@ const supports = [
     { name: "新生活のはじまりだね", type: "visual", file: "../assets/sup/新生活のはじまりだね.png", darkFile: "../assets/supan/新生活のはじまりだね.png" },
     { name: "相手にとって不足なしよ！", type: "visual", file: "../assets/sup/相手にとって不足なしよ！.png", darkFile: "../assets/supan/相手にとって不足なしよ！.png" },
     { name: "きみは、自慢の生徒です", type: "assist", file: "../assets/sup/きみは、自慢の生徒です.png", darkFile: "../assets/supan/きみは、自慢の生徒です.png" },
-    { name: "食欲の秋なんです", type: "assist", file: "../assets/sup/相手にとって不足なしよ！.png", darkFile: "../assets/supan/相手にとって不足なしよ！.png" }
+    { name: "食欲の秋なんです", type: "assist", file: "../assets/sup/食欲の秋なんです.png", darkFile: "../assets/supan/食欲の秋なんです.png" }
     // 他のキャラもここに追加
   ];
