@@ -121,3 +121,42 @@ h1 {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
+
+/* ボタンと説明文 */
+.link-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.link-item {
+    font-size: 24px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #87CEFA;
+    /* 薄い水色 */
+    padding: 20px 40px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+.link-item:hover {
+    background-color: #FFA500;
+    /* 濃いオレンジ */
+    color: #fff;
+}
+
+.link-item:active {
+    background-color: #FF8C00;
+    /* アクティブ時の色 */
+}
+
+/* 説明文のスタイル */
+.description {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 30px;
+    color: #333;
+}

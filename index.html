@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>学マス 所持率チェッカー</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="pages/character-checker.html" class="nav-link" id="char-link">キャラ所持率チェック</a></li>
+                <li><a href="pages/support-checker.html" class="nav-link" id="support-link">サポカ所持率チェック</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>学マス 所持率チェッカー</h1>
+        
+        <!-- ボタンリンクと説明文 -->
+        <div class="link-container">
+            <a href="pages/character-checker.html" class="link-item">キャラ所持率チェック</a>
+            <a href="pages/support-checker.html" class="link-item">サポカ所持率チェック</a>
+        </div>
+
+        <p class="description">キャラ所持率チェックでは、ゲーム内キャラクターの所持状況を確認できます。サポカ所持率チェックでは、サポカカードの所持状況を確認できます。</p>
+
+
+
+    </main>
+
+    <script>
+        const path = window.location.pathname;
+        if (path.includes("character-checker")) {
+            document.getElementById("char-link").classList.add("active");
+        } else if (path.includes("support-checker")) {
+            document.getElementById("support-link").classList.add("active");
+        }
+    </script>
+</body>
+
+</html>
