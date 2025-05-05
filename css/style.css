@@ -1,18 +1,26 @@
 header {
     background-color: #e0f7fa;
-    /* 薄い水色 */
     position: fixed;
     top: 0;
+    left: 0; /* ← 明示的に左端に寄せる */
     width: 100%;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+
 body {
     margin: 0;
-    padding-top: 60px;
-    /* ヘッダーの高さに合わせて余白 */
+    padding-top: 60px; /* ヘッダー分 */
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 40px; /* 必要なら */
+    font-family: 'Noto Sans JP', sans-serif;
+    background: linear-gradient(to bottom, #f5f7fa, #e4ebf1);
+    color: #333;
+    text-align: center;
 }
+
 
 .main-nav ul {
     display: flex;
