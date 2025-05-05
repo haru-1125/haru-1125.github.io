@@ -52,6 +52,8 @@ const supports = [
     { name: "あったかいね", type: "visual", file: "../assets/sup/あったかいね.png", darkFile: "../assets/supan/あったかいね.png" },
     { name: "バレンタイン♡会議中ーっ！", type: "visual", file: "../assets/sup/バレンタイン♡会議中ーっ！.png", darkFile: "../assets/supan/バレンタイン♡会議中ーっ！.png" },
     { name: "新生活のはじまりだね", type: "visual", file: "../assets/sup/新生活のはじまりだね.png", darkFile: "../assets/supan/新生活のはじまりだね.png" },
-    { name: "相手にとって不足なしよ！", type: "visual", file: "../assets/sup/相手にとって不足なしよ！.png", darkFile: "../assets/supan/相手にとって不足なしよ！.png" }
+    { name: "相手にとって不足なしよ！", type: "visual", file: "../assets/sup/相手にとって不足なしよ！.png", darkFile: "../assets/supan/相手にとって不足なしよ！.png" },
+    { name: "きみは、自慢の生徒です", type: "assist", file: "../assets/sup/きみは、自慢の生徒です.png", darkFile: "../assets/supan/きみは、自慢の生徒です.png" },
+    { name: "食欲の秋なんです", type: "assist", file: "../assets/sup/相手にとって不足なしよ！.png", darkFile: "../assets/supan/相手にとって不足なしよ！.png" }
     // 他のキャラもここに追加
   ];
