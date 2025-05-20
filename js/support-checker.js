@@ -1,7 +1,10 @@
 const sgrid = document.getElementById("supportGrid");
 const sstats = document.getElementById("sstats");
+const usableSupports = supports.filter(c =>
+    !c.isDummy && (c.rarity === "SSR" || c.rarity === "配布SSR")
+);
 
-supports.forEach((char, index) => {
+usableSupports.forEach((char, index) => {
     const div = document.createElement("div");
     div.className = "support";
     div.dataset.index = index;
@@ -16,7 +19,7 @@ supports.forEach((char, index) => {
 function togglesupport(div, index) {
     div.classList.toggle("owned");
     const img = div.querySelector("img");
-    img.src = div.classList.contains("owned") ? supports[index].file : supports[index].darkFile;
+    img.src = div.classList.contains("owned") ? usableSupports[index].file : usableSupports[index].darkFile;
     updateStats();
 }
 
@@ -29,7 +32,7 @@ function updateStats() {
 
 
     const owned = document.querySelectorAll(".support.owned").length;
-    const total = supports.length;
+    const total = usableSupports.length;
     const percent = ((owned / total) * 100).toFixed(1);
 
     sstats.innerHTML = `全<span class="red">${total}</span>種中<span class="red">${owned}</span>種（ 所持率<span class="red">${percent}%</span> ）`;
@@ -38,7 +41,7 @@ function updateStats() {
     let vocalTotal = 0;
     let vocalOwned = 0;
 
-    supports.forEach((char, i) => {
+    usableSupports.forEach((char, i) => {
         if (char.type === "vocal") {
             vocalTotal++;
             const div = document.querySelector(`.support[data-index='${i}']`);
@@ -56,7 +59,7 @@ function updateStats() {
     let danceTotal = 0;
     let danceOwned = 0;
 
-    supports.forEach((char, i) => {
+    usableSupports.forEach((char, i) => {
         if (char.type === "dance") {
             danceTotal++;
             const div = document.querySelector(`.support[data-index='${i}']`);
@@ -74,7 +77,7 @@ function updateStats() {
     let visualTotal = 0;
     let visualOwned = 0;
 
-    supports.forEach((char, i) => {
+    usableSupports.forEach((char, i) => {
         if (char.type === "visual") {
             visualTotal++;
             const div = document.querySelector(`.support[data-index='${i}']`);
@@ -98,10 +101,10 @@ function selectAll(flag) {
         const isOwned = div.classList.contains("owned");
         if (flag && !isOwned) {
             div.classList.add("owned");
-            div.querySelector("img").src = supports[index].file;
+            div.querySelector("img").src = usableSupports[index].file;
         } else if (!flag && isOwned) {
             div.classList.remove("owned");
-            div.querySelector("img").src = supports[index].darkFile;
+            div.querySelector("img").src = usableSupports[index].darkFile;
         }
     });
     updateStats();
@@ -113,7 +116,7 @@ function selectAll(flag) {
 
 function shareOnTwitter() {
     const owned = document.querySelectorAll(".support.owned").length;
-    const total = supports.length;
+    const total = usableSupports.length;
     const percent = ((owned / total) * 100).toFixed(1);
     const text = `学マスSSRサポカ所持率チェッカー\n全${total}種中${owned}種（ 所持率${percent}% ）\n`;
     const url = location.href;

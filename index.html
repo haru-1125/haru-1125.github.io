@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>学マス 所持率チェッカー</title>
+    <title>学マス ツール</title>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6489YQ95Q"></script>
@@ -22,8 +22,9 @@
     <header>
         <nav class="main-nav">
             <ul>
-                <li><a href="pages/character-checker.html" class="nav-link" id="char-link">キャラ所持率チェック</a></li>
-                <li><a href="pages/support-checker.html" class="nav-link" id="support-link">サポカ所持率チェック</a></li>
+                <li><a href="pages/character-checker.html" class="nav-link" id="char-link">キャラ所持率</a></li>
+                <li><a href="pages/support-checker.html" class="nav-link" id="support-link">サポカ所持率</a></li>
+                <!-- <li><a href="pages/nia-simulator.html" class="nav-link" id="nia-link">NIAシミュレーター</a></li> -->
             </ul>
         </nav>
     </header>
@@ -33,11 +34,13 @@
 
         <!-- ボタンリンクと説明文 -->
         <div class="link-container">
-            <a href="pages/character-checker.html" class="link-item">キャラ所持率チェック</a>
-            <a href="pages/support-checker.html" class="link-item">サポカ所持率チェック</a>
+            <a href="pages/character-checker.html" class="link-item">キャラ所持率</a>
+            <a href="pages/support-checker.html" class="link-item">サポカ所持率</a>
+            <!-- <a href="pages/nia-simulator.html" class="link-item">NIAシミュレーター</a> -->
         </div>
 
-        <p class="description">キャラ所持率チェックでは、ゲーム内キャラクターの所持状況を確認できます。<br>サポカ所持率チェックでは、サポカカードの所持状況を確認できます。</p>
+        <p class="description">キャラ所持率では、ゲーム内キャラクターの所持状況を確認できます。<br>サポカ所持率では、サポートカードの所持状況を確認できます。</p>
+        <!-- <br>[メンテナンス中]NIAシミュレーターでは、NIAのステータス比較ができます。</p> -->
 
 
 
@@ -49,6 +52,8 @@
             document.getElementById("char-link").classList.add("active");
         } else if (path.includes("support-checker")) {
             document.getElementById("support-link").classList.add("active");
+        } else if (path.includes("nia-simulator")) {
+            document.getElementById("nia-link").classList.add("active");
         }
     </script>
 </body>

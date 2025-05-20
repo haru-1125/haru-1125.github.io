@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学マスNIAシミュレーター</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6489YQ95Q"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Z6489YQ95Q');
+    </script>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/nia-simulator.css" />
+
+</head>
+
+<body>
+    <header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ所持率</a></li>
+                <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ所持率</a></li>
+                <li><a href="nia-simulator.html" class="nav-link" id="nia-link">NIAシミュレーター</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>[メンテ中]学マスNIAシミュレーター</h1>
+
+    <div class="final-status-table">
+        <h2>最終ステータス</h2>
+        <div class="status-container">
+            <table>
+                <tr>
+                    <th>項目</th>
+                    <th class="vocal">Vocal</th>
+                    <th class="dance">Dance</th>
+                    <th class="visual">Visual</th>
+                    <th>合計</th>
+                    <th>ファン</th>
+                </tr>
+                <tr>
+                    <td class="kuro">最終ステータス</td>
+                    <td class="kuro"><span id="最終Vocal">0</span></td>
+                    <td class="kuro"><span id="最終Dance">0</span></td>
+                    <td class="kuro"><span id="最終Visual">0</span></td>
+                    <td class="kuro"><span id="ステータス合計">0</span></td>
+                    <td class="kuro"><span id="最終ファン">0</span></td>
+                </tr>
+                <tr>
+                    <td class="kuro">レスボ</td>
+                    <td class="kuro"><span id="最終Vocalレスボ">0</span></td>
+                    <td class="kuro"><span id="最終Danceレスボ">0</span></td>
+                    <td class="kuro"><span id="最終Visualレスボ">0</span></td>
+                    <td colspan="2" class="siro">評価値</td> <!-- 評価値のセル -->
+                </tr>
+                <tr>
+                    <td class="kuro">残り（カンストまで）</td>
+                    <td class="kuro"><span id="残りVocal">0</span></td>
+                    <td class="kuro"><span id="残りDance">0</span></td>
+                    <td class="kuro"><span id="残りVisual">0</span></td>
+                    <td id="image-cell" rowspan="2"><img src="image1.jpg" alt="Image" id="dynamic-image"></td>
+                    <td class="kuro" rowspan="2"><span id="評価値">0</span></td>
+                </tr>
+                <tr>
+                    <td class="kuro">SP率</td>
+                    <td class="kuro"><span id="Vocal率">0</span></td>
+                    <td class="kuro"><span id="Dance率">0</span></td>
+                    <td class="kuro"><span id="Visual率">0</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="character-support-container">
+        <!-- キャラ表示 -->
+        <div class="character-container">
+            <img id="selected-character" class="selectable" alt="キャラ画像" />
+            <div class="limit-break-control">
+                <button class="limit-btn-kuro" onclick="changeLimitBreak(-1)">-</button>
+                <span id="limit-break-display" class="limit-kuro-display">0凸</span>
+                <button class="limit-btn-kuro" onclick="changeLimitBreak(1)">+</button>
+            </div>
+            <!-- キャラの凸ボタン群 -->
+            <div class="character-limit-controls">
+                <button class="limit-btn2" onclick="setAllLimitToFour()">サポカ全4凸</button>
+            </div>
+        </div>
+
+        <!-- サポカ表示（初期は空 → JSで生成） -->
+        <div id="support-container">
+            <div class="support-card" data-index="0">
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(0, -1)">-</button>
+                <span class="limit-kuro-display">0凸</span>
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(0, 1)">+</button>
+            </div>
+            <div class="support-card" data-index="1">
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(1, -1)">-</button>
+                <span class="limit-kuro-display">0凸</span>
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(1, 1)">+</button>
+            </div>
+            <div class="support-card" data-index="2">
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(2, -1)">-</button>
+                <span class="limit-kuro-display">0凸</span>
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(2, 1)">+</button>
+            </div>
+            <div class="support-card" data-index="3">
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(3, -1)">-</button>
+                <span class="limit-kuro-display">0凸</span>
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(3, 1)">+</button>
+            </div>
+            <div class="support-card" data-index="4">
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(4, -1)">-</button>
+                <span class="limit-kuro-display">0凸</span>
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(4, 1)">+</button>
+            </div>
+            <div class="support-card" data-index="5">
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(5, -1)">-</button>
+                <span class="limit-kuro-display">0凸</span>
+                <button class="limit-btn-kuro" onclick="changeSupportLimit(5, 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- キャラ選択モーダル -->
+    <div id="character-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('character-modal')">&times;</span>
+            <div id="character-filter" class="filter-container"></div>
+            <div id="character-grid" class="image-grid"></div>
+        </div>
+    </div>
+
+    <!-- サポカ選択モーダル -->
+    <div id="support-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('support-modal')">&times;</span>
+            <div id="support-filter" class="filter-container"></div>
+            <div id="support-grid" class="image-grid"></div>
+        </div>
+    </div>
+
+    <div class="tables-container">
+        <!-- 1つ目の表 -->
+        <table>
+            <thead>
+                <tr>
+                    <th>レッスン</th>
+                    <th class="vo">Vo</th>
+                    <th class="da">Da</th>
+                    <th class="vi">Vi</th>
+                    <th class="sp">SP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1週目</td>
+                    <td>
+                        <div class="box vo" id="week1-vo" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box da" id="week1-da" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box vi" id="week1-vi" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box sp" id="week1-sp" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4週目</td>
+                    <td>
+                        <div class="box vo" id="week4-vo" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box da" id="week4-da" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box vi" id="week4-vi" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box sp" id="week4-sp" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>11週目</td>
+                    <td>
+                        <div class="box vo" id="week11-vo" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box da" id="week11-da" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box vi" id="week11-vi" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box sp" id="week11-sp" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>14週目</td>
+                    <td>
+                        <div class="box vo" id="week14-vo" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box da" id="week14-da" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box vi" id="week14-vi" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box sp" id="week14-sp" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>20週目</td>
+                    <td>
+                        <div class="box vo" id="week20-vo" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box da" id="week20-da" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box vi" id="week20-vi" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box sp" id="week20-sp" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>23週目</td>
+                    <td>
+                        <div class="box vo" id="week23-vo" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box da" id="week23-da" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box vi" id="week23-vi" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box sp" id="week23-sp" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>25週目</td>
+                    <td>
+                        <div class="box vo" id="week25-vo" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box da" id="week25-da" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box vi" id="week25-vi" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="box sp" id="week25-sp" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 2つ目の表 -->
+        <table>
+            <tr>
+                <th>営業</th>
+                <th class="vo">Vo</th>
+                <th class="da">Da</th>
+                <th class="vi">Vi</th>
+                <th class="big">大</th>
+            </tr>
+            <tr>
+                <td>2週目</td>
+                <td>
+                    <div class="box vo" id="sales-week2-vo" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box da" id="sales-week2-da" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box vi" id="sales-week2-vi" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box big" id="sales-week2-big" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>5週目</td>
+                <td>
+                    <div class="box vo" id="sales-week5-vo" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box da" id="sales-week5-da" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box vi" id="sales-week5-vi" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box big" id="sales-week5-big" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>7週目</td>
+                <td>
+                    <div class="box vo" id="sales-week7-vo" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box da" id="sales-week7-da" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box vi" id="sales-week7-vi" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box big" id="sales-week7-big" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>12週目</td>
+                <td>
+                    <div class="box vo" id="sales-week12-vo" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box da" id="sales-week12-da" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box vi" id="sales-week12-vi" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box big" id="sales-week12-big" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>15週目</td>
+                <td>
+                    <div class="box vo" id="sales-week15-vo" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box da" id="sales-week15-da" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box vi" id="sales-week15-vi" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box big" id="sales-week15-big" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>21週目</td>
+                <td>
+                    <div class="box vo" id="sales-week21-vo" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box da" id="sales-week21-da" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box vi" id="sales-week21-vi" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box big" id="sales-week21-big" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>24週目</td>
+                <td>
+                    <div class="box vo" id="sales-week24-vo" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box da" id="sales-week24-da" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box vi" id="sales-week24-vi" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box big" id="sales-week24-big" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 3つ目の表 -->
+        <table>
+            <tr>
+                <th>その他</th>
+                <th class="出">出/試験</th>
+                <th class="相">相談</th>
+                <th class="差">差入</th>
+                <th class="特">特別</th>
+                <th class="休">休み</th>
+            </tr>
+            <tr>
+                <td>3週目</td>
+                <td>
+                    <div class="box 出" id="action-week3-出" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 差" id="action-week3-差" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week3-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>6週目</td>
+                <td>
+                    <div class="box 出" id="action-week6-出" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 相" id="action-week6-相" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week6-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>8週目</td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 特" id="action-week8-特" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week8-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>試験</td>
+                <td>
+                    <div class="box 試験" id="action-week8-試験" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>10週目</td>
+                <td>
+                    <div class="box 出" id="action-week10-出" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 差" id="action-week10-差" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week10-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>13週目</td>
+                <td>
+                    <div class="box 出" id="action-week13-出" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 相" id="action-week13-相" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 差" id="action-week13-差" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week13-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>17週目</td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 特" id="action-week17-特" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week17-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>19週目</td>
+                <td>
+                    <div class="box 出" id="action-week19-出" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 差" id="action-week19-差" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week19-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>22週目</td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 相" id="action-week22-相" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 差" id="action-week22-差" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 特" id="action-week22-特" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week22-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>26週目</td>
+                <td>
+                    <div class="box 出" id="action-week26-出" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 相" id="action-week26-相" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <div class="box 特" id="action-week26-特" onclick="toggle(this)"></div>
+                </td>
+                <td>
+                    <div class="box 休" id="action-week26-休" onclick="toggle(this)"></div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 4つ目の表 -->
+        <table>
+            <thead>
+                <tr>
+                    <th>手動入力</th>
+                    <th class="数">数</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>チャレンジPアイテム</td>
+                    <td><input type="number" id="チャレンジPアイテム" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>Aカード取得</td>
+                    <td><input type="number" id="Aカード取得" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>Mカード取得</td>
+                    <td><input type="number" id="Mカード取得" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>Aカード強化</td>
+                    <td><input type="number" id="Aカード強化" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>Mカード強化</td>
+                    <td><input type="number" id="Mカード強化" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>Pドリンク交換</td>
+                    <td><input type="number" id="Pドリンク交換" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>好調or好印象or温存獲得</td>
+                    <td><input type="number" id="好調or好印象or温存獲得" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>Aカード削除</td>
+                    <td><input type="number" id="Aカード削除" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>Mカード削除</td>
+                    <td><input type="number" id="Mカード削除" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>カードチェンジ</td>
+                    <td><input type="number" id="カードチェンジ" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>Pアイテムファン数</td>
+                    <td><input type="number" id="Pアイテムファン数" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>PアイテムVocalステ</td>
+                    <td><input type="number" id="PアイテムVocalステ" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>PアイテムDanceステ</td>
+                    <td><input type="number" id="PアイテムDanceステ" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+                <tr>
+                    <td>PアイテムVisualステ</td>
+                    <td><input type="number" id="PアイテムVisualステ" value="0" oninput="updateManualCounts()"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 4.5つ目の表 -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ステイベ</th>
+                    <th>サポカ名</th>
+                    <th>加算</th>
+                    <th>量</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1(上段左)</td>
+                    <td id="support-name-1">-</td>
+                    <td>
+                        <div class="box sp" onclick="toggle(this)" data-index="1"></div>
+                    </td>
+                    <td id="support-e-effect-1">0</td>
+                </tr>
+                <tr>
+                    <td>2(上段中)</td>
+                    <td id="support-name-2">-</td>
+                    <td>
+                        <div class="box sp" onclick="toggle(this)" data-index="2"></div>
+                    </td>
+                    <td id="support-e-effect-2">0</td>
+                </tr>
+                <tr>
+                    <td>3(上段右)</td>
+                    <td id="support-name-3">-</td>
+                    <td>
+                        <div class="box sp" onclick="toggle(this)" data-index="3"></div>
+                    </td>
+                    <td id="support-e-effect-3">0</td>
+                </tr>
+                <tr>
+                    <td>4(下段左)</td>
+                    <td id="support-name-4">-</td>
+                    <td>
+                        <div class="box sp" onclick="toggle(this)" data-index="4"></div>
+                    </td>
+                    <td id="support-e-effect-4">0</td>
+                </tr>
+                <tr>
+                    <td>5(下段中)</td>
+                    <td id="support-name-5">-</td>
+                    <td>
+                        <div class="box sp" onclick="toggle(this)" data-index="5"></div>
+                    </td>
+                    <td id="support-e-effect-5">0</td>
+                </tr>
+                <tr>
+                    <td>6(下段右)</td>
+                    <td id="support-name-6">-</td>
+                    <td>
+                        <div class="box sp" onclick="toggle(this)" data-index="6"></div>
+                    </td>
+                    <td id="support-e-effect-6">0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 5つ目の表 -->
+        <table>
+            <thead>
+                <tr>
+                    <th>試験</th>
+                    <th class="vo">Vocal</th>
+                    <th class="da">Dance</th>
+                    <th class="vi">Visual</th>
+                    <th class="計">計</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1次試験</td>
+                    <td><input type="number" id="1次試験-vo" value="0" oninput="updateTestCounts()"></td>
+                    <td><input type="number" id="1次試験-da" value="0" oninput="updateTestCounts()"></td>
+                    <td><input type="number" id="1次試験-vi" value="0" oninput="updateTestCounts()"></td>
+                    <td><span id="1次試験-計">0</span></td>
+                </tr>
+                <tr>
+                    <td>2次試験</td>
+                    <td><input type="number" id="2次試験-vo" value="0" oninput="updateTestCounts()"></td>
+                    <td><input type="number" id="2次試験-da" value="0" oninput="updateTestCounts()"></td>
+                    <td><input type="number" id="2次試験-vi" value="0" oninput="updateTestCounts()"></td>
+                    <td><span id="2次試験-計">0</span></td>
+                </tr>
+                <tr>
+                    <td>最終試験</td>
+                    <td><input type="number" id="最終試験-vo" value="0" oninput="updateTestCounts()"></td>
+                    <td><input type="number" id="最終試験-da" value="0" oninput="updateTestCounts()"></td>
+                    <td><input type="number" id="最終試験-vi" value="0" oninput="updateTestCounts()"></td>
+                    <td><span id="最終試験-計">0</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 6つ目の表 -->
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">メモリ</th>
+                    <th colspan="4" class="vo">Voレスボ</th>
+                    <th colspan="4" class="vo">Vo初期値</th>
+                    <th colspan="4" class="da">Daレスボ</th>
+                    <th colspan="4" class="da">Da初期値</th>
+                    <th colspan="4" class="vi">Viレスボ</th>
+                    <th colspan="4" class="vi">Vi初期値</th>
+                </tr>
+                <tr>
+                    <th class="vo">1.4</th>
+                    <th class="vo">2.1</th>
+                    <th class="vo">2.8</th>
+                    <th class="vo">3.5</th>
+                    <th class="vo">10</th>
+                    <th class="vo">15</th>
+                    <th class="vo">20</th>
+                    <th class="vo">25</th>
+                    <th class="da">1.4</th>
+                    <th class="da">2.1</th>
+                    <th class="da">2.8</th>
+                    <th class="da">3.5</th>
+                    <th class="da">10</th>
+                    <th class="da">15</th>
+                    <th class="da">20</th>
+                    <th class="da">25</th>
+                    <th class="vi">1.4</th>
+                    <th class="vi">2.1</th>
+                    <th class="vi">2.8</th>
+                    <th class="vi">3.5</th>
+                    <th class="vi">10</th>
+                    <th class="vi">15</th>
+                    <th class="vi">20</th>
+                    <th class="vi">25</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <div class="memory-box vo" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>
+                        <div class="memory-box vo" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>
+                        <div class="memory-box vo" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>
+                        <div class="memory-box vo" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vo" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box da" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="1.4" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="2.1" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="2.8" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="3.5" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="10" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="15" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="20" onclick="toggle(this)"></div>
+                    </td>
+                    <td>
+                        <div class="memory-box vi" data-value="25" onclick="toggle(this)"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="results">
+        <p>キャラ: <span id="character-name-display">-</span></p>
+        <p>キャラ凸: <span id="character-limit-display">0</span></p>
+        <p>Vocalパーセント: <span id="vocal-percent-display">-</span></p>
+        <p>Danceパーセント: <span id="dance-percent-display">-</span></p>
+        <p>Visualパーセント: <span id="visual-percent-display">-</span></p>
+        <p>Vocal初期値: <span id="vocal-ini-display">-</span></p>
+        <p>Dance初期値: <span id="dance-ini-display">-</span></p>
+        <p>Visual初期値: <span id="visual-ini-display">-</span></p>
+        <p>VocalSP: <span id="vocal-sp-display">-</span></p>
+        <p>DanceSP: <span id="dance-sp-display">-</span></p>
+        <p>VisualSP: <span id="visual-sp-display">-</span></p>
+        <p>第1流行: <span id="first-type-display">-</span></p>
+        <p>第2流行: <span id="second-type-display">-</span></p>
+        <p>第3流行: <span id="third-type-display">-</span></p>
+
+        <p>サポカ1: <span id="support-name-1">-</span></p>
+        <p>サポカ凸1: <span id="support-limit-display-1">0</span></p>
+        <p>タイプ1: <span id="support-type-1">-</span></p>
+        <p>レアリティ1: <span id="support-rarity-1">-</span></p>
+        <p>Aアビ1: <span id="support-a-ability-1">-</span></p>
+        <p>Aアビ効果量1: <span id="support-a-effect-1">-</span></p>
+        <p>Bアビ1: <span id="support-b-ability-1">-</span></p>
+        <p>Bアビ効果量1: <span id="support-b-effect-1">-</span></p>
+        <p>Cアビ1: <span id="support-c-ability-1">-</span></p>
+        <p>Cアビ効果量1: <span id="support-c-effect-1">-</span></p>
+        <p>Dアビ1: <span id="support-d-ability-1">-</span></p>
+        <p>Dアビ効果量1: <span id="support-d-effect-1">-</span></p>
+        <p>Eアビ効果量1: <span id="support-e-effect-1">-</span></p>
+        <p>SP1: <span id="support-sp-ability-1">-</span></p>
+        <p>SP効果量1: <span id="support-sp-effect-1">-</span></p>
+
+        <p>サポカ2: <span id="support-name-2">-</span></p>
+        <p>サポカ凸2: <span id="support-limit-display-2">0</span></p>
+        <p>タイプ2: <span id="support-type-2">-</span></p>
+        <p>レアリティ2: <span id="support-rarity-2">-</span></p>
+        <p>Aアビ2: <span id="support-a-ability-2">-</span></p>
+        <p>Aアビ効果量2: <span id="support-a-effect-2">-</span></p>
+        <p>Bアビ2: <span id="support-b-ability-2">-</span></p>
+        <p>Bアビ効果量2: <span id="support-b-effect-2">-</span></p>
+        <p>Cアビ2: <span id="support-c-ability-2">-</span></p>
+        <p>Cアビ効果量2: <span id="support-c-effect-2">-</span></p>
+        <p>Dアビ2: <span id="support-d-ability-2">-</span></p>
+        <p>Dアビ効果量2: <span id="support-d-effect-2">-</span></p>
+        <p>Eアビ効果量2: <span id="support-e-effect-2">-</span></p>
+        <p>SP2: <span id="support-sp-ability-2">-</span></p>
+        <p>SP効果量2: <span id="support-sp-effect-2">-</span></p>
+
+        <p>サポカ3: <span id="support-name-3">-</span></p>
+        <p>サポカ凸3: <span id="support-limit-display-3">0</span></p>
+        <p>タイプ3: <span id="support-type-3">-</span></p>
+        <p>レアリティ3: <span id="support-rarity-3">-</span></p>
+        <p>Aアビ3: <span id="support-a-ability-3">-</span></p>
+        <p>Aアビ効果量3: <span id="support-a-effect-3">-</span></p>
+        <p>Bアビ3: <span id="support-b-ability-3">-</span></p>
+        <p>Bアビ効果量3: <span id="support-b-effect-3">-</span></p>
+        <p>Cアビ3: <span id="support-c-ability-3">-</span></p>
+        <p>Cアビ効果量3: <span id="support-c-effect-3">-</span></p>
+        <p>Dアビ3: <span id="support-d-ability-3">-</span></p>
+        <p>Dアビ効果量3: <span id="support-d-effect-3">-</span></p>
+        <p>Eアビ効果量3: <span id="support-e-effect-3">-</span></p>
+        <p>SP3: <span id="support-sp-ability-3">-</span></p>
+        <p>SP効果量3: <span id="support-sp-effect-3">-</span></p>
+
+        <p>サポカ4: <span id="support-name-4">-</span></p>
+        <p>サポカ凸4: <span id="support-limit-display-4">0</span></p>
+        <p>タイプ4: <span id="support-type-4">-</span></p>
+        <p>レアリティ4: <span id="support-rarity-4">-</span></p>
+        <p>Aアビ4: <span id="support-a-ability-4">-</span></p>
+        <p>Aアビ効果量4: <span id="support-a-effect-4">-</span></p>
+        <p>Bアビ4: <span id="support-b-ability-4">-</span></p>
+        <p>Bアビ効果量4: <span id="support-b-effect-4">-</span></p>
+        <p>Cアビ4: <span id="support-c-ability-4">-</span></p>
+        <p>Cアビ効果量4: <span id="support-c-effect-4">-</span></p>
+        <p>Dアビ4: <span id="support-d-ability-4">-</span></p>
+        <p>Dアビ効果量4: <span id="support-d-effect-4">-</span></p>
+        <p>Eアビ効果量4: <span id="support-e-effect-4">-</span></p>
+        <p>SP4: <span id="support-sp-ability-4">-</span></p>
+        <p>SP効果量4: <span id="support-sp-effect-4">-</span></p>
+
+        <p>サポカ5: <span id="support-name-5">-</span></p>
+        <p>サポカ凸5: <span id="support-limit-display-5">0</span></p>
+        <p>タイプ5: <span id="support-type-5">-</span></p>
+        <p>レアリティ5: <span id="support-rarity-5">-</span></p>
+        <p>Aアビ5: <span id="support-a-ability-5">-</span></p>
+        <p>Aアビ効果量5: <span id="support-a-effect-5">-</span></p>
+        <p>Bアビ5: <span id="support-b-ability-5">-</span></p>
+        <p>Bアビ効果量5: <span id="support-b-effect-5">-</span></p>
+        <p>Cアビ5: <span id="support-c-ability-5">-</span></p>
+        <p>Cアビ効果量5: <span id="support-c-effect-5">-</span></p>
+        <p>Dアビ5: <span id="support-d-ability-5">-</span></p>
+        <p>Dアビ効果量5: <span id="support-d-effect-5">-</span></p>
+        <p>Eアビ効果量5: <span id="support-e-effect-5">-</span></p>
+        <p>SP5: <span id="support-sp-ability-5">-</span></p>
+        <p>SP効果量5: <span id="support-sp-effect-5">-</span></p>
+
+        <p>サポカ6: <span id="support-name-6">-</span></p>
+        <p>サポカ凸6: <span id="support-limit-display-6">0</span></p>
+        <p>タイプ6: <span id="support-type-6">-</span></p>
+        <p>レアリティ6: <span id="support-rarity-6">-</span></p>
+        <p>Aアビ6: <span id="support-a-ability-6">-</span></p>
+        <p>Aアビ効果量6: <span id="support-a-effect-6">-</span></p>
+        <p>Bアビ6: <span id="support-b-ability-6">-</span></p>
+        <p>Bアビ効果量6: <span id="support-b-effect-6">-</span></p>
+        <p>Cアビ6: <span id="support-c-ability-6">-</span></p>
+        <p>Cアビ効果量6: <span id="support-c-effect-6">-</span></p>
+        <p>Dアビ6: <span id="support-d-ability-6">-</span></p>
+        <p>Dアビ効果量6: <span id="support-d-effect-6">-</span></p>
+        <p>Eアビ効果量6: <span id="support-e-effect-6">-</span></p>
+        <p>SP6: <span id="support-sp-ability-6">-</span></p>
+        <p>SP効果量6: <span id="support-sp-effect-6">-</span></p>
+
+        <p>Vocalレッスン: <span id="vocal-resson-times">1</span></p>
+        <p>Vocal通常レッスン: <span id="normal-vocal-resson-times">1</span></p>
+        <p>VocalSPレッスン: <span id="sp-vocal-resson-times">1</span></p>
+        <p>レッスンVocal: <span id="resson-vocal">0</span></p>
+
+        <p>Vocalレッスン: <span id="dance-resson-times">1</span></p>
+        <p>Dance通常レッスン: <span id="normal-dance-resson-times">1</span></p>
+        <p>DanceSPレッスン: <span id="sp-dance-resson-times">1</span></p>
+        <p>レッスンDance: <span id="resson-dance">0</span></p>
+
+        <p>Visualレッスン: <span id="visual-resson-times">1</span></p>
+        <p>Visual通常レッスン: <span id="normal-visual-resson-times">1</span></p>
+        <p>VisualSPレッスン: <span id="sp-visual-resson-times">1</span></p>
+        <p>レッスンVisual: <span id="resson-visual">0</span></p>
+
+        <p>営業回数: <span id="営業回数">0</span></p>
+        <p>ファン数: <span id="ファン数">0</span></p>
+        <p>最終的なVocal: <span id="最終的なVocal">0</span></p>
+        <p>最終的なDance: <span id="最終的なDance">0</span></p>
+        <p>最終的なVisual: <span id="最終的なVisual">0</span></p>
+
+        <p>試験回数: <span id='試験回数'>0</span></p>
+        <p>お出かけ回数: <span id="お出かけ回数">0</span></p>
+        <p>相談回数: <span id="相談回数">0</span></p>
+        <p>差し入れ回数: <span id="差し入れ回数">0</span></p>
+        <p>特別指導回数: <span id="特別指導回数">0</span></p>
+        <p>お休み回数: <span id="お休み回数">0</span></p>
+
+        <p>チャレンジPアイテム: <span id="disp-チャレンジPアイテム">0</span></p>
+        <p>Aカード取得: <span id="disp-Aカード取得">0</span></p>
+        <p>Mカード取得: <span id="disp-Mカード取得">0</span></p>
+        <p>Aカード強化: <span id="disp-Aカード強化">0</span></p>
+        <p>Mカード強化: <span id="disp-Mカード強化">0</span></p>
+        <p>Pドリンク交換: <span id="disp-Pドリンク交換">0</span></p>
+        <p>好調or好印象or温存獲得: <span id="disp-好調or好印象or温存獲得">0</span></p>
+        <p>カード削除: <span id="disp-カード削除">0</span></p>
+        <p>Aカード削除: <span id="disp-Aカード削除">0</span></p>
+        <p>Mカード削除: <span id="disp-Mカード削除">0</span></p>
+        <p>カードチェンジ: <span id="disp-カードチェンジ">0</span></p>
+        <p>Pアイテムファン数: <span id="disp-Pアイテムファン数">0</span></p>
+        <p>PアイテムVocalステ: <span id="disp-PアイテムVocalステ">0</span></p>
+        <p>PアイテムDanceステ: <span id="disp-PアイテムDanceステ">0</span></p>
+        <p>PアイテムVisualステ: <span id="disp-PアイテムVisualステ">0</span></p>
+
+        <p>1次試験Vocal: <span id="disp-1次試験-vo">0</span></p>
+        <p>1次試験Dance: <span id="disp-1次試験-da">0</span></p>
+        <p>1次試験Visual: <span id="disp-1次試験-vi">0</span></p>
+        <p>1次試験合計: <span id="disp-1次試験-計">0</span></p>
+        <p>1次試験ファン: <span id="disp-1次試験-ファン">0</span></p>
+        <p>2次試験Vocal: <span id="disp-2次試験-vo">0</span></p>
+        <p>2次試験Dance: <span id="disp-2次試験-da">0</span></p>
+        <p>2次試験Visual: <span id="disp-2次試験-vi">0</span></p>
+        <p>2次試験合計: <span id="disp-2次試験-計">0</span></p>
+        <p>2次試験ファン: <span id="disp-2次試験-ファン">0</span></p>
+        <p>最終試験Vocal: <span id="disp-最終試験-vo">0</span></p>
+        <p>最終試験Dance: <span id="disp-最終試験-da">0</span></p>
+        <p>最終試験Visual: <span id="disp-最終試験-vi">0</span></p>
+        <p>最終試験合計: <span id="disp-最終試験-計">0</span></p>
+        <p>最終試験ファン: <span id="disp-最終試験-ファン">0</span></p>
+
+        <p>メモリvoレスボ: <span id="メモリvoレスボ">0</span></p>
+        <p>メモリvo初期値: <span id="メモリvo初期値">0</span></p>
+        <p>メモリdaレスボ: <span id="メモリdaレスボ">0</span></p>
+        <p>メモリda初期値: <span id="メモリda初期値">0</span></p>
+        <p>メモリviレスボ: <span id="メモリviレスボ">0</span></p>
+        <p>メモリvi初期値: <span id="メモリvi初期値">0</span></p>
+    </div>
+
+    <script src="../data/characters.js"></script>
+    <script src="../data/supports.js"></script>
+    <script src="../js/nia-simulator.js"></script>
+
+</body>
+
+</html>

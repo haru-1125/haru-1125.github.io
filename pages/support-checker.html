@@ -30,8 +30,9 @@
     <header>
         <nav class="main-nav">
             <ul>
-                <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ所持率チェック</a></li>
-                <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ所持率チェック</a></li>
+                <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ所持率</a></li>
+                <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ所持率</a></li>
+                <!-- <li><a href="nia-simulator.html" class="nav-link" id="nia-link">NIAシミュレーター</a></li> -->
             </ul>
         </nav>
     </header>
@@ -74,6 +75,8 @@
             document.getElementById("char-link").classList.add("active");
         } else if (path.includes("support-checker")) {
             document.getElementById("support-link").classList.add("active");
+        } else if (path.includes("nia-simulator")) {
+            document.getElementById("nia-link").classList.add("active");
         }
     </script>
 </body>
