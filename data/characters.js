@@ -186,6 +186,11 @@ const characters = [
     VocalIni: 75, DanceIni: 115, VisualIni: 125, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
   },
   {
+    name: "千奈（HotW）", chara: "千奈", file: "../assets/chara/千奈（HotW）.png", darkFile: "../assets/charaan/千奈（HotW）.png",
+    VocalPercent: 10, DancePercent: 24, VisualPercent: 20.5, VocalPercent3: 10, DancePercent3: 29, VisualPercent3: 23.5,
+    VocalIni: 75, DanceIni: 115, VisualIni: 125, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
+  },
+  {
     name: "清夏（タメライ）", chara: "清夏", file: "../assets/chara/清夏（タメライ）.png", darkFile: "../assets/charaan/清夏（タメライ）.png",
     VocalPercent: 9, DancePercent: 23, VisualPercent: 23, VocalPercent3: 9, DancePercent3: 28, VisualPercent3: 26,
     VocalIni: 100, DanceIni: 115, VisualIni: 90, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"

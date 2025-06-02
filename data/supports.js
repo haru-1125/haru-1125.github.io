@@ -91,6 +91,11 @@ const supports = [
     file: "../assets/sup/相変わらず不器用ね.png", darkFile: "../assets/supan/相変わらず不器用ね.png"
   },
   {
+    name: "みんなの意見を聞かせて♪", type: "vocal", rarity: "配布SSR",
+    Aability: "固定値", Bability: "", Cability: "授業", Dability: "A強化", SP: "",
+    file: "../assets/sup/みんなの意見を聞かせて♪.png", darkFile: "../assets/supan/みんなの意見を聞かせて♪.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -184,6 +189,16 @@ const supports = [
     name: "利用し合うのが友達！", type: "dance", rarity: "SSR",
     Aability: "初期値", Bability: "試験終了時", Cability: "チェンジ", Dability: "授業", SP: "",
     file: "../assets/sup/利用し合うのが友達！.png", darkFile: "../assets/supan/利用し合うのが友達！.png"
+  },
+  {
+    name: "よくやったな、倉本。", type: "dance", rarity: "SSR",
+    Aability: "初期値", Bability: "", Cability: "SPレッスン", Dability: "Pドリンク獲得", SP: "SP",
+    file: "../assets/sup/よくやったな、倉本。.png", darkFile: "../assets/supan/よくやったな、倉本。.png"
+  },
+  {
+    name: "すっかり仲良しって感じ♪", type: "dance", rarity: "配布SSR",
+    Aability: "初期値", Bability: "", Cability: "SPレッスン", Dability: "試験終了時", SP: "SP",
+    file: "../assets/sup/すっかり仲良しって感じ♪.png", darkFile: "../assets/supan/すっかり仲良しって感じ♪.png"
   },
   {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",
@@ -284,6 +299,11 @@ const supports = [
     name: "ひとりごとです", type: "visual", rarity: "SSR",
     Aability: "固定値", Bability: "チェンジ", Cability: "SPレッスン", Dability: "A削除", SP: "",
     file: "../assets/sup/ひとりごとです.png", darkFile: "../assets/supan/ひとりごとです.png"
+  },
+  {
+    name: "迷子のおしらせです", type: "visual", rarity: "配布SSR",
+    Aability: "固定値", Bability: "", Cability: "M獲得", Dability: "M強化", SP: "SP",
+    file: "../assets/sup/迷子のおしらせです.png", darkFile: "../assets/supan/迷子のおしらせです.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",
