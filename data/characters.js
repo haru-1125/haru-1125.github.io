@@ -153,7 +153,12 @@ const characters = [
   {
     name: "リーリヤ（桜）", chara: "リーリヤ", file: "../assets/chara/リーリヤ（桜）.png", darkFile: "../assets/charaan/リーリヤ（桜）.png",
     VocalPercent: 18, DancePercent: 20, VisualPercent: 18, VocalPercent3: 18, DancePercent3: 25, VisualPercent3: 21,
-    VocalIni: 80, DanceIni: 100, VisualIni: 115, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "恒常", suteType:"3極"
+    VocalIni: 80, DanceIni: 100, VisualIni: 115, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
+  },
+  {
+    name: "リーリヤ（HotW）", chara: "リーリヤ", file: "../assets/chara/リーリヤ（HotW）.png", darkFile: "../assets/charaan/リーリヤ（HotW）.png",
+    VocalPercent: 18, DancePercent: 20, VisualPercent: 18, VocalPercent3: 18, DancePercent3: 25, VisualPercent3: 21,
+    VocalIni: 80, DanceIni: 100, VisualIni: 115, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
   },
   {
     name: "千奈（ワンスケ）", chara: "千奈", file: "../assets/chara/千奈（ワンスケ）.png", darkFile: "../assets/charaan/千奈（ワンスケ）.png",
@@ -216,6 +221,11 @@ const characters = [
     VocalIni: 100, DanceIni: 115, VisualIni: 90, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
   },
   {
+    name: "清夏（LJ）", chara: "清夏", file: "../assets/chara/清夏（LJ）.png", darkFile: "../assets/charaan/清夏（LJ）.png",
+    VocalPercent: 9, DancePercent: 23, VisualPercent: 23, VocalPercent3: 9, DancePercent3: 28, VisualPercent3: 26,
+    VocalIni: 100, DanceIni: 115, VisualIni: 90, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
+  },
+  {
     name: "広（光景）", chara: "広", file: "../assets/chara/広（光景）.png", darkFile: "../assets/charaan/広（光景）.png",
     VocalPercent: 23, DancePercent: 19.5, VisualPercent: 10, VocalPercent3: 28, DancePercent3: 24.5, VisualPercent3: 10,
     VocalIni: 125, DanceIni: 120, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "恒常", suteType:"3極"
@@ -264,6 +274,11 @@ const characters = [
     name: "美鈴（ツキノカメ）", chara: "美鈴", file: "../assets/chara/美鈴（ツキノカメ）.png", darkFile: "../assets/charaan/美鈴（ツキノカメ）.png",
     VocalPercent: 26, DancePercent: 10, VisualPercent: 16, VocalPercent3: 30, DancePercent3: 10, VisualPercent3: 18,
     VocalIni: 85, DanceIni: 115, VisualIni: 125, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "恒常", suteType:"3極"
+  },
+  {
+    name: "美鈴（CM）", chara: "美鈴", file: "../assets/chara/美鈴（CM）.png", darkFile: "../assets/charaan/美鈴（CM）.png",
+    VocalPercent: 26, DancePercent: 10, VisualPercent: 16, VocalPercent3: 30, DancePercent3: 10, VisualPercent3: 18,
+    VocalIni: 85, DanceIni: 115, VisualIni: 125, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "CM", suteType:"3極"
   },
   {
     name: "佑芽（おにぎり）", chara: "佑芽", file: "../assets/chara/佑芽（おにぎり）.png", darkFile: "../assets/charaan/佑芽（おにぎり）.png",

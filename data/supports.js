@@ -96,6 +96,11 @@ const supports = [
     file: "../assets/sup/みんなの意見を聞かせて♪.png", darkFile: "../assets/supan/みんなの意見を聞かせて♪.png"
   },
   {
+    name: "どんな関係なんですか？", type: "vocal", rarity: "SSR",
+    Aability: "固定値", Bability: "", Cability: "授業", Dability: "A強化", SP: "",
+    file: "../assets/sup/どんな関係なんですか？.png", darkFile: "../assets/supan/どんな関係なんですか？.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -304,6 +309,16 @@ const supports = [
     name: "迷子のおしらせです", type: "visual", rarity: "配布SSR",
     Aability: "固定値", Bability: "", Cability: "M獲得", Dability: "M強化", SP: "SP",
     file: "../assets/sup/迷子のおしらせです.png", darkFile: "../assets/supan/迷子のおしらせです.png"
+  },
+  {
+    name: "推し活なひととき、だね！", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/推し活なひととき、だね！.png", darkFile: "../assets/supan/推し活なひととき、だね！.png"
+  },
+    {
+    name: "いつも頑張ってるね。", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/いつも頑張ってるね。.png", darkFile: "../assets/supan/いつも頑張ってるね。.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",
