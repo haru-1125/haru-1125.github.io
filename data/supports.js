@@ -100,6 +100,11 @@ const supports = [
     Aability: "固定値", Bability: "", Cability: "授業", Dability: "A強化", SP: "",
     file: "../assets/sup/どんな関係なんですか？.png", darkFile: "../assets/supan/どんな関係なんですか？.png"
   },
+    {
+    name: "放っておけない気になる子", type: "vocal", rarity: "SSR",
+    Aability: "固定値", Bability: "削除", Cability: "Pドリンク交換", Dability: "活動支給", SP: "",
+    file: "../assets/sup/放っておけない気になる子.png", darkFile: "../assets/supan/放っておけない気になる子.png"
+  },
   {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
@@ -204,6 +209,11 @@ const supports = [
     name: "すっかり仲良しって感じ♪", type: "dance", rarity: "配布SSR",
     Aability: "初期値", Bability: "", Cability: "SPレッスン", Dability: "試験終了時", SP: "SP",
     file: "../assets/sup/すっかり仲良しって感じ♪.png", darkFile: "../assets/supan/すっかり仲良しって感じ♪.png"
+  },
+    {
+    name: "お母さんか！", type: "dance", rarity: "配布SSR",
+    Aability: "レスボ", Bability: "", Cability: "SPレッスン", Dability: "相談", SP: "",
+    file: "../assets/sup/お母さんか！.png", darkFile: "../assets/supan/お母さんか！.png"
   },
   {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",
