@@ -229,6 +229,11 @@ const supports = [
     name: "いつまでも続けばいいのに", type: "dance", rarity: "SSR",
     Aability: "初期値", Bability: "Pドリンク獲得", Cability: "SPレッスン", Dability: "SSR獲得", SP: "",
     file: "../assets/sup/いつまでも続けばいいのに.png", darkFile: "../assets/supan/いつまでも続けばいいのに.png"
+  }, 
+  {
+    name: "おい、来てやったぞ！", type: "dance", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/おい、来てやったぞ！.png", darkFile: "../assets/supan/いつまでも続おい、来てやったぞ！けばいいのに.png"
   },
   {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",

@@ -101,6 +101,11 @@ const characters = [
     VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
   },
   {
+    name: "ことね（爆上げ）", chara: "ことね", file: "../assets/chara/ことね（爆上げ）.png", darkFile: "../assets/charaan/ことね（爆上げ）.png",
+    VocalPercent: 8, DancePercent: 24.5, VisualPercent: 22.5, VocalPercent3: 8, DancePercent3: 29.5, VisualPercent3: 25.5,
+    VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
+  },
+  {
     name: "麻央（Fluorite）", chara: "麻央", file: "../assets/chara/麻央（Fluorite）.png", darkFile: "../assets/charaan/麻央（Fluorite）.png",
     VocalPercent: 22, DancePercent: 8, VisualPercent: 23, VocalPercent3: 25, DancePercent3: 8, VisualPercent3: 28,
     VocalIni: 125, DanceIni: 90, VisualIni: 100, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "恒常", suteType:"2極"
