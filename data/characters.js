@@ -131,6 +131,11 @@ const characters = [
     VocalIni: 125, DanceIni: 90, VisualIni: 100, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "限定", suteType:"2極"
   },
   {
+    name: "麻央（ナナウ）", chara: "麻央", file: "../assets/chara/麻央（ナナウ）.png", darkFile: "../assets/charaan/麻央（ナナウ）.png",
+    VocalPercent: 22, DancePercent: 8, VisualPercent: 23, VocalPercent3: 25, DancePercent3: 8, VisualPercent3: 28,
+    VocalIni: 125, DanceIni: 90, VisualIni: 100, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "限定", suteType:"2極"
+  },
+  {
     name: "リーリヤ（白線）", chara: "リーリヤ", file: "../assets/chara/リーリヤ（白線）.png", darkFile: "../assets/charaan/リーリヤ（白線）.png",
     VocalPercent: 18, DancePercent: 20, VisualPercent: 18, VocalPercent3: 18, DancePercent3: 25, VisualPercent3: 21,
     VocalIni: 80, DanceIni: 100, VisualIni: 115, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "恒常", suteType:"3極"
@@ -227,6 +232,11 @@ const characters = [
   },
   {
     name: "清夏（LJ）", chara: "清夏", file: "../assets/chara/清夏（LJ）.png", darkFile: "../assets/charaan/清夏（LJ）.png",
+    VocalPercent: 9, DancePercent: 23, VisualPercent: 23, VocalPercent3: 9, DancePercent3: 28, VisualPercent3: 26,
+    VocalIni: 100, DanceIni: 115, VisualIni: 90, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
+  },
+  {
+    name: "清夏（ナナウ）", chara: "清夏", file: "../assets/chara/清夏（ナナウ）.png", darkFile: "../assets/charaan/清夏（ナナウ）.png",
     VocalPercent: 9, DancePercent: 23, VisualPercent: 23, VocalPercent3: 9, DancePercent3: 28, VisualPercent3: 26,
     VocalIni: 100, DanceIni: 115, VisualIni: 90, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
   },
