@@ -265,10 +265,15 @@ const characters = [
     VocalPercent: 23, DancePercent: 19.5, VisualPercent: 10, VocalPercent3: 28, DancePercent3: 24.5, VisualPercent3: 10,
     VocalIni: 125, DanceIni: 120, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "恒常", suteType:"3極"
   },
-    {
+  {
     name: "広（サン）", chara: "広", file: "../assets/chara/広（サン）.png", darkFile: "../assets/charaan/広（サン）.png",
     VocalPercent: 23, DancePercent: 19.5, VisualPercent: 10, VocalPercent3: 28, DancePercent3: 24.5, VisualPercent3: 10,
     VocalIni: 125, DanceIni: 120, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "恒常", suteType:"3極"
+  },
+  {
+    name: "広（ナナウ）", chara: "広", file: "../assets/chara/広（ナナウ）.png", darkFile: "../assets/charaan/広（ナナウ）.png",
+    VocalPercent: 23, DancePercent: 19.5, VisualPercent: 10, VocalPercent3: 28, DancePercent3: 24.5, VisualPercent3: 10,
+    VocalIni: 125, DanceIni: 120, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "限定", suteType:"3極"
   },
   {
     name: "星南（ちいやぼ）", chara: "星南", file: "../assets/chara/星南（ちいやぼ）.png", darkFile: "../assets/charaan/星南（ちいやぼ）.png",
@@ -359,6 +364,11 @@ const characters = [
     name: "莉波（バレ）", chara: "莉波", file: "../assets/chara/莉波（バレ）.png", darkFile: "../assets/charaan/莉波（バレ）.png",
     VocalPercent: 11, DancePercent: 21.5, VisualPercent: 23.5, VocalPercent3: 11, DancePercent3: 24.5, VisualPercent3: 28.5,
     VocalIni: 85, DanceIni: 110, VisualIni: 110, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
+  },
+  {
+    name: "莉波（微熱）", chara: "莉波", file: "../assets/chara/莉波（微熱）.png", darkFile: "../assets/charaan/莉波（微熱）.png",
+    VocalPercent: 11, DancePercent: 21.5, VisualPercent: 23.5, VocalPercent3: 11, DancePercent3: 24.5, VisualPercent3: 28.5,
+    VocalIni: 85, DanceIni: 110, VisualIni: 110, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "恒常", suteType:"3極"
   }
   // 他のキャラもここに追加
 ];

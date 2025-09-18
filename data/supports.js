@@ -116,6 +116,11 @@ const supports = [
     file: "../assets/sup/おっと、危ないよ.png", darkFile: "../assets/supan/おっと、危ないよ.png"
   },
   {
+    name: "ｖギャルピーーースッｖ", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/ｖギャルピーーースッｖ.png", darkFile: "../assets/supan/ｖギャルピーーースッｖ.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -354,6 +359,11 @@ const supports = [
     name: "いつも頑張ってるね。", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/いつも頑張ってるね。.png", darkFile: "../assets/supan/いつも頑張ってるね。.png"
+  },
+  {
+    name: "ちょっと詳しいんです！", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/ちょっと詳しいんです！.png", darkFile: "../assets/supan/ちょっと詳しいんです！.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",
