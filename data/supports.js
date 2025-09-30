@@ -253,7 +253,7 @@ const supports = [
   {
     name: "おい、来てやったぞ！", type: "dance", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
-    file: "../assets/sup/おい、来てやったぞ！.png", darkFile: "../assets/supan/いつまでも続おい、来てやったぞ！けばいいのに.png"
+    file: "../assets/sup/おい、来てやったぞ！.png", darkFile: "../assets/supan/おい、来てやったぞ！.png"
   },
   {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",
