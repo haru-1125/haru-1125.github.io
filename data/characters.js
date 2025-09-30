@@ -376,6 +376,11 @@ const characters = [
     VocalIni: 85, DanceIni: 110, VisualIni: 110, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
   },
   {
+    name: "莉波（HotW）", chara: "莉波", file: "../assets/chara/莉波（HotW）.png", darkFile: "../assets/charaan/莉波（HotW）.png",
+    VocalPercent: 11, DancePercent: 21.5, VisualPercent: 23.5, VocalPercent3: 11, DancePercent3: 24.5, VisualPercent3: 28.5,
+    VocalIni: 85, DanceIni: 110, VisualIni: 110, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
+  },
+  {
     name: "莉波（微熱）", chara: "莉波", file: "../assets/chara/莉波（微熱）.png", darkFile: "../assets/charaan/莉波（微熱）.png",
     VocalPercent: 11, DancePercent: 21.5, VisualPercent: 23.5, VocalPercent3: 11, DancePercent3: 24.5, VisualPercent3: 28.5,
     VocalIni: 85, DanceIni: 110, VisualIni: 110, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "恒常", suteType:"3極"
