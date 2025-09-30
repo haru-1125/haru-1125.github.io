@@ -121,6 +121,16 @@ const supports = [
     file: "../assets/sup/ｖギャルピーーースッｖ.png", darkFile: "../assets/supan/ｖギャルピーーースッｖ.png"
   },
   {
+    name: "大運動会、開催っ！", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/大運動会、開催っ！.png", darkFile: "../assets/supan/大運動会、開催っ！.png"
+  },
+  {
+    name: "これは――お城ッ！！", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/これは――お城ッ！！.png", darkFile: "../assets/supan/これは――お城ッ！！.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"

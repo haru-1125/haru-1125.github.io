@@ -41,6 +41,11 @@ const characters = [
     VocalIni: 100, DanceIni: 100, VisualIni: 105, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
   },
   {
+    name: "咲季（がむしゃら）", chara: "咲季", file: "../assets/chara/咲季（がむしゃら）.png", darkFile: "../assets/charaan/咲季（がむしゃら）.png",
+    VocalPercent: 16.5, DancePercent: 16.5, VisualPercent: 20.5, VocalPercent3: 19.5, DancePercent3: 19.5, VisualPercent3: 22.5,
+    VocalIni: 100, DanceIni: 100, VisualIni: 105, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
+  },
+  {
     name: "手毬（LSM）", chara: "手毬", file: "../assets/chara/手毬（LSM）.png", darkFile: "../assets/charaan/手毬（LSM）.png",
     VocalPercent: 24, DancePercent: 21.5, VisualPercent: 8.5, VocalPercent3: 27, DancePercent3: 26.5, VisualPercent3: 8.5,
     VocalIni: 120, DanceIni: 100, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "恒常", suteType:"2極"
@@ -104,6 +109,11 @@ const characters = [
     name: "ことね（爆上げ）", chara: "ことね", file: "../assets/chara/ことね（爆上げ）.png", darkFile: "../assets/charaan/ことね（爆上げ）.png",
     VocalPercent: 8, DancePercent: 24.5, VisualPercent: 22.5, VocalPercent3: 8, DancePercent3: 29.5, VisualPercent3: 25.5,
     VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
+  },
+  {
+    name: "ことね（がむしゃら）", chara: "ことね", file: "../assets/chara/ことね（がむしゃら）.png", darkFile: "../assets/charaan/ことね（がむしゃら）.png",
+    VocalPercent: 8, DancePercent: 24.5, VisualPercent: 22.5, VocalPercent3: 8, DancePercent3: 29.5, VisualPercent3: 25.5,
+    VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
   },
   {
     name: "麻央（Fluorite）", chara: "麻央", file: "../assets/chara/麻央（Fluorite）.png", darkFile: "../assets/charaan/麻央（Fluorite）.png",
