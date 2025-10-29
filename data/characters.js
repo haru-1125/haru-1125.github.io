@@ -76,6 +76,11 @@ const characters = [
     VocalIni: 120, DanceIni: 100, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "限定", suteType:"2極"
   },
   {
+    name: "手毬（がむ）", chara: "手毬", file: "../assets/chara/手毬（がむ）.png", darkFile: "../assets/charaan/手毬（がむ）.png",
+    VocalPercent: 24, DancePercent: 21.5, VisualPercent: 8.5, VocalPercent3: 27, DancePercent3: 26.5, VisualPercent3: 8.5,
+    VocalIni: 120, DanceIni: 100, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "限定", suteType:"2極"
+  },
+  {
     name: "ことね（世界一）", chara: "ことね", file: "../assets/chara/ことね（世界一）.png", darkFile: "../assets/charaan/ことね（世界一）.png",
     VocalPercent: 8, DancePercent: 24.5, VisualPercent: 22.5, VocalPercent3: 8, DancePercent3: 29.5, VisualPercent3: 25.5,
     VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
@@ -111,7 +116,7 @@ const characters = [
     VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
   },
   {
-    name: "ことね（がむしゃら）", chara: "ことね", file: "../assets/chara/ことね（がむしゃら）.png", darkFile: "../assets/charaan/ことね（がむしゃら）.png",
+    name: "ことね（がむ）", chara: "ことね", file: "../assets/chara/ことね（がむ）.png", darkFile: "../assets/charaan/ことね（がむ）.png",
     VocalPercent: 8, DancePercent: 24.5, VisualPercent: 22.5, VocalPercent3: 8, DancePercent3: 29.5, VisualPercent3: 25.5,
     VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
   },
@@ -214,6 +219,11 @@ const characters = [
     name: "千奈（HotW）", chara: "千奈", file: "../assets/chara/千奈（HotW）.png", darkFile: "../assets/charaan/千奈（HotW）.png",
     VocalPercent: 10, DancePercent: 24, VisualPercent: 20.5, VocalPercent3: 10, DancePercent3: 29, VisualPercent3: 23.5,
     VocalIni: 75, DanceIni: 115, VisualIni: 125, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
+  },
+  {
+    name: "千奈（空）", chara: "千奈", file: "../assets/chara/千奈（空）.png", darkFile: "../assets/charaan/千奈（空）.png",
+    VocalPercent: 10, DancePercent: 24, VisualPercent: 20.5, VocalPercent3: 10, DancePercent3: 29, VisualPercent3: 23.5,
+    VocalIni: 75, DanceIni: 115, VisualIni: 125, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
   },
   {
     name: "清夏（タメライ）", chara: "清夏", file: "../assets/chara/清夏（タメライ）.png", darkFile: "../assets/charaan/清夏（タメライ）.png",

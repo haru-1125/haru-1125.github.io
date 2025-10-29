@@ -131,6 +131,11 @@ const supports = [
     file: "../assets/sup/これは――お城ッ！！.png", darkFile: "../assets/supan/これは――お城ッ！！.png"
   },
   {
+    name: "月村手毬、興味深いわね", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/月村手毬、興味深いわね.png", darkFile: "../assets/supan/月村手毬、興味深いわね.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -374,6 +379,11 @@ const supports = [
     name: "ちょっと詳しいんです！", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/ちょっと詳しいんです！.png", darkFile: "../assets/supan/ちょっと詳しいんです！.png"
+  },
+  {
+    name: "クールダウンが大切よ！", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/クールダウンが大切よ！.png", darkFile: "../assets/supan/クールダウンが大切よ！.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",
