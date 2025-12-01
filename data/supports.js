@@ -136,6 +136,16 @@ const supports = [
     file: "../assets/sup/月村手毬、興味深いわね.png", darkFile: "../assets/supan/月村手毬、興味深いわね.png"
   },
   {
+    name: "レディ・セット、ゴー！", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/レディ・セット、ゴー！.png", darkFile: "../assets/supan/レディ・セット、ゴー！.png"
+  },
+  {
+    name: "ぜったいに取るんだ！", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/ぜったいに取るんだ！.png", darkFile: "../assets/supan/ぜったいに取るんだ！.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -261,6 +271,16 @@ const supports = [
     file: "../assets/sup/おい、来てやったぞ！.png", darkFile: "../assets/supan/おい、来てやったぞ！.png"
   },
   {
+    name: "やっと見つけたぞ！", type: "dance", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/やっと見つけたぞ！.png", darkFile: "../assets/supan/やっと見つけたぞ！.png"
+  },
+  {
+    name: "メリクリ、おねーちゃん♪", type: "dance", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/メリクリ、おねーちゃん♪.png", darkFile: "../assets/supan/メリクリ、おねーちゃん♪.png"
+  },
+  {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",
     Aability: "初期値", Bability: "", Cability: "レッスン", Dability: "休む", SP: "",
     file: "../assets/sup/あなたにも作ってあげる！.png", darkFile: "../assets/supan/あなたにも作ってあげる！.png"
@@ -384,6 +404,11 @@ const supports = [
     name: "クールダウンが大切よ！", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/クールダウンが大切よ！.png", darkFile: "../assets/supan/クールダウンが大切よ！.png"
+  },
+  {
+    name: "貸せ、手本を見せてやる！", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/貸せ、手本を見せてやる！.png", darkFile: "../assets/supan/貸せ、手本を見せてやる！.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",

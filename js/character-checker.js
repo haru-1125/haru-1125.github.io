@@ -26,6 +26,7 @@ function updateStats() {
     const sakiStats = document.getElementById("sakiStats");
     const temariStats = document.getElementById("temariStats");
     const kotoneStats = document.getElementById("kotoneStats");
+    const tubameStats = document.getElementById("tubameStats");
     const maoStats = document.getElementById("maoStats");
     const ririyaStats = document.getElementById("ririyaStats");
     const tinaStats = document.getElementById("tinaStats");
@@ -99,6 +100,24 @@ function updateStats() {
     const kotonePercent = kotoneTotal > 0 ? ((kotoneOwned / kotoneTotal) * 100).toFixed(1) : "0.0";
 
     kotoneStats.innerHTML = `ことね:<span class="red">${kotoneTotal}</span>種中<span class="red">${kotoneOwned}</span>種（ 所持率<span class="red">${kotonePercent}%</span> ）`;
+
+    // 燕のカードだけを対象にカウント
+    let tubameTotal = 0;
+    let tubameOwned = 0;
+
+    usableCharacters.forEach((char, i) => {
+        if (char.chara === "燕") {
+            tubameTotal++;
+            const div = document.querySelector(`.character[data-index='${i}']`);
+            if (div && div.classList.contains("owned")) {
+                tubameOwned++;
+            }
+        }
+    });
+
+    const tubamePercent = kotoneTotal > 0 ? ((tubameOwned / tubameTotal) * 100).toFixed(1) : "0.0";
+
+    tubameStats.innerHTML = `燕:<span class="red">${tubameTotal}</span>種中<span class="red">${tubameOwned}</span>種（ 所持率<span class="red">${tubamePercent}%</span> ）`;
 
     // 麻央のカードだけを対象にカウント
     let maoTotal = 0;
