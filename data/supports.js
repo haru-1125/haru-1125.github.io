@@ -281,6 +281,11 @@ const supports = [
     file: "../assets/sup/メリクリ、おねーちゃん♪.png", darkFile: "../assets/supan/メリクリ、おねーちゃん♪.png"
   },
   {
+    name: "なぜこんなところにッ！？", type: "dance", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/なぜこんなところにッ！？.png", darkFile: "../assets/supan/なぜこんなところにッ！？.png"
+  },
+  {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",
     Aability: "初期値", Bability: "", Cability: "レッスン", Dability: "休む", SP: "",
     file: "../assets/sup/あなたにも作ってあげる！.png", darkFile: "../assets/supan/あなたにも作ってあげる！.png"

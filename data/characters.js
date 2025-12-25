@@ -196,6 +196,11 @@ const characters = [
     VocalIni: 80, DanceIni: 100, VisualIni: 115, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
   },
   {
+    name: "リーリヤ（Atm）", chara: "リーリヤ", file: "../assets/chara/リーリヤ（Atm）.png", darkFile: "../assets/charaan/リーリヤ（Atm）.png",
+    VocalPercent: 18, DancePercent: 20, VisualPercent: 18, VocalPercent3: 18, DancePercent3: 25, VisualPercent3: 21,
+    VocalIni: 80, DanceIni: 100, VisualIni: 115, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
+  },
+  {
     name: "千奈（ワンスケ）", chara: "千奈", file: "../assets/chara/千奈（ワンスケ）.png", darkFile: "../assets/charaan/千奈（ワンスケ）.png",
     VocalPercent: 10, DancePercent: 24, VisualPercent: 20.5, VocalPercent3: 10, DancePercent3: 29, VisualPercent3: 23.5,
     VocalIni: 75, DanceIni: 115, VisualIni: 125, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
