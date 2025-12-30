@@ -1,0 +1,148 @@
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center; /* タイトルを中央揃え */
+}
+
+.calculator-card, .result-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.input-group:last-child {
+    border-bottom: none;
+}
+
+.input-group h3 {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 10px;
+    border-left: 4px solid #4364f7;
+    padding-left: 8px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 1fr 1fr 1fr と同義ですが、より簡潔です */
+    gap: 10px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.input-field label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.input-field input, .input-field select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box; /* これを追加: paddingとborderを幅に含める */
+    width: 100%; /* これを追加: 親要素の幅いっぱいに広げる */
+}
+
+.input-field input:focus {
+    outline: none;
+    border-color: #4364f7;
+    box-shadow: 0 0 0 2px rgba(67, 100, 247, 0.1);
+}
+
+/* 結果表示エリア */
+.result-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+    border: 2px solid #4364f7;
+}
+
+.total-eval {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.total-eval .label {
+    font-weight: bold;
+    color: #4364f7;
+}
+
+.total-eval .value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #333;
+}
+
+.target-scores h3 {
+    font-size: 0.9rem;
+    margin: 15px 0 10px;
+    color: #555;
+}
+
+.target-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.needed-score {
+    font-weight: bold;
+    color: #e63946; /* 強調色 */
+}
+
+
+
+/* 属性カラー設定 */
+.label-vo { color: #ff4d4d !important; } /* 赤 */
+.label-da { color: #4d79ff !important; } /* 青 */
+.label-vi { color: #ffbc00 !important; } /* 黄（見やすく調整） */
+
+/* 評価値表示のレイアウト調整 */
+.eval-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ランクバッジのデザイン */
+.rank-badge {
+    background-color: #4364f7;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    min-width: 60px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

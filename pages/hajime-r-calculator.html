@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学マス初レジェンド計算機</title>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6489YQ95Q"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-Z6489YQ95Q');
+    </script>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/hajime-r-calculator.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="hajime-r-calculator.html" class="nav-link active" id="harcal-link">初レジェンド計算機</a></li>
+                <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ所持率</a></li>
+                <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ所持率</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>初レジェンド評価値計算機</h1>
+
+        <div class="calculator-card">
+            <section class="input-group">
+                <h3>最終試験前パラメータ</h3>
+                <div class="grid-3">
+                    <div class="input-field">
+                        <label class="label-vo">Vocal</label>
+                        <input type="number" id="preVo" value="0" min="0" max="1500">
+                    </div>
+                    <div class="input-field">
+                        <label class="label-da">Dance</label>
+                        <input type="number" id="preDa" value="0" min="0" max="1500">
+                    </div>
+                    <div class="input-field">
+                        <label class="label-vi">Visual</label>
+                        <input type="number" id="preVi" value="0" min="0" max="1500">
+                    </div>
+                </div>
+            </section>
+
+            <section class="input-group">
+                <h3>試験終了時アビ点数</h3>
+                <div class="grid-3">
+                    <div class="input-field">
+                        <label class="label-vo">Vocal</label>
+                        <input type="number" id="abiVo" value="0" min="0">
+                    </div>
+                    <div class="input-field">
+                        <label class="label-da">Dance</label>
+                        <input type="number" id="abiDa" value="0" min="0">
+                    </div>
+                    <div class="input-field">
+                        <label class="label-vi">Visual</label>
+                        <input type="number" id="abiVi" value="0" min="0">
+                    </div>
+                </div>
+            </section>
+
+            <section class="input-group">
+                <div class="grid-2">
+                    <div class="input-field">
+                        <label>中間試験スコア</label>
+                        <input type="number" id="midScore" value="0" min="0">
+                    </div>
+                    <div class="input-field">
+                        <label>最終試験スコア</label>
+                        <input type="number" id="finalScore" value="0" min="0">
+                    </div>
+                </div>
+                <div class="input-field full-width">
+                    <label>最終試験順位</label>
+                    <select id="finalRank">
+                        <option value="1">1位</option>
+                        <option value="2">2位</option>
+                        <option value="3">3位</option>
+                        <option value="0">不合格</option>
+                    </select>
+                </div>
+            </section>
+        </div>
+
+        <div class="result-card">
+            <div class="total-eval">
+                <span class="label">現在の評価値</span>
+                <div class="eval-display">
+                    <span id="evalRank" class="rank-badge">-</span>
+                    <span id="totalEvaluation" class="value">0</span>
+                </div>
+            </div>
+            
+            <hr>
+
+            <div class="target-scores">
+                <h3>目標ランク別 必要最終スコア</h3>
+                <div class="target-item">
+                    <span>SSS (28,000pt)</span>
+                    <span id="targetSSS" class="needed-score">-</span>
+                </div>
+                <div class="target-item">
+                    <span>SSS+ (23,000pt)</span>
+                    <span id="targetSSSPlus" class="needed-score">-</span>
+                </div>
+                <div class="target-item">
+                    <span>S4 (26,000pt)</span>
+                    <span id="targetS4" class="needed-score">-</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/hajime-r-calculator.js"></script>
+</body>
+</html>
