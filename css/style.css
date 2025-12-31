@@ -22,35 +22,57 @@ body {
 }
 
 
+/* --- 修正：ここから --- */
 .main-nav ul {
     display: flex;
     justify-content: center;
     list-style: none;
     margin: 0;
     padding: 10px 0;
+    flex-wrap: nowrap; /* 項目が下に落ちないように固定 */
 }
 
 .main-nav li {
-    margin: 0 20px;
+    margin: 0 10px; /* 20pxから10pxに減らして間隔を詰めやすくする */
 }
 
 .main-nav a {
     color: #333;
     text-decoration: none;
     font-size: 18px;
-    padding: 10px 20px;
+    padding: 10px 15px; /* 左右の余白を少し詰める */
     border-radius: 6px;
     transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap; /* テキスト内の改行を禁止 */
+}
+/* --- 修正：ここまで --- */
+
+/* --- 追加：画面が狭い時のためのレスポンシブ設定 --- */
+@media screen and (max-width: 650px) {
+    .main-nav li {
+        margin: 0 5px; /* 項目間の余白をさらに詰める */
+    }
+    .main-nav a {
+        font-size: 15px; /* 文字サイズを下げる */
+        padding: 10px 8px; /* 内側の余白をさらに詰める */
+    }
 }
 
+@media screen and (max-width: 480px) {
+    .main-nav a {
+        font-size: 13px; /* スマホ向けにさらに小さく */
+        padding: 10px 5px;
+    }
+}
+/* --- 追加：ここまで --- */
+
+/* 以下、a:hover と a.active の設定は変更なしでOKです */
 .main-nav a:hover {
     color: #d84315;
-    /* 濃いオレンジ */
 }
 
 .main-nav a.active {
     color: #ff9800;
-    /* 現在のページ：オレンジ */
 }
 
 

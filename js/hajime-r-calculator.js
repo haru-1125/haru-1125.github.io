@@ -1,10 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     const inputs = document.querySelectorAll('input, select');
+
     inputs.forEach(input => {
+        // 数値が入力されるたびに計算を実行
         input.addEventListener('input', updateCalculation);
+
+        // --- 追加：最大値を超えた場合に自動修正する処理 ---
+        if (input.type === 'number') {
+            input.addEventListener('blur', function() { // 入力欄からフォーカスが外れた時
+                validateMax(this);
+            });
+            input.addEventListener('keydown', function(e) { // Enterキーを押した時
+                if (e.key === 'Enter') validateMax(this);
+            });
+        }
     });
+
     updateCalculation();
 });
+
+// 最大値をチェックして修正する関数
+function validateMax(input) {
+    const val = parseInt(input.value);
+    const max = parseInt(input.getAttribute('max'));
+    
+    // max属性が設定されており、かつ入力値がそれを超えている場合
+    if (max && val > max) {
+        input.value = max;
+        updateCalculation(); // 値を書き換えたので再計算
+    }
+}
 
 function updateCalculation() {
     // --- 入力値の取得 ---
@@ -18,7 +43,21 @@ function updateCalculation() {
     const finalScore = parseInt(document.getElementById('finalScore').value) || 0;
     const finalRank = parseInt(document.getElementById('finalRank').value);
 
-    // --- 1. パラメータ計算 (G4, H4, I4) ---
+    // --- 追加：すべての項目が0なら表示を0にして終了 ---
+    if (preVo === 0 && preDa === 0 && preVi === 0 && 
+        abiVo === 0 && abiDa === 0 && abiVi === 0 && 
+        midScore === 0 && finalScore === 0) {
+        
+        document.getElementById('totalEvaluation').textContent = "0";
+        document.getElementById('evalRank').textContent = "F"; // 0の時のランク
+        document.getElementById('targetSSS').textContent = "-";
+        document.getElementById('targetSSSPlus').textContent = "-";
+        document.getElementById('targetS4').textContent = "-";
+        return; // ここで処理を中断
+    }
+
+
+    // --- 1. パラメータ計算 ---
     // 順位による加算値
     let rankAdd = 0;
     if (finalRank === 1) rankAdd = 120;
@@ -33,10 +72,10 @@ function updateCalculation() {
 
     // --- 2. 各種評価値の計算 ---
 
-    // ステータス評価値: ROUNDDOWN(2.1 * 合計)
+    // ステータス評価値
     const statEval = Math.floor(2.1 * statSum);
 
-    // 中間試験評価値 (B11)
+    // 中間試験評価値
     let midEval = 0;
     if (midScore < 10000) midEval = 0.11 * midScore;
     else if (midScore < 20000) midEval = 1100 + 0.08 * (midScore - 10000);
@@ -45,19 +84,19 @@ function updateCalculation() {
     else if (midScore < 50000) midEval = 2480 + 0.003 * (midScore - 40000);
     else if (midScore < 60000) midEval = 2510 + 0.002 * (midScore - 50000);
     else if (midScore <= 200000) midEval = 2530 + 0.001 * (midScore - 60000);
-    else midEval = 2530 + 0.001 * (200000 - 60000);
+    else midEval = 2670;
     midEval = Math.floor(midEval);
 
-    // 最終試験評価値 (C11)
+    // 最終試験評価値
     let finalEval = 0;
     if (finalScore < 300000) finalEval = 0.015 * finalScore;
     else if (finalScore < 500000) finalEval = 4500 + 0.01 * (finalScore - 300000);
     else if (finalScore < 600000) finalEval = 6500 + 0.008 * (finalScore - 500000);
     else if (finalScore <= 2000000) finalEval = 7300 + 0.001 * (finalScore - 600000);
-    else finalEval = 7300 + 0.001 * (2000000 - 600000);
+    else finalEval = 8700;
     finalEval = Math.floor(finalEval);
 
-    // 順位評価値 (D11)
+    // 順位評価値
     let rankEval = 0;
     switch (finalRank) {
         case 1: rankEval = 1700; break;
@@ -69,12 +108,11 @@ function updateCalculation() {
     // 合計評価値
     const totalEvaluation = statEval + midEval + finalEval + rankEval;
 
-    // --- 3. 目標スコア計算 (targetS4など) ---
-    // H16: 最終試験スコアを除いた評価値合計
-    const h16 = statEval + midEval + rankEval;
+    // 目標スコア計算
+    const requ = statEval + midEval + rankEval;
 
     const calcNeededFinalScore = (basePoints) => {
-        const target = basePoints - h16;
+        const target = basePoints - requ;
         if (target <= 0) return "達成済み";
         
         let score = 0;

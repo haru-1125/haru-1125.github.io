@@ -5,10 +5,23 @@
 }
 
 h1 {
-    font-size: 1.5rem;
+    /* clampを使って、画面幅に合わせて文字サイズを適切に調整します */
+    /* 最小 1.1rem、推奨 4.5vw（画面幅の4.5%）、最大 1.6rem */
+    font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+    
     color: #333;
-    margin-bottom: 20px;
-    text-align: center; /* タイトルを中央揃え */
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+
+    /* --- ここからが2行にしないための重要設定 --- */
+    white-space: nowrap;     /* 文字を折り返さない */
+    overflow: hidden;        /* はみ出た分を隠す */
+    text-overflow: ellipsis; /* もし入り切らないほど狭ければ末尾を「...」にする */
+    
+    /* 左右に少しだけ余白を持たせて、画面端に密着するのを防ぐ */
+    padding: 0 5px;
+    box-sizing: border-box;
 }
 
 .calculator-card, .result-card {
@@ -82,24 +95,33 @@ h1 {
 .result-card {
     background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
     border: 2px solid #4364f7;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box; /* はみ出し防止 */
 }
 
 .total-eval {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* 狭い時に上下に逃げられるようにする */
+    gap: 10px;
     padding: 10px 0;
 }
 
 .total-eval .label {
     font-weight: bold;
     color: #4364f7;
+    font-size: 1rem;
+    white-space: nowrap;
 }
 
 .total-eval .value {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 8vw, 2.5rem); /* 最小1.5rem、画面幅の8%、最大2.5rem */
     font-weight: 800;
     color: #333;
+    line-height: 1;
 }
 
 .target-scores h3 {
@@ -111,13 +133,16 @@ h1 {
 .target-item {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    align-items: center;
+    padding: 10px 0;
     border-bottom: 1px solid #eee;
+    font-size: clamp(0.9rem, 4vw, 1rem); /* 文字サイズを微調整 */
 }
 
 .needed-score {
     font-weight: bold;
-    color: #e63946; /* 強調色 */
+    color: #e63946;
+    text-align: right;
 }
 
 
@@ -132,6 +157,7 @@ h1 {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-shrink: 1; /* 親に合わせて縮むように設定 */
 }
 
 /* ランクバッジのデザイン */
@@ -141,8 +167,19 @@ h1 {
     padding: 2px 12px;
     border-radius: 4px;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 5vw, 1.3rem);
     min-width: 60px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* スマホ用微調整：さらに狭い画面（iPhone SE等）の場合 */
+@media screen and (max-width: 400px) {
+    .result-card {
+        padding: 15px 10px; /* 内側の余白を削る */
+    }
+    .total-eval {
+        justify-content: center; /* 中央寄せにして安定させる */
+        text-align: center;
+    }
 }
