@@ -61,8 +61,8 @@ function updateCalculation() {
     // 順位による加算値
     let rankAdd = 0;
     if (finalRank === 1) rankAdd = 120;
-    else if (finalRank === 2) rankAdd = 100;
-    else if (finalRank === 3) rankAdd = 80;
+    else if (finalRank === 2) rankAdd = 60;
+    else if (finalRank === 3) rankAdd = 30;
     else rankAdd = 0;
 
     const g4 = Math.min(2800, preVo + abiVo + rankAdd);
