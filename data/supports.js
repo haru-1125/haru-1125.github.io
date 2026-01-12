@@ -146,6 +146,11 @@ const supports = [
     file: "../assets/sup/ぜったいに取るんだ！.png", darkFile: "../assets/supan/ぜったいに取るんだ！.png"
   },
   {
+    name: "堂々とサボってる！？", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/堂々とサボってる！？.png", darkFile: "../assets/supan/堂々とサボってる！？.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -419,6 +424,11 @@ const supports = [
     name: "貸せ、手本を見せてやる！", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/貸せ、手本を見せてやる！.png", darkFile: "../assets/supan/貸せ、手本を見せてやる！.png"
+  },
+  {
+    name: "オシャレもメイクも♪", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/オシャレもメイクも♪.png", darkFile: "../assets/supan/オシャレもメイクも♪.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",

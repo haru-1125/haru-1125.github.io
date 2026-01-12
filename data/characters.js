@@ -350,8 +350,13 @@ const characters = [
     VocalPercent: 26, DancePercent: 10, VisualPercent: 16, VocalPercent3: 30, DancePercent3: 10, VisualPercent3: 18,
     VocalIni: 85, DanceIni: 115, VisualIni: 125, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "CM", suteType:"3極"
   },
-    {
+  {
     name: "美鈴（SM）", chara: "美鈴", file: "../assets/chara/美鈴（SM）.png", darkFile: "../assets/charaan/美鈴（SM）.png",
+    VocalPercent: 26, DancePercent: 10, VisualPercent: 16, VocalPercent3: 30, DancePercent3: 10, VisualPercent3: 18,
+    VocalIni: 85, DanceIni: 115, VisualIni: 125, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "CM", suteType:"3極"
+  },
+  {
+    name: "美鈴（スパラ）", chara: "美鈴", file: "../assets/chara/美鈴（スパラ）.png", darkFile: "../assets/charaan/美鈴（スパラ）.png",
     VocalPercent: 26, DancePercent: 10, VisualPercent: 16, VocalPercent3: 30, DancePercent3: 10, VisualPercent3: 18,
     VocalIni: 85, DanceIni: 115, VisualIni: 125, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "CM", suteType:"3極"
   },
