@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- 追加：最大値を超えた場合に自動修正する処理 ---
         if (input.type === 'number') {
-            input.addEventListener('blur', function() { // 入力欄からフォーカスが外れた時
+            input.addEventListener('blur', function () { // 入力欄からフォーカスが外れた時
                 validateMax(this);
             });
-            input.addEventListener('keydown', function(e) { // Enterキーを押した時
+            input.addEventListener('keydown', function (e) { // Enterキーを押した時
                 if (e.key === 'Enter') validateMax(this);
             });
         }
@@ -19,18 +19,59 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalculation();
 });
 
+let currentMode = 'normal';
+
+// ページ読み込み時の設定
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = document.querySelectorAll('input, select');
+
+    inputs.forEach(input => {
+        // 数値や選択が変わるたびに再計算
+        input.addEventListener('input', updateCalculation);
+
+        // 数値入力欄の上限チェック設定
+        if (input.type === 'number') {
+            input.addEventListener('blur', function () {
+                validateMax(this);
+            });
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') validateMax(this);
+            });
+        }
+    });
+
+    // 初回計算
+    updateCalculation();
+});
+
+// モード切替関数
+function setMode(mode) {
+    currentMode = mode;
+    // ボタンのスタイル切り替え
+    document.getElementById('modeNormal').classList.toggle('active', mode === 'normal');
+    document.getElementById('modeIntensive').classList.toggle('active', mode === 'intensive');
+
+    // 「ほしのきらめき」入力欄の表示/非表示
+    const sparkleGroup = document.getElementById('sparkleGroup');
+    if (sparkleGroup) {
+        sparkleGroup.style.display = (mode === 'intensive') ? 'block' : 'none';
+    }
+
+    updateCalculation();
+}
+
 // 最大値をチェックして修正する関数
 function validateMax(input) {
     const val = parseInt(input.value);
     const max = parseInt(input.getAttribute('max'));
-    
-    // max属性が設定されており、かつ入力値がそれを超えている場合
+
     if (max && val > max) {
         input.value = max;
-        updateCalculation(); // 値を書き換えたので再計算
+        updateCalculation();
     }
 }
 
+// メイン計算関数
 function updateCalculation() {
     // --- 入力値の取得 ---
     const preVo = parseInt(document.getElementById('preVo').value) || 0;
@@ -41,29 +82,28 @@ function updateCalculation() {
     const abiVi = parseInt(document.getElementById('abiVi').value) || 0;
     const midScore = parseInt(document.getElementById('midScore').value) || 0;
     const finalScore = parseInt(document.getElementById('finalScore').value) || 0;
-    const finalRank = parseInt(document.getElementById('finalRank').value);
+    const finalRank = parseInt(document.getElementById('finalRank').value) || 0;
+    const sparkle = parseInt(document.getElementById('sparkle')?.value) || 0;
 
-    // --- 追加：すべての項目が0なら表示を0にして終了 ---
-    if (preVo === 0 && preDa === 0 && preVi === 0 && 
-        abiVo === 0 && abiDa === 0 && abiVi === 0 && 
-        midScore === 0 && finalScore === 0) {
-        
+    // --- すべての項目が0なら表示を0にして終了 ---
+    if (preVo === 0 && preDa === 0 && preVi === 0 &&
+        abiVo === 0 && abiDa === 0 && abiVi === 0 &&
+        midScore === 0 && finalScore === 0 && sparkle === 0) {
+
         document.getElementById('totalEvaluation').textContent = "0";
-        document.getElementById('evalRank').textContent = "F"; // 0の時のランク
+        document.getElementById('evalRank').textContent = "F";
         document.getElementById('targetSSS').textContent = "-";
         document.getElementById('targetSSSPlus').textContent = "-";
         document.getElementById('targetS4').textContent = "-";
-        return; // ここで処理を中断
+        return;
     }
 
-
     // --- 1. パラメータ計算 ---
-    // 順位による加算値
+    // 順位による加算値（ステータス加算）
     let rankAdd = 0;
     if (finalRank === 1) rankAdd = 120;
     else if (finalRank === 2) rankAdd = 60;
     else if (finalRank === 3) rankAdd = 30;
-    else rankAdd = 0;
 
     const g4 = Math.min(2800, preVo + abiVo + rankAdd);
     const h4 = Math.min(2800, preDa + abiDa + rankAdd);
@@ -87,16 +127,20 @@ function updateCalculation() {
     else midEval = 2670;
     midEval = Math.floor(midEval);
 
-    // 最終試験評価値
-    let finalEval = 0;
-    if (finalScore < 300000) finalEval = 0.015 * finalScore;
-    else if (finalScore < 500000) finalEval = 4500 + 0.01 * (finalScore - 300000);
-    else if (finalScore < 600000) finalEval = 6500 + 0.008 * (finalScore - 500000);
-    else if (finalScore <= 2000000) finalEval = 7300 + 0.001 * (finalScore - 600000);
-    else finalEval = 8700;
-    finalEval = Math.floor(finalEval);
+    // 最終試験評価値の計算ロジック
+    const getFinalEvalBase = (score) => {
+        let res = 0;
+        if (score < 300000) res = 0.015 * score;
+        else if (score < 500000) res = 4500 + 0.01 * (score - 300000);
+        else if (score < 600000) res = 6500 + 0.008 * (score - 500000);
+        else if (score <= 2000000) res = 7300 + 0.001 * (score - 600000);
+        else res = 8700;
+        return Math.floor(res);
+    };
 
-    // 順位評価値
+    const finalEval = getFinalEvalBase(finalScore);
+
+    // 最終順位評価点
     let rankEval = 0;
     switch (finalRank) {
         case 1: rankEval = 1700; break;
@@ -105,32 +149,42 @@ function updateCalculation() {
         default: rankEval = 0;
     }
 
-    // 合計評価値
-    const totalEvaluation = statEval + midEval + finalEval + rankEval;
+    // モード別 最終評価値の合計計算
+    let totalEvaluation = 0;
+    const baseEvalSum = statEval + midEval + finalEval + rankEval;
 
-    // 目標スコア計算
-    const requ = statEval + midEval + rankEval;
+    if (currentMode === 'normal') {
+        totalEvaluation = baseEvalSum;
+    } else {
+        // 強化月間: floor(通常評価 × 0.72 + きらめき × 11.016)
+        totalEvaluation = Math.floor(baseEvalSum * 0.72 + (sparkle + 190) * 11.016);
+    }
 
-    const calcNeededFinalScore = (basePoints) => {
-        const target = basePoints - requ;
-        if (target <= 0) return "達成済み";
-        
-        let score = 0;
-        if (target <= 4500) {
-            score = target / 0.015;
-        } else if (target <= 6500) {
-            score = (target - 4500) / 0.01 + 300000;
-        } else if (target <= 7300) {
-            score = (target - 6500) / 0.008 + 500000;
-        } else if (target <= 8700) {
-            score = (target - 7300) / 0.001 + 600000;
+    // --- 3. 逆算（目標スコア）計算 ---
+    const currentBaseWithoutFinal = statEval + midEval + rankEval;
+
+    const calcNeededFinalScore = (targetEval) => {
+        let neededFinalEval = 0;
+        if (currentMode === 'normal') {
+            neededFinalEval = targetEval - currentBaseWithoutFinal;
         } else {
-            return "不可能";
+            // targetEval <= (基礎評価合計 + 最終試験評価) * 0.72 + きらめき * 11.016
+            neededFinalEval = Math.ceil(((targetEval - ((sparkle + 190) * 11.016)) / 0.72) - currentBaseWithoutFinal);
         }
+
+        if (neededFinalEval <= 0) return "達成済み";
+
+        let score = 0;
+        if (neededFinalEval <= 4500) score = neededFinalEval / 0.015;
+        else if (neededFinalEval <= 6500) score = (neededFinalEval - 4500) / 0.01 + 300000;
+        else if (neededFinalEval <= 7300) score = (neededFinalEval - 6500) / 0.008 + 500000;
+        else if (neededFinalEval <= 8700) score = (neededFinalEval - 7300) / 0.001 + 600000;
+        else return "不可能";
+
         return Math.ceil(score).toLocaleString() + " pt";
     };
 
-    // --- ランク判定関数の追加 ---
+    // --- 4. ランク判定 ---
     const getRank = (score) => {
         if (score >= 26000) return "S4";
         if (score >= 23000) return "SSS+";
@@ -141,29 +195,28 @@ function updateCalculation() {
         if (score >= 13000) return "S";
         if (score >= 11500) return "A+";
         if (score >= 10000) return "A";
-        if (score >= 8000)  return "B+";
-        if (score >= 6000)  return "B";
-        if (score >= 4500)  return "C+";
-        if (score >= 3000)  return "C";
+        if (score >= 8000) return "B+";
+        if (score >= 6000) return "B";
+        if (score >= 4500) return "C+";
+        if (score >= 3000) return "C";
         return "F";
     };
 
-    // --- 結果の表示反映 ---
-    document.getElementById('totalEvaluation').textContent = totalEvaluation.toLocaleString();
-    
-    // 評価値とランクの更新
-    document.getElementById('totalEvaluation').textContent = totalEvaluation.toLocaleString();
+    // --- 5. 表示への反映 ---
+    const totalEvalElement = document.getElementById('totalEvaluation');
     const rankElement = document.getElementById('evalRank');
+
+    totalEvalElement.textContent = totalEvaluation.toLocaleString();
     rankElement.textContent = getRank(totalEvaluation);
-    
-    // ランクに応じた色の変更（任意）
+
+    // ランクに応じた色の変更
     if (totalEvaluation >= 20000) {
-        rankElement.style.backgroundColor = "#ffbc00"; // 金色系
+        rankElement.style.backgroundColor = "#ffbc00"; // 金色
     } else {
-        rankElement.style.backgroundColor = "#4364f7"; // 青色系
+        rankElement.style.backgroundColor = "#4364f7"; // 青色
     }
 
-    // スプシの計算式に基づき、SSS=20000, SSS+=23000, S4=26000 で計算
+    // 各目標ランクへの必要スコア
     document.getElementById('targetSSS').textContent = calcNeededFinalScore(20000);
     document.getElementById('targetSSSPlus').textContent = calcNeededFinalScore(23000);
     document.getElementById('targetS4').textContent = calcNeededFinalScore(26000);

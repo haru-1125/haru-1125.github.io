@@ -81,6 +81,11 @@ const characters = [
     VocalIni: 120, DanceIni: 100, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "限定", suteType:"2極"
   },
   {
+    name: "手毬（いつ）", chara: "手毬", file: "../assets/chara/手毬（いつ）.png", darkFile: "../assets/charaan/手毬（いつ）.png",
+    VocalPercent: 24, DancePercent: 21.5, VisualPercent: 8.5, VocalPercent3: 27, DancePercent3: 26.5, VisualPercent3: 8.5,
+    VocalIni: 120, DanceIni: 100, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "限定", suteType:"2極"
+  },
+  {
     name: "ことね（世界一）", chara: "ことね", file: "../assets/chara/ことね（世界一）.png", darkFile: "../assets/charaan/ことね（世界一）.png",
     VocalPercent: 8, DancePercent: 24.5, VisualPercent: 22.5, VocalPercent3: 8, DancePercent3: 29.5, VisualPercent3: 25.5,
     VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"

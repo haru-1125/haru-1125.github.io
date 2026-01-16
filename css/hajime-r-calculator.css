@@ -24,6 +24,33 @@ h1 {
     box-sizing: border-box;
 }
 
+/* モード切替ボタン */
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 20px;
+    border: 1px solid #4364f7;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #fff;
+    color: #4364f7;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.mode-btn.active {
+    background: #4364f7;
+    color: #fff;
+}
+
 .calculator-card, .result-card {
     background: #fff;
     border-radius: 12px;

@@ -151,6 +151,11 @@ const supports = [
     file: "../assets/sup/堂々とサボってる！？.png", darkFile: "../assets/supan/堂々とサボってる！？.png"
   },
   {
+    name: "手毬のリサイタル、だね", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/手毬のリサイタル、だね.png", darkFile: "../assets/supan/手毬のリサイタル、だね.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"

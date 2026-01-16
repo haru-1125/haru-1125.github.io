@@ -33,6 +33,11 @@
         <h1>初レジェンド評価値計算機</h1>
 
         <div class="calculator-card">
+            <div class="mode-selector">
+                <button id="modeNormal" class="mode-btn active" onclick="setMode('normal')">通常</button>
+                <button id="modeIntensive" class="mode-btn" onclick="setMode('intensive')">強化月間</button>
+            </div>
+
             <section class="input-group">
                 <h3>最終試験前パラメータ</h3>
                 <div class="grid-3">
@@ -56,15 +61,15 @@
                 <div class="grid-3">
                     <div class="input-field">
                         <label class="label-vo">Vocal</label>
-                        <input type="number" id="abiVo" min="0" placeholder="0">
+                        <input type="number" id="abiVo" min="0" max="2800" placeholder="0">
                     </div>
                     <div class="input-field">
                         <label class="label-da">Dance</label>
-                        <input type="number" id="abiDa" min="0" placeholder="0">
+                        <input type="number" id="abiDa" min="0" max="2800" placeholder="0">
                     </div>
                     <div class="input-field">
                         <label class="label-vi">Visual</label>
-                        <input type="number" id="abiVi" min="0" placeholder="0">
+                        <input type="number" id="abiVi" min="0" max="2800" placeholder="0">
                     </div>
                 </div>
             </section>
@@ -89,6 +94,11 @@
                         <option value="0">不合格</option>
                     </select>
                 </div>
+
+                <div id="sparkleGroup" class="input-field full-width" style="display: none; margin-top: 15px;">
+                    <label style="color: #ff9800;">最終試験前ほしのきらめき（Maxは420）</label>
+                    <input type="number" id="sparkle" min="0" max="420" placeholder="0">※最終試験での獲得量の計算式が不明な為、固定で減衰分（190）増加するようになっています
+                </div>
             </section>
         </div>
 
@@ -100,7 +110,7 @@
                     <span id="totalEvaluation" class="value">0</span>
                 </div>
             </div>
-            
+
             <hr>
 
             <div class="target-scores">
@@ -123,4 +133,5 @@
 
     <script src="../js/hajime-r-calculator.js"></script>
 </body>
+
 </html>
