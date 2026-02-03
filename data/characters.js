@@ -251,6 +251,11 @@ const characters = [
     VocalIni: 75, DanceIni: 115, VisualIni: 125, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
   },
   {
+    name: "千奈（みち）", chara: "千奈", file: "../assets/chara/千奈（みち）.png", darkFile: "../assets/charaan/千奈（みち）.png",
+    VocalPercent: 10, DancePercent: 24, VisualPercent: 20.5, VocalPercent3: 10, DancePercent3: 29, VisualPercent3: 23.5,
+    VocalIni: 75, DanceIni: 115, VisualIni: 125, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
+  },
+  {
     name: "清夏（タメライ）", chara: "清夏", file: "../assets/chara/清夏（タメライ）.png", darkFile: "../assets/charaan/清夏（タメライ）.png",
     VocalPercent: 9, DancePercent: 23, VisualPercent: 23, VocalPercent3: 9, DancePercent3: 28, VisualPercent3: 26,
     VocalIni: 100, DanceIni: 115, VisualIni: 90, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
@@ -317,6 +322,11 @@ const characters = [
   },
   {
     name: "広（ナナウ）", chara: "広", file: "../assets/chara/広（ナナウ）.png", darkFile: "../assets/charaan/広（ナナウ）.png",
+    VocalPercent: 23, DancePercent: 19.5, VisualPercent: 10, VocalPercent3: 28, DancePercent3: 24.5, VisualPercent3: 10,
+    VocalIni: 125, DanceIni: 120, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "限定", suteType:"3極"
+  },
+  {
+    name: "広（みち）", chara: "広", file: "../assets/chara/広（みち）.png", darkFile: "../assets/charaan/広（みち）.png",
     VocalPercent: 23, DancePercent: 19.5, VisualPercent: 10, VocalPercent3: 28, DancePercent3: 24.5, VisualPercent3: 10,
     VocalIni: 125, DanceIni: 120, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "限定", suteType:"3極"
   },

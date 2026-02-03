@@ -85,6 +85,10 @@ function updateCalculation() {
     const finalRank = parseInt(document.getElementById('finalRank').value) || 0;
     const sparkle = parseInt(document.getElementById('sparkle')?.value) || 0;
 
+    // --- 追加：合計値の計算と表示 ---
+    const preTotal = preVo + preDa + preVi;
+    document.getElementById('preTotal').textContent = preTotal.toLocaleString();
+
     // --- すべての項目が0なら表示を0にして終了 ---
     if (preVo === 0 && preDa === 0 && preVi === 0 &&
         abiVo === 0 && abiDa === 0 && abiVi === 0 &&

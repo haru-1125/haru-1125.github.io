@@ -210,3 +210,17 @@ h1 {
         text-align: center;
     }
 }
+
+.param-total-display {
+    margin-top: 10px;
+    text-align: right;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #666;
+}
+
+#preTotal {
+    color: #4364f7; /* メインカラーに合わせて青色に */
+    font-size: 1.1rem;
+    margin-left: 5px;
+}
