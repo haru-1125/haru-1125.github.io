@@ -311,6 +311,11 @@ const supports = [
     file: "../assets/sup/自分と向き合う時間だ.png", darkFile: "../assets/supan/自分と向き合う時間だ.png"
   },
   {
+    name: "合格おめでとう！", type: "dance", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/合格おめでとう！.png", darkFile: "../assets/supan/合格おめでとう！.png"
+  },
+  {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",
     Aability: "初期値", Bability: "", Cability: "レッスン", Dability: "休む", SP: "",
     file: "../assets/sup/あなたにも作ってあげる！.png", darkFile: "../assets/supan/あなたにも作ってあげる！.png"
@@ -444,6 +449,16 @@ const supports = [
     name: "オシャレもメイクも♪", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/オシャレもメイクも♪.png", darkFile: "../assets/supan/オシャレもメイクも♪.png"
+  },
+  {
+    name: "かかってらっしゃい！", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/かかってらっしゃい！.png", darkFile: "../assets/supan/かかってらっしゃい！.png"
+  },
+  {
+    name: "あたしの勝ち、ですね～！", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/あたしの勝ち、ですね～！.png", darkFile: "../assets/supan/あたしの勝ち、ですね～！.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",

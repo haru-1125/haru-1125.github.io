@@ -350,8 +350,13 @@ const characters = [
     VocalPercent: 15, DancePercent: 8, VisualPercent: 20.5, VocalPercent3: 17, DancePercent3: 8, VisualPercent3: 24.5,
     VocalIni: 175, DanceIni: 125, VisualIni: 140, FirstType: "Visual", SecondType: "Vocal", ThirdType: "Dance", series: "恒常", suteType:"3極"
   },
-    {
+  {
     name: "星南（SM）", chara: "星南", file: "../assets/chara/星南（SM）.png", darkFile: "../assets/charaan/星南（SM）.png",
+    VocalPercent: 15, DancePercent: 8, VisualPercent: 20.5, VocalPercent3: 17, DancePercent3: 8, VisualPercent3: 24.5,
+    VocalIni: 175, DanceIni: 125, VisualIni: 140, FirstType: "Visual", SecondType: "Vocal", ThirdType: "Dance", series: "限定", suteType:"3極"
+  },
+  {
+    name: "星南（赤裸々）", chara: "星南", file: "../assets/chara/星南（赤裸々）.png", darkFile: "../assets/charaan/星南（赤裸々）.png",
     VocalPercent: 15, DancePercent: 8, VisualPercent: 20.5, VocalPercent3: 17, DancePercent3: 8, VisualPercent3: 24.5,
     VocalIni: 175, DanceIni: 125, VisualIni: 140, FirstType: "Visual", SecondType: "Vocal", ThirdType: "Dance", series: "限定", suteType:"3極"
   },
@@ -372,6 +377,11 @@ const characters = [
   },
   {
     name: "美鈴（スパラ）", chara: "美鈴", file: "../assets/chara/美鈴（スパラ）.png", darkFile: "../assets/charaan/美鈴（スパラ）.png",
+    VocalPercent: 26, DancePercent: 10, VisualPercent: 16, VocalPercent3: 30, DancePercent3: 10, VisualPercent3: 18,
+    VocalIni: 85, DanceIni: 115, VisualIni: 125, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "CM", suteType:"3極"
+  },
+  {
+    name: "美鈴（ED）", chara: "美鈴", file: "../assets/chara/美鈴（ED）.png", darkFile: "../assets/charaan/美鈴（ED）.png",
     VocalPercent: 26, DancePercent: 10, VisualPercent: 16, VocalPercent3: 30, DancePercent3: 10, VisualPercent3: 18,
     VocalIni: 85, DanceIni: 115, VisualIni: 125, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "CM", suteType:"3極"
   },
@@ -397,6 +407,11 @@ const characters = [
   },
   {
     name: "佑芽（グースーピー）", chara: "佑芽", file: "../assets/chara/佑芽（グースーピー）.png", darkFile: "../assets/charaan/佑芽（グースーピー）.png",
+    VocalPercent: 20, DancePercent: 23, VisualPercent: 15, VocalPercent3: 23, DancePercent3: 28, VisualPercent3: 15,
+    VocalIni: 90, DanceIni: 95, VisualIni: 100, FirstType: "Dance", SecondType: "Vocal", ThirdType: "Visual", series: "限定", suteType:"3極"
+  },
+  {
+    name: "佑芽（ED）", chara: "佑芽", file: "../assets/chara/佑芽（ED）.png", darkFile: "../assets/charaan/佑芽（ED）.png",
     VocalPercent: 20, DancePercent: 23, VisualPercent: 15, VocalPercent3: 23, DancePercent3: 28, VisualPercent3: 15,
     VocalIni: 90, DanceIni: 95, VisualIni: 100, FirstType: "Dance", SecondType: "Vocal", ThirdType: "Visual", series: "限定", suteType:"3極"
   },
