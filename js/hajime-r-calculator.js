@@ -60,6 +60,38 @@ function setMode(mode) {
     updateCalculation();
 }
 
+// 上限ボタンクリック時の関数
+function setMax(id, value) {
+    document.getElementById(id).value = value;
+    updateCalculation();
+}
+
+// リセットボタンクリック時の関数
+function resetPreParams() {
+    document.getElementById('preVo').value = '';
+    document.getElementById('preDa').value = '';
+    document.getElementById('preVi').value = '';
+    document.getElementById('midScore').value = '';
+    document.getElementById('finalScore').value = '';
+    updateCalculation();
+}
+
+// 試験終了時アビ点数エリアの表示/非表示切替
+function toggleAbiSection() {
+    const abiSection = document.getElementById('abiSection');
+    const toggleButton = document.getElementById('toggleAbiBtn');
+    if (!abiSection || !toggleButton) return;
+
+    const isHidden = abiSection.style.display === 'none';
+    if (isHidden) {
+        abiSection.style.display = 'block';
+        toggleButton.textContent = '閉じる';
+    } else {
+        abiSection.style.display = 'none';
+        toggleButton.textContent = '表示';
+    }
+}
+
 // 最大値をチェックして修正する関数
 function validateMax(input) {
     const val = parseInt(input.value);

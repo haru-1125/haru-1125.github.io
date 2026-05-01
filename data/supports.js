@@ -316,6 +316,16 @@ const supports = [
     file: "../assets/sup/合格おめでとう！.png", darkFile: "../assets/supan/合格おめでとう！.png"
   },
   {
+    name: "パーティー楽しみだねっ！", type: "dance", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/パーティー楽しみだねっ！.png", darkFile: "../assets/supan/パーティー楽しみだねっ！.png"
+  },
+  {
+    name: "上かッ！！", type: "dance", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/上かッ！！.png", darkFile: "../assets/supan/上かッ！！.png"
+  },
+  {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",
     Aability: "初期値", Bability: "", Cability: "レッスン", Dability: "休む", SP: "",
     file: "../assets/sup/あなたにも作ってあげる！.png", darkFile: "../assets/supan/あなたにも作ってあげる！.png"
@@ -459,6 +469,16 @@ const supports = [
     name: "あたしの勝ち、ですね～！", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/あたしの勝ち、ですね～！.png", darkFile: "../assets/supan/あたしの勝ち、ですね～！.png"
+  },
+  {
+    name: "進化したお弁当、気になる", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/進化したお弁当、気になる.png", darkFile: "../assets/supan/進化したお弁当、気になる.png"
+  },
+  {
+    name: "長旅おつかれさま！", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/長旅おつかれさま！.png", darkFile: "../assets/supan/長旅おつかれさま！.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",

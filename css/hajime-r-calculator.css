@@ -1,8 +1,6 @@
 .container {
     max-width: 600px;
-    margin: 20px auto;
-    padding: 0 15px;
-}
+    margin: 16px auto;
 
 h1 {
     /* clampを使って、画面幅に合わせて文字サイズを適切に調整します */
@@ -10,7 +8,7 @@ h1 {
     font-size: clamp(1.1rem, 4.5vw, 1.6rem);
     
     color: #333;
-    margin: 20px 0;
+    margin: 16px 0;
     text-align: center;
     font-weight: bold;
 
@@ -29,7 +27,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 0;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     border: 1px solid #4364f7;
     border-radius: 8px;
     overflow: hidden;
@@ -37,7 +35,7 @@ h1 {
 
 .mode-btn {
     flex: 1;
-    padding: 10px;
+    padding: 8px;
     border: none;
     background: #fff;
     color: #4364f7;
@@ -54,16 +52,21 @@ h1 {
 .calculator-card, .result-card {
     background: #fff;
     border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
+    padding: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    margin-bottom: 16px;
     text-align: left;
 }
 
 .input-group {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
     border-bottom: 1px dashed #ddd;
+}
+
+.calculator-card .input-group:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .input-group:last-child {
@@ -73,7 +76,7 @@ h1 {
 .input-group h3 {
     font-size: 0.95rem;
     color: #666;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     border-left: 4px solid #4364f7;
     padding-left: 8px;
 }
@@ -81,19 +84,19 @@ h1 {
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 1fr 1fr 1fr と同義ですが、より簡潔です */
-    gap: 10px;
+    gap: 8px;
 }
 
 .grid-2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 6px;
 }
 
 .input-field {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .input-field label {
@@ -112,10 +115,61 @@ h1 {
     width: 100%; /* これを追加: 親要素の幅いっぱいに広げる */
 }
 
-.input-field input:focus {
+.input-field input:focus,
+.input-field select:focus {
     outline: none;
     border-color: #4364f7;
     box-shadow: 0 0 0 2px rgba(67, 100, 247, 0.1);
+}
+
+.input-field.full-width {
+    margin-bottom: 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-section-btn {
+    padding: 6px 12px;
+    border: 1px solid #4364f7;
+    background: #fff;
+    color: #4364f7;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.toggle-section-btn:hover {
+    background: #4364f7;
+    color: #fff;
+}
+
+.section-note {
+    margin: 6px 0 0;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* 上限ボタン */
+.max-btn {
+    margin-top: 5px;
+    padding: 4px 8px;
+    background: #4364f7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.3s;
+}
+
+.max-btn:hover {
+    background: #3651d4;
 }
 
 /* 結果表示エリア */
@@ -123,8 +177,8 @@ h1 {
     background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
     border: 2px solid #4364f7;
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 12px;
+    margin-bottom: 16px;
     box-sizing: border-box; /* はみ出し防止 */
 }
 
@@ -133,27 +187,33 @@ h1 {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap; /* 狭い時に上下に逃げられるようにする */
-    gap: 10px;
-    padding: 10px 0;
+    gap: 6px;
+    padding: 6px 0;
 }
 
 .total-eval .label {
     font-weight: bold;
     color: #4364f7;
-    font-size: 1rem;
+    font-size: 0.95rem;
     white-space: nowrap;
 }
 
 .total-eval .value {
-    font-size: clamp(1.5rem, 8vw, 2.5rem); /* 最小1.5rem、画面幅の8%、最大2.5rem */
+    font-size: clamp(1.4rem, 8vw, 2.2rem); /* 最小1.4rem、画面幅の8%、最大2.2rem */
     font-weight: 800;
     color: #333;
     line-height: 1;
 }
 
+.result-card hr {
+    border: none;
+    border-top: 1px solid rgba(67, 100, 247, 0.15);
+    margin: 8px 0;
+}
+
 .target-scores h3 {
     font-size: 0.9rem;
-    margin: 15px 0 10px;
+    margin: 10px 0 6px;
     color: #555;
 }
 
@@ -161,7 +221,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 6px 0;
     border-bottom: 1px solid #eee;
     font-size: clamp(0.9rem, 4vw, 1rem); /* 文字サイズを微調整 */
 }
@@ -201,9 +261,30 @@ h1 {
 }
 
 /* スマホ用微調整：さらに狭い画面（iPhone SE等）の場合 */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    .calculator-card,
     .result-card {
-        padding: 15px 10px; /* 内側の余白を削る */
+        padding: 12px;
+    }
+    .mode-btn {
+        padding: 7px;
+    }
+    .input-field input,
+    .input-field select {
+        padding: 7px;
+    }
+    .grid-2,
+    .grid-3 {
+        gap: 6px;
+    }
+    .max-btn {
+        padding: 3px 6px;
+    }
+    .result-card {
+        padding: 12px 8px; /* 内側の余白を削る */
     }
     .total-eval {
         justify-content: center; /* 中央寄せにして安定させる */

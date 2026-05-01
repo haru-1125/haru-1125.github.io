@@ -39,7 +39,10 @@
             </div>
 
             <section class="input-group">
-                <h3>最終試験前パラメータ</h3>
+                <div class="section-header">
+                    <h3>最終試験前パラメータ</h3>
+                    <button type="button" class="toggle-section-btn" onclick="resetPreParams()">リセット</button>
+                </div>
                 <div class="grid-3">
                     <div class="input-field">
                         <label class="label-vo">Vocal</label>
@@ -59,19 +62,25 @@
             </section>
 
             <section class="input-group">
-                <h3>試験終了時アビ点数（例：ふわもこ完凸編成時、Daを17）</h3>
-                <div class="grid-3">
-                    <div class="input-field">
-                        <label class="label-vo">Vocal</label>
-                        <input type="number" id="abiVo" min="0" max="2800" placeholder="0">
-                    </div>
-                    <div class="input-field">
-                        <label class="label-da">Dance</label>
-                        <input type="number" id="abiDa" min="0" max="2800" placeholder="0">
-                    </div>
-                    <div class="input-field">
-                        <label class="label-vi">Visual</label>
-                        <input type="number" id="abiVi" min="0" max="2800" placeholder="0">
+                <div class="section-header">
+                    <h3>試験終了時アビ点数</h3>
+                    <button type="button" id="toggleAbiBtn" class="toggle-section-btn" onclick="toggleAbiSection()">表示</button>
+                </div>
+                <div id="abiSection" class="toggle-content" style="display: none;">
+                    <p class="section-note">例：ふわもこ完凸編成時、Daを17</p>
+                    <div class="grid-3">
+                        <div class="input-field">
+                            <label class="label-vo">Vocal</label>
+                            <input type="number" id="abiVo" min="0" max="2800" placeholder="0">
+                        </div>
+                        <div class="input-field">
+                            <label class="label-da">Dance</label>
+                            <input type="number" id="abiDa" min="0" max="2800" placeholder="0">
+                        </div>
+                        <div class="input-field">
+                            <label class="label-vi">Visual</label>
+                            <input type="number" id="abiVi" min="0" max="2800" placeholder="0">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -81,10 +90,12 @@
                     <div class="input-field">
                         <label>中間試験スコア</label>
                         <input type="number" id="midScore" min="0" placeholder="0">
+                        <button class="max-btn" onclick="setMax('midScore', 200000)">上限</button>
                     </div>
                     <div class="input-field">
                         <label>最終試験スコア</label>
                         <input type="number" id="finalScore" min="0" placeholder="0">
+                        <button class="max-btn" onclick="setMax('finalScore', 2000000)">上限</button>
                     </div>
                 </div>
                 <div class="input-field full-width">
@@ -119,16 +130,16 @@
             <div class="target-scores">
                 <h3>目標ランク別 必要最終スコア</h3>
                 <div class="target-item">
-                    <span>SSS (20,000pt)</span>
-                    <span id="targetSSS" class="needed-score">-</span>
+                    <span>S4 (26,000pt)</span>
+                    <span id="targetS4" class="needed-score">-</span>
                 </div>
                 <div class="target-item">
                     <span>SSS+ (23,000pt)</span>
                     <span id="targetSSSPlus" class="needed-score">-</span>
                 </div>
                 <div class="target-item">
-                    <span>S4 (26,000pt)</span>
-                    <span id="targetS4" class="needed-score">-</span>
+                    <span>SSS (20,000pt)</span>
+                    <span id="targetSSS" class="needed-score">-</span>
                 </div>
             </div>
         </div>
