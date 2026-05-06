@@ -117,15 +117,12 @@ function updateCalculation() {
     const finalRank = parseInt(document.getElementById('finalRank').value) || 0;
     const sparkle = parseInt(document.getElementById('sparkle')?.value) || 0;
 
-    // --- 追加：合計値の計算と表示 ---
-    const preTotal = preVo + preDa + preVi;
-    document.getElementById('preTotal').textContent = preTotal.toLocaleString();
-
     // --- すべての項目が0なら表示を0にして終了 ---
     if (preVo === 0 && preDa === 0 && preVi === 0 &&
         abiVo === 0 && abiDa === 0 && abiVi === 0 &&
         midScore === 0 && finalScore === 0 && sparkle === 0) {
 
+        document.getElementById('preTotal').textContent = "0";
         document.getElementById('totalEvaluation').textContent = "0";
         document.getElementById('evalRank').textContent = "F";
         document.getElementById('targetSSS').textContent = "-";
@@ -140,6 +137,11 @@ function updateCalculation() {
     if (finalRank === 1) rankAdd = 120;
     else if (finalRank === 2) rankAdd = 60;
     else if (finalRank === 3) rankAdd = 30;
+
+    const finalStatTotal = Math.min(2800, preVo + abiVo) +
+                           Math.min(2800, preDa + abiDa) +
+                           Math.min(2800, preVi + abiVi);
+    document.getElementById('preTotal').textContent = finalStatTotal.toLocaleString();
 
     const g4 = Math.min(2800, preVo + abiVo + rankAdd);
     const h4 = Math.min(2800, preDa + abiDa + rankAdd);
