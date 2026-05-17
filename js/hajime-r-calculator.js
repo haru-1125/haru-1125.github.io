@@ -134,7 +134,7 @@ function updateCalculation() {
     // --- 1. パラメータ計算 ---
     // 順位による加算値（ステータス加算）
     let rankAdd = 0;
-    if (finalRank === 1) rankAdd = 120;
+    if (finalRank === 1) rankAdd = 160;
     else if (finalRank === 2) rankAdd = 60;
     else if (finalRank === 3) rankAdd = 30;
 
