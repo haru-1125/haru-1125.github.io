@@ -1,72 +1,109 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const inputs = document.querySelectorAll('input, select');
 
     inputs.forEach(input => {
-        // 数値が入力されるたびに計算を実行
         input.addEventListener('input', updateCalculation);
-
-        // --- 追加：最大値を超えた場合に自動修正する処理 ---
         if (input.type === 'number') {
-            input.addEventListener('blur', function () { // 入力欄からフォーカスが外れた時
-                validateMax(this);
-            });
-            input.addEventListener('keydown', function (e) { // Enterキーを押した時
-                if (e.key === 'Enter') validateMax(this);
-            });
+            input.addEventListener('blur', function () { validateMax(this); });
+            input.addEventListener('keydown', function (e) { if (e.key === 'Enter') validateMax(this); });
         }
     });
-
+    setCalcType('hif');
     updateCalculation();
 });
 
 let currentMode = 'normal';
+let calcType = 'hif';
+let scoreInputMode = 'total'; // 'total' or 'split'
 
-// ページ読み込み時の設定
-document.addEventListener('DOMContentLoaded', () => {
-    const inputs = document.querySelectorAll('input, select');
-
-    inputs.forEach(input => {
-        // 数値や選択が変わるたびに再計算
-        input.addEventListener('input', updateCalculation);
-
-        // 数値入力欄の上限チェック設定
-        if (input.type === 'number') {
-            input.addEventListener('blur', function () {
-                validateMax(this);
-            });
-            input.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') validateMax(this);
-            });
-        }
-    });
-
-    // 初回計算
-    updateCalculation();
-});
-
-// モード切替関数
 function setMode(mode) {
     currentMode = mode;
-    // ボタンのスタイル切り替え
     document.getElementById('modeNormal').classList.toggle('active', mode === 'normal');
     document.getElementById('modeIntensive').classList.toggle('active', mode === 'intensive');
-
-    // 「ほしのきらめき」入力欄の表示/非表示
     const sparkleGroup = document.getElementById('sparkleGroup');
-    if (sparkleGroup) {
-        sparkleGroup.style.display = (mode === 'intensive') ? 'block' : 'none';
+    if (sparkleGroup) sparkleGroup.style.display = (mode === 'intensive') ? 'block' : 'none';
+    updateCalculation();
+}
+
+function setCalcType(type) {
+    calcType = type;
+    document.getElementById('calcTypeHajime').classList.toggle('active', type === 'hajime');
+    document.getElementById('calcTypeHIF').classList.toggle('active', type === 'hif');
+    const hifInputs = document.getElementById('hifInputs');
+    if (hifInputs) hifInputs.style.display = (type === 'hif') ? 'block' : 'none';
+    const modeSelector = document.getElementById('modeSelectorContainer');
+    if (modeSelector) modeSelector.style.display = (type === 'hif') ? 'none' : 'flex';
+    const abiInputSection = document.getElementById('abiInputSection');
+    if (abiInputSection) abiInputSection.style.display = (type === 'hif') ? 'none' : 'block';
+    const hajimeExtraSection = document.getElementById('hajimeExtraSection');
+    if (hajimeExtraSection) hajimeExtraSection.style.display = (type === 'hif') ? 'none' : 'block';
+    const sparkleGroup2 = document.getElementById('sparkleGroup');
+    if (sparkleGroup2) sparkleGroup2.style.display = (type === 'hif' ? 'none' : (currentMode === 'intensive' ? 'block' : 'none'));
+    const maxStat = (type === 'hif') ? 3200 : 3000;
+    ['preVo','preDa','preVi','abiVo','abiDa','abiVi'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.max = maxStat;
+    });
+    const targetRowS5 = document.getElementById('targetRowS5');
+    const targetRowS4Plus = document.getElementById('targetRowS4Plus');
+    if (targetRowS5) targetRowS5.style.display = (type === 'hif') ? 'flex' : 'none';
+    if (targetRowS4Plus) targetRowS4Plus.style.display = (type === 'hif') ? 'flex' : 'none';
+    updateCalculation();
+}
+
+function setScoreInputMode(mode) {
+    const prevMode = scoreInputMode;
+    scoreInputMode = mode;
+    document.getElementById('scoreModeTotal').classList.toggle('active', mode === 'total');
+    document.getElementById('scoreModeSplit').classList.toggle('active', mode === 'split');
+
+    const leftLabel = document.getElementById('leftScoreLabel');
+    const leftInput = document.getElementById('hifTotalScore');
+    const r2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
+
+    if (mode === 'total') {
+        if (leftLabel) leftLabel.textContent = '合計スコア';
+        if (leftInput) leftInput.max = 4080000;
+        if (prevMode === 'split') {
+            const adjusted = parseInt(leftInput.value) || 0;
+            const rawR1 = Math.ceil(adjusted * 1.2);
+            let total = rawR1 + r2;
+            if (total < 0) total = 0;
+            if (total > 4080000) total = 4080000;
+            leftInput.value = total;
+        } else {
+            leftInput.value = parseInt(leftInput.value) || 0;
+        }
+    } else {
+        if (leftLabel) leftLabel.textContent = 'ラウンド1獲得スコア(補正後)';
+        if (leftInput) leftInput.max = 1680000;
+        if (prevMode === 'total') {
+            const total = parseInt(leftInput.value) || 0;
+            const rawR1 = total - r2;
+            const adjusted = rawR1 > 0 ? Math.floor(rawR1 / 1.2) : 0;
+            let v = adjusted;
+            if (v < 0) v = 0;
+            if (v > 1680000) v = 1680000;
+            leftInput.value = v;
+        } else {
+            leftInput.value = parseInt(leftInput.value) || 0;
+        }
     }
 
     updateCalculation();
 }
 
-// 上限ボタンクリック時の関数
+function setMaxLeft() {
+    if (scoreInputMode === 'total') setMax('hifTotalScore', 4080000);
+    else setMax('hifTotalScore', 1680000);
+}
+
 function setMax(id, value) {
-    document.getElementById(id).value = value;
+    const el = document.getElementById(id);
+    if (el) el.value = value;
     updateCalculation();
 }
 
-// リセットボタンクリック時の関数
 function resetPreParams() {
     document.getElementById('preVo').value = '';
     document.getElementById('preDa').value = '';
@@ -76,186 +113,217 @@ function resetPreParams() {
     updateCalculation();
 }
 
-// 試験終了時アビ点数エリアの表示/非表示切替
 function toggleAbiSection() {
     const abiSection = document.getElementById('abiSection');
     const toggleButton = document.getElementById('toggleAbiBtn');
     if (!abiSection || !toggleButton) return;
-
     const isHidden = abiSection.style.display === 'none';
-    if (isHidden) {
-        abiSection.style.display = 'block';
-        toggleButton.textContent = '閉じる';
-    } else {
-        abiSection.style.display = 'none';
-        toggleButton.textContent = '表示';
-    }
+    abiSection.style.display = isHidden ? 'block' : 'none';
+    toggleButton.textContent = isHidden ? '閉じる' : '表示';
 }
 
-// 最大値をチェックして修正する関数
 function validateMax(input) {
     const val = parseInt(input.value);
     const max = parseInt(input.getAttribute('max'));
-
     if (max && val > max) {
         input.value = max;
         updateCalculation();
     }
 }
 
-// メイン計算関数
+function getHifRound1Eval(score) {
+    const adjusted = Math.floor((score || 0) / 1.2);
+    let res = 0;
+    if (adjusted <= 300000) res = 0;
+    else if (adjusted <= 700000) res = adjusted * 0.01;
+    else if (adjusted <= 1000000) res = 4000 + (adjusted - 700000) * 0.003;
+    else if (adjusted <= 1200000) res = 4900 + (adjusted - 1000000) * 0.002;
+    else if (adjusted <= 1400000) res = 5300 + (adjusted - 1200000) * 0.001;
+    else res = 5500;
+    return Math.floor(res);
+}
+
+function getHifRound2Eval(score) {
+    let s = score || 0;
+    let res = 0;
+    if (s <= 600000) res = 0;
+    else if (s <= 900000) res = (s - 600000) * 0.004;
+    else if (s <= 1500000) res = 1200 + (s - 900000) * 0.008;
+    else if (s <= 2000000) res = 6000 + (s - 1500000) * 0.002;
+    else if (s <= 2400000) res = 7000 + (s - 2000000) * 0.001;
+    else res = 7400;
+    return Math.floor(res);
+}
+
 function updateCalculation() {
-    // --- 入力値の取得 ---
     const preVo = parseInt(document.getElementById('preVo').value) || 0;
     const preDa = parseInt(document.getElementById('preDa').value) || 0;
     const preVi = parseInt(document.getElementById('preVi').value) || 0;
-    const abiVo = parseInt(document.getElementById('abiVo').value) || 0;
-    const abiDa = parseInt(document.getElementById('abiDa').value) || 0;
-    const abiVi = parseInt(document.getElementById('abiVi').value) || 0;
-    const midScore = parseInt(document.getElementById('midScore').value) || 0;
-    const finalScore = parseInt(document.getElementById('finalScore').value) || 0;
-    const finalRank = parseInt(document.getElementById('finalRank').value) || 0;
+    const abiVo = parseInt(document.getElementById('abiVo')?.value) || 0;
+    const abiDa = parseInt(document.getElementById('abiDa')?.value) || 0;
+    const abiVi = parseInt(document.getElementById('abiVi')?.value) || 0;
+    const midScore = parseInt(document.getElementById('midScore')?.value) || 0;
+    const finalScore = parseInt(document.getElementById('finalScore')?.value) || 0;
+    const finalRank = parseInt(document.getElementById('finalRank')?.value) || 0;
     const sparkle = parseInt(document.getElementById('sparkle')?.value) || 0;
+    const hifTotalScore = parseInt(document.getElementById('hifTotalScore')?.value) || 0;
+    const hifRound2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
+    const hifStar = parseInt(document.getElementById('hifStar')?.value) || 0;
 
-    // --- すべての項目が0なら表示を0にして終了 ---
-    if (preVo === 0 && preDa === 0 && preVi === 0 &&
-        abiVo === 0 && abiDa === 0 && abiVi === 0 &&
-        midScore === 0 && finalScore === 0 && sparkle === 0) {
+    let hifRound1 = 0;
+    if (scoreInputMode === 'total') {
+        hifRound1 = hifTotalScore - hifRound2;
+    } else {
+        hifRound1 = Math.floor((hifTotalScore * 1.2)); // Assuming hifTotalScore is already adjusted R1 in split mode
+    }
 
+    const allZero = (preVo===0 && preDa===0 && preVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0);
+    if (allZero) {
         document.getElementById('preTotal').textContent = "0";
         document.getElementById('totalEvaluation').textContent = "0";
         document.getElementById('evalRank').textContent = "F";
-        document.getElementById('targetSSS').textContent = "-";
-        document.getElementById('targetSSSPlus').textContent = "-";
-        document.getElementById('targetS4').textContent = "-";
+        const tIds = ['targetS5','targetS4Plus','targetS4','targetSSSPlus','targetSSS'];
+        tIds.forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '-'; });
         return;
     }
 
-    // --- 1. パラメータ計算 ---
-    // 順位による加算値（ステータス加算）
-    let rankAdd = 0;
-    if (finalRank === 1) rankAdd = 160;
-    else if (finalRank === 2) rankAdd = 60;
-    else if (finalRank === 3) rankAdd = 30;
+    if (calcType === 'hajime') {
+        let rankAdd = 0;
+        if (finalRank === 1) rankAdd = 160;
+        else if (finalRank === 2) rankAdd = 60;
+        else if (finalRank === 3) rankAdd = 30;
 
-    const finalStatTotal = Math.min(2800, preVo + abiVo) +
-                           Math.min(2800, preDa + abiDa) +
-                           Math.min(2800, preVi + abiVi);
-    document.getElementById('preTotal').textContent = finalStatTotal.toLocaleString();
+        const finalStatTotal = Math.min(3000, preVo + abiVo) + Math.min(3000, preDa + abiDa) + Math.min(3000, preVi + abiVi);
+        document.getElementById('preTotal').textContent = finalStatTotal.toLocaleString();
 
-    const g4 = Math.min(2800, preVo + abiVo + rankAdd);
-    const h4 = Math.min(2800, preDa + abiDa + rankAdd);
-    const i4 = Math.min(2800, preVi + abiVi + rankAdd);
-    const statSum = g4 + h4 + i4;
+        const g4 = Math.min(3000, preVo + abiVo + rankAdd);
+        const h4 = Math.min(3000, preDa + abiDa + rankAdd);
+        const i4 = Math.min(3000, preVi + abiVi + rankAdd);
+        const statSum = g4 + h4 + i4;
+        const statEval = Math.floor(2.1 * statSum);
 
-    // --- 2. 各種評価値の計算 ---
+        let midEval = 0;
+        if (midScore < 10000) midEval = 0.11 * midScore;
+        else if (midScore < 20000) midEval = 1100 + 0.08 * (midScore - 10000);
+        else if (midScore < 30000) midEval = 1900 + 0.05 * (midScore - 20000);
+        else if (midScore < 40000) midEval = 2400 + 0.008 * (midScore - 30000);
+        else if (midScore < 50000) midEval = 2480 + 0.003 * (midScore - 40000);
+        else if (midScore < 60000) midEval = 2510 + 0.002 * (midScore - 50000);
+        else if (midScore <= 200000) midEval = 2530 + 0.001 * (midScore - 60000);
+        else midEval = 2670;
+        midEval = Math.floor(midEval);
 
-    // ステータス評価値
-    const statEval = Math.floor(2.1 * statSum);
+        const getFinalEvalBase = (score) => {
+            let res = 0;
+            if (score < 300000) res = 0.015 * score;
+            else if (score < 500000) res = 4500 + 0.01 * (score - 300000);
+            else if (score < 600000) res = 6500 + 0.008 * (score - 500000);
+            else if (score <= 2000000) res = 7300 + 0.001 * (score - 600000);
+            else res = 8700;
+            return Math.floor(res);
+        };
 
-    // 中間試験評価値
-    let midEval = 0;
-    if (midScore < 10000) midEval = 0.11 * midScore;
-    else if (midScore < 20000) midEval = 1100 + 0.08 * (midScore - 10000);
-    else if (midScore < 30000) midEval = 1900 + 0.05 * (midScore - 20000);
-    else if (midScore < 40000) midEval = 2400 + 0.008 * (midScore - 30000);
-    else if (midScore < 50000) midEval = 2480 + 0.003 * (midScore - 40000);
-    else if (midScore < 60000) midEval = 2510 + 0.002 * (midScore - 50000);
-    else if (midScore <= 200000) midEval = 2530 + 0.001 * (midScore - 60000);
-    else midEval = 2670;
-    midEval = Math.floor(midEval);
+        const finalEval = getFinalEvalBase(finalScore);
 
-    // 最終試験評価値の計算ロジック
-    const getFinalEvalBase = (score) => {
-        let res = 0;
-        if (score < 300000) res = 0.015 * score;
-        else if (score < 500000) res = 4500 + 0.01 * (score - 300000);
-        else if (score < 600000) res = 6500 + 0.008 * (score - 500000);
-        else if (score <= 2000000) res = 7300 + 0.001 * (score - 600000);
-        else res = 8700;
-        return Math.floor(res);
-    };
-
-    const finalEval = getFinalEvalBase(finalScore);
-
-    // 最終順位評価点
-    let rankEval = 0;
-    switch (finalRank) {
-        case 1: rankEval = 1700; break;
-        case 2: rankEval = 900; break;
-        case 3: rankEval = 500; break;
-        default: rankEval = 0;
-    }
-
-    // モード別 最終評価値の合計計算
-    let totalEvaluation = 0;
-    const baseEvalSum = statEval + midEval + finalEval + rankEval;
-
-    if (currentMode === 'normal') {
-        totalEvaluation = baseEvalSum;
-    } else {
-        // 強化月間: floor(通常評価 × 0.72 + きらめき × 11.016)
-        totalEvaluation = Math.floor(baseEvalSum * 0.72 + (sparkle + 190) * 11.016);
-    }
-
-    // --- 3. 逆算（目標スコア）計算 ---
-    const currentBaseWithoutFinal = statEval + midEval + rankEval;
-
-    const calcNeededFinalScore = (targetEval) => {
-        let neededFinalEval = 0;
-        if (currentMode === 'normal') {
-            neededFinalEval = targetEval - currentBaseWithoutFinal;
-        } else {
-            // targetEval <= (基礎評価合計 + 最終試験評価) * 0.72 + きらめき * 11.016
-            neededFinalEval = Math.ceil(((targetEval - ((sparkle + 190) * 11.016)) / 0.72) - currentBaseWithoutFinal);
+        let rankEval = 0;
+        switch (finalRank) {
+            case 1: rankEval = 1700; break;
+            case 2: rankEval = 900; break;
+            case 3: rankEval = 500; break;
+            default: rankEval = 0;
         }
 
-        if (neededFinalEval <= 0) return "達成済み";
+        const baseEvalSum = statEval + midEval + finalEval + rankEval;
+        let totalEvaluation = 0;
+        if (currentMode === 'normal') totalEvaluation = baseEvalSum;
+        else totalEvaluation = Math.floor(baseEvalSum * 0.72 + (sparkle + 190) * 11.016);
 
-        let score = 0;
-        if (neededFinalEval <= 4500) score = neededFinalEval / 0.015;
-        else if (neededFinalEval <= 6500) score = (neededFinalEval - 4500) / 0.01 + 300000;
-        else if (neededFinalEval <= 7300) score = (neededFinalEval - 6500) / 0.008 + 500000;
-        else if (neededFinalEval <= 8700) score = (neededFinalEval - 7300) / 0.001 + 600000;
-        else return "不可能";
+        const currentBaseWithoutFinal = statEval + midEval + rankEval;
+        const calcNeededFinalScore = (targetEval) => {
+            let neededFinalEval = 0;
+            if (currentMode === 'normal') neededFinalEval = targetEval - currentBaseWithoutFinal;
+            else neededFinalEval = Math.ceil(((targetEval - ((sparkle + 190) * 11.016)) / 0.72) - currentBaseWithoutFinal);
 
-        return Math.ceil(score).toLocaleString() + " pt";
-    };
+            if (neededFinalEval <= 0) return "達成済み";
 
-    // --- 4. ランク判定 ---
-    const getRank = (score) => {
-        if (score >= 26000) return "S4";
-        if (score >= 23000) return "SSS+";
-        if (score >= 20000) return "SSS";
-        if (score >= 18000) return "SS+";
-        if (score >= 16000) return "SS";
-        if (score >= 14500) return "S+";
-        if (score >= 13000) return "S";
-        if (score >= 11500) return "A+";
-        if (score >= 10000) return "A";
-        if (score >= 8000) return "B+";
-        if (score >= 6000) return "B";
-        if (score >= 4500) return "C+";
-        if (score >= 3000) return "C";
-        return "F";
-    };
+            let score = 0;
+            if (neededFinalEval <= 4500) score = neededFinalEval / 0.015;
+            else if (neededFinalEval <= 6500) score = (neededFinalEval - 4500) / 0.01 + 300000;
+            else if (neededFinalEval <= 7300) score = (neededFinalEval - 6500) / 0.008 + 500000;
+            else if (neededFinalEval <= 8700) score = (neededFinalEval - 7300) / 0.001 + 600000;
+            else return "不可能";
+            return Math.ceil(score).toLocaleString() + " pt";
+        };
 
-    // --- 5. 表示への反映 ---
-    const totalEvalElement = document.getElementById('totalEvaluation');
-    const rankElement = document.getElementById('evalRank');
+        const getRank = (score) => {
+            if (score >= 26000) return "S4";
+            if (score >= 23000) return "SSS+";
+            if (score >= 20000) return "SSS";
+            if (score >= 18000) return "SS+";
+            if (score >= 16000) return "SS";
+            if (score >= 14500) return "S+";
+            if (score >= 13000) return "S";
+            if (score >= 11500) return "A+";
+            if (score >= 10000) return "A";
+            if (score >= 8000) return "B+";
+            if (score >= 6000) return "B";
+            if (score >= 4500) return "C+";
+            if (score >= 3000) return "C";
+            return "F";
+        };
 
-    totalEvalElement.textContent = totalEvaluation.toLocaleString();
-    rankElement.textContent = getRank(totalEvaluation);
+        document.getElementById('totalEvaluation').textContent = totalEvaluation.toLocaleString();
+        document.getElementById('evalRank').textContent = getRank(totalEvaluation);
+        document.getElementById('evalRank').style.backgroundColor = totalEvaluation >= 20000 ? '#ffbc00' : '#4364f7';
+        document.getElementById('targetS5') && (document.getElementById('targetS5').textContent = '-');
+        document.getElementById('targetS4Plus') && (document.getElementById('targetS4Plus').textContent = '-');
+        document.getElementById('targetS4') && (document.getElementById('targetS4').textContent = calcNeededFinalScore(26000));
+        document.getElementById('targetSSSPlus') && (document.getElementById('targetSSSPlus').textContent = calcNeededFinalScore(23000));
+        document.getElementById('targetSSS') && (document.getElementById('targetSSS').textContent = calcNeededFinalScore(20000));
 
-    // ランクに応じた色の変更
-    if (totalEvaluation >= 20000) {
-        rankElement.style.backgroundColor = "#ffbc00"; // 金色
-    } else {
-        rankElement.style.backgroundColor = "#4364f7"; // 青色
+    } else if (calcType === 'hif') {
+        const cap = (v) => Math.min(3200, v);
+        const g = cap(preVo);
+        const h = cap(preDa);
+        const i = cap(preVi);
+        const totalStats = g + h + i;
+        document.getElementById('preTotal').textContent = totalStats.toLocaleString();
+
+        const statStarPart = Math.floor(totalStats * 2 + (hifStar + 225) * 7.5);
+        const r1Eval = getHifRound1Eval(hifRound1);
+        const r2Eval = getHifRound2Eval(hifRound2);
+        const totalEvaluation = statStarPart + r1Eval + r2Eval - 2000;
+
+        document.getElementById('totalEvaluation').textContent = totalEvaluation.toLocaleString();
+        const getRank = (score) => {
+            if (score >= 35000) return 'S5';
+            if (score >= 30000) return 'S4+';
+            if (score >= 26000) return 'S4';
+            if (score >= 23000) return 'SSS+';
+            if (score >= 20000) return 'SSS';
+            return 'F';
+        };
+        document.getElementById('evalRank').textContent = getRank(totalEvaluation);
+        document.getElementById('evalRank').style.backgroundColor = totalEvaluation >= 20000 ? '#ffbc00' : '#4364f7';
+
+        const calcNeededRound2ScoreForTarget = (targetEval) => {
+            const base = statStarPart + r1Eval - 2000;
+            const need = targetEval - base;
+            if (need <= 0) return '達成済み';
+
+            let lo = 0, hi = 5000000, ans = -1;
+            while (lo <= hi) {
+                const mid = Math.floor((lo + hi) / 2);
+                const ev = getHifRound2Eval(mid);
+                if (ev >= need) { ans = mid; hi = mid - 1; }
+                else lo = mid + 1;
+            }
+            return ans === -1 ? '不可能' : Math.ceil(ans).toLocaleString() + ' pt';
+        };
+        document.getElementById('targetS5') && (document.getElementById('targetS5').textContent = calcNeededRound2ScoreForTarget(35000));
+        document.getElementById('targetS4Plus') && (document.getElementById('targetS4Plus').textContent = calcNeededRound2ScoreForTarget(30000));
+        document.getElementById('targetS4') && (document.getElementById('targetS4').textContent = calcNeededRound2ScoreForTarget(26000));
+        document.getElementById('targetSSSPlus') && (document.getElementById('targetSSSPlus').textContent = calcNeededRound2ScoreForTarget(23000));
+        document.getElementById('targetSSS') && (document.getElementById('targetSSS').textContent = calcNeededRound2ScoreForTarget(20000));
     }
-
-    // 各目標ランクへの必要スコア
-    document.getElementById('targetSSS').textContent = calcNeededFinalScore(20000);
-    document.getElementById('targetSSSPlus').textContent = calcNeededFinalScore(23000);
-    document.getElementById('targetS4').textContent = calcNeededFinalScore(26000);
 }

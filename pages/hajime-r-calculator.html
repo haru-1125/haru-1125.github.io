@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学マス初レジェンド計算機</title>
+    <title>学マス 評価値計算機</title>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6489YQ95Q"></script>
     <script>
@@ -22,7 +22,7 @@
     <header>
         <nav class="main-nav">
             <ul>
-                <li><a href="hajime-r-calculator.html" class="nav-link active" id="harcal-link">初レジェ計算機</a></li>
+                <li><a href="hajime-r-calculator.html" class="nav-link active" id="harcal-link">評価値計算機</a></li>
                 <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ所持率</a></li>
                 <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ所持率</a></li>
             </ul>
@@ -30,38 +30,73 @@
     </header>
 
     <main class="container">
-        <h1>初レジェンド評価値計算機</h1>
+        <h1>評価値計算機</h1>
+
+        <div class="calc-type-selector" style="margin-bottom:12px;">
+            <button id="calcTypeHajime" class="mode-btn" onclick="setCalcType('hajime')">初レジェ</button>
+            <button id="calcTypeHIF" class="mode-btn active" onclick="setCalcType('hif')">HIF</button>
+        </div>
 
         <div class="calculator-card">
-            <div class="mode-selector">
+            <div class="mode-selector" id="modeSelectorContainer">
                 <button id="modeNormal" class="mode-btn active" onclick="setMode('normal')">通常</button>
                 <button id="modeIntensive" class="mode-btn" onclick="setMode('intensive')">強化月間</button>
             </div>
 
             <section class="input-group">
                 <div class="section-header">
-                    <h3>最終試験前パラメータ</h3>
+                    <h3>ラウンド2前パラメータ</h3>
                     <button type="button" class="toggle-section-btn" onclick="resetPreParams()">リセット</button>
                 </div>
                 <div class="grid-3">
                     <div class="input-field">
                         <label class="label-vo">Vocal</label>
-                        <input type="number" id="preVo" min="0" max="2800" placeholder="0">
+                        <input type="number" id="preVo" min="0" max="3200" placeholder="0">
                     </div>
                     <div class="input-field">
                         <label class="label-da">Dance</label>
-                        <input type="number" id="preDa" min="0" max="2800" placeholder="0">
+                        <input type="number" id="preDa" min="0" max="3200" placeholder="0">
                     </div>
                     <div class="input-field">
                         <label class="label-vi">Visual</label>
-                        <input type="number" id="preVi" min="0" max="2800" placeholder="0">
+                        <input type="number" id="preVi" min="0" max="3200" placeholder="0">
                     </div>
                 </div>
                 <div class="param-total-display">
                     合計: <span id="preTotal">0</span>
             </section>
 
-            <section class="input-group">
+            <!-- HIF専用入力 -->
+            <section id="hifInputs" class="input-group" style="display:none;">
+                <div class="section-header">
+                    <h3>試験スコア入力</h3>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <button id="scoreModeTotal" class="score-mode-btn active" onclick="setScoreInputMode('total')">合計入力</button>
+                        <button id="scoreModeSplit" class="score-mode-btn" onclick="setScoreInputMode('split')">分割入力</button>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="input-field">
+                        <label id="leftScoreLabel">合計スコア</label>
+                        <input type="number" id="hifTotalScore" min="0" max="4080000" placeholder="0">
+                        <button class="max-btn" onclick="setMaxLeft()">上限</button>
+                    </div>
+                    <div class="input-field">
+                        <label>ラウンド2 獲得スコア</label>
+                        <input type="number" id="hifRound2" min="0" max="2400000" placeholder="0">
+                        <button class="max-btn" onclick="setMax('hifRound2', 2400000)">上限</button>
+                    </div>
+                </div>
+
+                <div class="input-field full-width">
+                    <label>ラウンド2前 スター性<span class="section-note"
+                            style="margin-top:0; display:block; font-weight:normal;">スター性獲得計算式が不明な為、100万以下の場合にずれが生じます</span></label>
+                    <input type="number" id="hifStar" min="0" max="1110" placeholder="0">
+                    <button class="max-btn" onclick="setMax(\'hifStar\', 1110)">上限</button>
+                </div>
+            </section>
+
+            <section class="input-group" id="abiInputSection">
                 <div class="section-header">
                     <h3>試験終了時アビ点数</h3>
                     <button type="button" id="toggleAbiBtn" class="toggle-section-btn" onclick="toggleAbiSection()">表示</button>
@@ -71,21 +106,21 @@
                     <div class="grid-3">
                         <div class="input-field">
                             <label class="label-vo">Vocal</label>
-                            <input type="number" id="abiVo" min="0" max="2800" placeholder="0">
+                            <input type="number" id="abiVo" min="0" max="3200" placeholder="0">
                         </div>
                         <div class="input-field">
                             <label class="label-da">Dance</label>
-                            <input type="number" id="abiDa" min="0" max="2800" placeholder="0">
+                            <input type="number" id="abiDa" min="0" max="3200" placeholder="0">
                         </div>
                         <div class="input-field">
                             <label class="label-vi">Visual</label>
-                            <input type="number" id="abiVi" min="0" max="2800" placeholder="0">
+                            <input type="number" id="abiVi" min="0" max="3200" placeholder="0">
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="input-group">
+            <section class="input-group" id="hajimeExtraSection">
                 <div class="grid-2">
                     <div class="input-field">
                         <label>中間試験スコア</label>
@@ -129,16 +164,24 @@
 
             <div class="target-scores">
                 <h3>目標ランク別 必要最終スコア</h3>
+                <div class="target-item" id="targetRowS5">
+                    <span>S5 (35,000Pt)</span>
+                    <span id="targetS5" class="needed-score">-</span>
+                </div>
+                <div class="target-item" id="targetRowS4Plus">
+                    <span>S4+ (30,000Pt)</span>
+                    <span id="targetS4Plus" class="needed-score">-</span>
+                </div>
                 <div class="target-item">
-                    <span>S4 (26,000pt)</span>
+                    <span>S4 (26,000Pt)</span>
                     <span id="targetS4" class="needed-score">-</span>
                 </div>
                 <div class="target-item">
-                    <span>SSS+ (23,000pt)</span>
+                    <span>SSS+ (23,000Pt)</span>
                     <span id="targetSSSPlus" class="needed-score">-</span>
                 </div>
                 <div class="target-item">
-                    <span>SSS (20,000pt)</span>
+                    <span>SSS (20,000Pt)</span>
                     <span id="targetSSS" class="needed-score">-</span>
                 </div>
             </div>
