@@ -64,30 +64,11 @@ function setScoreInputMode(mode) {
     if (mode === 'total') {
         if (leftLabel) leftLabel.textContent = '合計スコア';
         if (leftInput) leftInput.max = 4080000;
-        if (prevMode === 'split') {
-            const adjusted = parseInt(leftInput.value) || 0;
-            const rawR1 = Math.ceil(adjusted * 1.2);
-            let total = rawR1 + r2;
-            if (total < 0) total = 0;
-            if (total > 4080000) total = 4080000;
-            leftInput.value = total;
-        } else {
-            leftInput.value = parseInt(leftInput.value) || 0;
-        }
+        // No change in value when switching modes if not explicitly set by the user
     } else {
         if (leftLabel) leftLabel.textContent = 'ラウンド1獲得スコア(補正後)';
         if (leftInput) leftInput.max = 1680000;
-        if (prevMode === 'total') {
-            const total = parseInt(leftInput.value) || 0;
-            const rawR1 = total - r2;
-            const adjusted = rawR1 > 0 ? Math.floor(rawR1 / 1.2) : 0;
-            let v = adjusted;
-            if (v < 0) v = 0;
-            if (v > 1680000) v = 1680000;
-            leftInput.value = v;
-        } else {
-            leftInput.value = parseInt(leftInput.value) || 0;
-        }
+        // No change in value when switching modes if not explicitly set by the user
     }
 
     updateCalculation();
@@ -129,6 +110,14 @@ function validateMax(input) {
         input.value = max;
         updateCalculation();
     }
+    // Special handling for hifStar
+    if (input.id === 'hifStar') {
+        const hifStarMax = 1110;
+        if (val > hifStarMax) {
+            input.value = hifStarMax;
+            updateCalculation();
+        }
+    }
 }
 
 function getHifRound1Eval(score) {
@@ -168,13 +157,20 @@ function updateCalculation() {
     const sparkle = parseInt(document.getElementById('sparkle')?.value) || 0;
     const hifTotalScore = parseInt(document.getElementById('hifTotalScore')?.value) || 0;
     const hifRound2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
-    const hifStar = parseInt(document.getElementById('hifStar')?.value) || 0;
+    let hifStar = parseInt(document.getElementById('hifStar')?.value) || 0;
+
+    // Apply star power max limit
+    if (hifStar > 1110) {
+        hifStar = 1110;
+        // Note: We don't update the input field here to avoid an infinite loop
+        // The validateMax function already handles updating the input field on blur/keydown
+    }
 
     let hifRound1 = 0;
     if (scoreInputMode === 'total') {
         hifRound1 = hifTotalScore - hifRound2;
     } else {
-        hifRound1 = Math.floor((hifTotalScore * 1.2)); // Assuming hifTotalScore is already adjusted R1 in split mode
+        hifRound1 = hifTotalScore;
     }
 
     const allZero = (preVo===0 && preDa===0 && preVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0);
