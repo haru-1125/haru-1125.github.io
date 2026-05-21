@@ -66,7 +66,7 @@ function setScoreInputMode(mode) {
         if (leftInput) leftInput.max = 4080000;
         // No change in value when switching modes if not explicitly set by the user
     } else {
-        if (leftLabel) leftLabel.textContent = 'ラウンド1獲得スコア(補正後)';
+        if (leftLabel) leftLabel.textContent = 'ラウンド1(補正後)';
         if (leftInput) leftInput.max = 1680000;
         // No change in value when switching modes if not explicitly set by the user
     }
@@ -91,6 +91,13 @@ function resetPreParams() {
     document.getElementById('preVi').value = '';
     document.getElementById('midScore').value = '';
     document.getElementById('finalScore').value = '';
+    const hifTotalScore = document.getElementById('hifTotalScore');
+    const hifRound2 = document.getElementById('hifRound2');
+    const hifStar = document.getElementById('hifStar');
+    if (hifTotalScore) hifTotalScore.value = '';
+    if (hifRound2) hifRound2.value = '';
+    if (hifStar) hifStar.value = '';
+    updateHifRound2StarGainDisplay(0);
     updateCalculation();
 }
 
@@ -144,6 +151,33 @@ function getHifRound2Eval(score) {
     return Math.floor(res);
 }
 
+/** ラウンド2獲得スコアから獲得するスター性（スプシの ROUNDUP 相当） */
+function getHifStarGainFromRound2(round2Score) {
+    const score = round2Score || 0;
+    let value;
+    if (score <= 400000) value = score * 0.0001875;
+    else if (score <= 600000) value = 75 + (score - 400000) * 0.000225;
+    else if (score <= 1000000) value = 120 + (score - 600000) * 0.000075;
+    else value = 150;
+    return Math.ceil(value);
+}
+
+function updateHifRound2StarGainDisplay(gain) {
+    const el = document.getElementById('hifRound2StarGain');
+    if (el) el.textContent = `スター性+${gain}`;
+}
+
+function updateFinalRankParamBonusDisplay(rank) {
+    const el = document.getElementById('finalRankParamBonus');
+    if (!el) return;
+    const labels = {
+        1: 'パラメータ+160',
+        2: 'パラメータ+60(不明な為未更新)',
+        3: 'パラメータ+30(不明な為未更新)',
+    };
+    el.textContent = labels[rank] || 'パラメータ+0';
+}
+
 function updateCalculation() {
     const preVo = parseInt(document.getElementById('preVo').value) || 0;
     const preDa = parseInt(document.getElementById('preDa').value) || 0;
@@ -173,12 +207,15 @@ function updateCalculation() {
         hifRound1 = hifTotalScore;
     }
 
+    updateFinalRankParamBonusDisplay(finalRank);
+
     const allZero = (preVo===0 && preDa===0 && preVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0);
     if (allZero) {
         document.getElementById('preTotal').textContent = "0";
         document.getElementById('totalEvaluation').textContent = "0";
         document.getElementById('evalRank').textContent = "F";
-        const tIds = ['targetS5','targetS4Plus','targetS4','targetSSSPlus','targetSSS'];
+        updateHifRound2StarGainDisplay(0);
+        const tIds = ['targetS5','targetS4Plus','targetS4','targetSSSPlus','targetSSS','targetSSPlus','targetSS'];
         tIds.forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '-'; });
         return;
     }
@@ -276,6 +313,8 @@ function updateCalculation() {
         document.getElementById('targetS4') && (document.getElementById('targetS4').textContent = calcNeededFinalScore(26000));
         document.getElementById('targetSSSPlus') && (document.getElementById('targetSSSPlus').textContent = calcNeededFinalScore(23000));
         document.getElementById('targetSSS') && (document.getElementById('targetSSS').textContent = calcNeededFinalScore(20000));
+        document.getElementById('targetSSPlus') && (document.getElementById('targetSSPlus').textContent = calcNeededFinalScore(18000));
+        document.getElementById('targetSS') && (document.getElementById('targetSS').textContent = calcNeededFinalScore(16000));
 
     } else if (calcType === 'hif') {
         const cap = (v) => Math.min(3200, v);
@@ -285,7 +324,10 @@ function updateCalculation() {
         const totalStats = g + h + i;
         document.getElementById('preTotal').textContent = totalStats.toLocaleString();
 
-        const statStarPart = Math.floor(totalStats * 2 + (hifStar + 225) * 7.5);
+        const round2StarGainBase = getHifStarGainFromRound2(hifRound2);
+        const round2StarGain = Math.floor(round2StarGainBase * 1.5);
+        updateHifRound2StarGainDisplay(round2StarGain);
+        const statStarPart = Math.floor(totalStats * 2 + (round2StarGain + hifStar) * 7.5);
         const r1Eval = getHifRound1Eval(hifRound1);
         const r2Eval = getHifRound2Eval(hifRound2);
         const totalEvaluation = statStarPart + r1Eval + r2Eval - 2000;
@@ -302,17 +344,24 @@ function updateCalculation() {
         document.getElementById('evalRank').textContent = getRank(totalEvaluation);
         document.getElementById('evalRank').style.backgroundColor = totalEvaluation >= 20000 ? '#ffbc00' : '#4364f7';
 
-        const calcNeededRound2ScoreForTarget = (targetEval) => {
-            const base = statStarPart + r1Eval - 2000;
-            const need = targetEval - base;
-            if (need <= 0) return '達成済み';
+        const calcTotalEvalAtRound2 = (round2Score) => {
+            const gain = Math.floor(getHifStarGainFromRound2(round2Score) * 1.5);
+            const starPart = Math.floor(totalStats * 2 + (gain + hifStar) * 7.5);
+            return starPart + getHifRound1Eval(hifRound1) + getHifRound2Eval(round2Score) - 2000;
+        };
 
-            let lo = 0, hi = 5000000, ans = -1;
+        const calcNeededRound2ScoreForTarget = (targetEval) => {
+            if (calcTotalEvalAtRound2(hifRound2) >= targetEval) return '達成済み';
+
+            let lo = 0, hi = 2400000, ans = -1;
             while (lo <= hi) {
                 const mid = Math.floor((lo + hi) / 2);
-                const ev = getHifRound2Eval(mid);
-                if (ev >= need) { ans = mid; hi = mid - 1; }
-                else lo = mid + 1;
+                if (calcTotalEvalAtRound2(mid) >= targetEval) {
+                    ans = mid;
+                    hi = mid - 1;
+                } else {
+                    lo = mid + 1;
+                }
             }
             return ans === -1 ? '不可能' : Math.ceil(ans).toLocaleString() + ' pt';
         };
@@ -321,5 +370,7 @@ function updateCalculation() {
         document.getElementById('targetS4') && (document.getElementById('targetS4').textContent = calcNeededRound2ScoreForTarget(26000));
         document.getElementById('targetSSSPlus') && (document.getElementById('targetSSSPlus').textContent = calcNeededRound2ScoreForTarget(23000));
         document.getElementById('targetSSS') && (document.getElementById('targetSSS').textContent = calcNeededRound2ScoreForTarget(20000));
+        document.getElementById('targetSSPlus') && (document.getElementById('targetSSPlus').textContent = calcNeededRound2ScoreForTarget(18000));
+        document.getElementById('targetSS') && (document.getElementById('targetSS').textContent = calcNeededRound2ScoreForTarget(16000));
     }
 }

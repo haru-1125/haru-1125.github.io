@@ -219,6 +219,13 @@ h1 {
     color: #666;
 }
 
+.hif-round2-star-gain {
+    margin: 8px 0 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4364f7;
+}
+
 /* 上限ボタン */
 .max-btn {
     margin-top: 5px;
