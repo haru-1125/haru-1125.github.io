@@ -166,6 +166,11 @@ const supports = [
     file: "../assets/sup/みいつけた。.png", darkFile: "../assets/supan/みいつけた。.png"
   },
   {
+    name: "あなたとふたり、電車で", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/あなたとふたり、電車で.png", darkFile: "../assets/supan/あなたとふたり、電車で.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
