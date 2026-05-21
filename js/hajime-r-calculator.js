@@ -175,6 +175,19 @@ function updateHifRound2StarGainDisplay(gain) {
     if (el) el.textContent = `スター性+${gain}`;
 }
 
+function updateHifDerivedScoreDisplay() {
+    if (calcType !== 'hif') return;
+    const el = document.getElementById('hifDerivedScore');
+    if (!el) return;
+    const hifTotalScore = parseInt(document.getElementById('hifTotalScore')?.value) || 0;
+    const hifRound2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
+    if (scoreInputMode === 'total') {
+        el.textContent = `ラウンド1(補正後)=${hifTotalScore - hifRound2}`;
+    } else {
+        el.textContent = `合計スコア=${hifTotalScore + hifRound2}`;
+    }
+}
+
 function updateFinalRankParamBonusDisplay(rank) {
     const el = document.getElementById('finalRankParamBonus');
     if (!el) return;
@@ -210,6 +223,7 @@ function updateCalculation() {
         hifRound1 = hifTotalScore;
     }
 
+    updateHifDerivedScoreDisplay();
     updateFinalRankParamBonusDisplay(finalRank);
 
     const allZero = (preVo===0 && preDa===0 && preVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0);
@@ -218,6 +232,7 @@ function updateCalculation() {
         document.getElementById('totalEvaluation').textContent = "0";
         document.getElementById('evalRank').textContent = "F";
         updateHifRound2StarGainDisplay(0);
+        updateHifDerivedScoreDisplay();
         const tIds = ['targetS5','targetS4Plus','targetS4','targetSSSPlus','targetSSS','targetSSPlus','targetSS'];
         tIds.forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '-'; });
         return;
