@@ -115,7 +115,7 @@ function updateStats() {
         }
     });
 
-    const tubamePercent = kotoneTotal > 0 ? ((tubameOwned / tubameTotal) * 100).toFixed(1) : "0.0";
+    const tubamePercent = tubameTotal > 0 ? ((tubameOwned / tubameTotal) * 100).toFixed(1) : "0.0";
 
     tubameStats.innerHTML = `燕:<span class="red">${tubameTotal}</span>種中<span class="red">${tubameOwned}</span>種（ 所持率<span class="red">${tubamePercent}%</span> ）`;
 

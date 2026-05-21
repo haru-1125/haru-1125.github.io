@@ -48,6 +48,12 @@ function setCalcType(type) {
     const targetRowS4Plus = document.getElementById('targetRowS4Plus');
     if (targetRowS5) targetRowS5.style.display = (type === 'hif') ? 'flex' : 'none';
     if (targetRowS4Plus) targetRowS4Plus.style.display = (type === 'hif') ? 'flex' : 'none';
+    const targetScoresTitle = document.getElementById('targetScoresTitle');
+    if (targetScoresTitle) {
+        targetScoresTitle.textContent = type === 'hif'
+            ? '目標ランク別 必要ラウンド2スコア'
+            : '目標ランク別 必要最終スコア';
+    }
     updateCalculation();
 }
 
