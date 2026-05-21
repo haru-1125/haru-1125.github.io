@@ -481,6 +481,11 @@ const supports = [
     file: "../assets/sup/長旅おつかれさま！.png", darkFile: "../assets/supan/長旅おつかれさま！.png"
   },
   {
+    name: "……騒々しいお祭りね", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/……騒々しいお祭りね.png", darkFile: "../assets/supan/……騒々しいお祭りね.png"
+  },
+  {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/きみは、自慢の生徒です.png", darkFile: "../assets/supan/きみは、自慢の生徒です.png"
