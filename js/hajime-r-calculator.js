@@ -81,7 +81,12 @@ function setMaxLeft() {
 
 function setMax(id, value) {
     const el = document.getElementById(id);
-    if (el) el.value = value;
+    if (!el) return;
+    const maxAttr = el.getAttribute('max');
+    if (maxAttr) el.removeAttribute('max');
+    el.value = String(value);
+    if (maxAttr) el.setAttribute('max', maxAttr);
+    el.dispatchEvent(new Event('input', { bubbles: true }));
     updateCalculation();
 }
 
@@ -110,20 +115,17 @@ function toggleAbiSection() {
     toggleButton.textContent = isHidden ? '閉じる' : '表示';
 }
 
+/** HIF試験スコアのみ上限超過でも入力値を書き換えない（上限ボタンのみで設定） */
+const HIF_SCORE_INPUT_IDS = new Set(['hifTotalScore', 'hifRound2']);
+
 function validateMax(input) {
-    const val = parseInt(input.value);
-    const max = parseInt(input.getAttribute('max'));
+    if (!input || HIF_SCORE_INPUT_IDS.has(input.id)) return;
+    const val = parseInt(input.value, 10);
+    if (Number.isNaN(val)) return;
+    const max = parseInt(input.getAttribute('max'), 10);
     if (max && val > max) {
-        input.value = max;
+        input.value = String(max);
         updateCalculation();
-    }
-    // Special handling for hifStar
-    if (input.id === 'hifStar') {
-        const hifStarMax = 1110;
-        if (val > hifStarMax) {
-            input.value = hifStarMax;
-            updateCalculation();
-        }
     }
 }
 
@@ -193,12 +195,7 @@ function updateCalculation() {
     const hifRound2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
     let hifStar = parseInt(document.getElementById('hifStar')?.value) || 0;
 
-    // Apply star power max limit
-    if (hifStar > 1110) {
-        hifStar = 1110;
-        // Note: We don't update the input field here to avoid an infinite loop
-        // The validateMax function already handles updating the input field on blur/keydown
-    }
+    if (hifStar > 1110) hifStar = 1110;
 
     let hifRound1 = 0;
     if (scoreInputMode === 'total') {

@@ -71,8 +71,8 @@
                 <div class="section-header">
                     <h3>試験スコア</h3>
                     <div style="display:flex; gap:8px; align-items:center;">
-                        <button id="scoreModeTotal" class="score-mode-btn active" onclick="setScoreInputMode('total')">合計入力</button>
-                        <button id="scoreModeSplit" class="score-mode-btn" onclick="setScoreInputMode('split')">分割入力</button>
+                        <button id="scoreModeTotal" class="score-mode-btn active" onclick="setScoreInputMode('total')">合計</button>
+                        <button id="scoreModeSplit" class="score-mode-btn" onclick="setScoreInputMode('split')">分割</button>
                     </div>
                 </div>
                 <div class="grid-2">
@@ -91,7 +91,7 @@
                 <div class="input-field full-width">
                     <label>ラウンド2前 スター性</label>
                     <input type="number" id="hifStar" min="0" max="1110" placeholder="0">
-                    <button class="max-btn" onclick="setMax(\'hifStar\', 1110)">上限</button>
+                    <button type="button" class="max-btn" onclick="setMax('hifStar', 1110)">上限</button>
                     <p id="hifRound2StarGain" class="hif-round2-star-gain">スター性+0</p>
                 </div>
             </section>

@@ -219,9 +219,14 @@ h1 {
     color: #666;
 }
 
+#hifInputs {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
 .hif-round2-star-gain {
-    margin: 8px 0 0;
-    font-size: 0.95rem;
+    margin: 6px 0 0;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #4364f7;
 }
