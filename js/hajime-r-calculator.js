@@ -139,7 +139,7 @@ function getHifRound1Eval(score) {
     const adjusted = Math.floor((score || 0) / 1.2);
     let res = 0;
     if (adjusted <= 300000) res = 0;
-    else if (adjusted <= 700000) res = adjusted * 0.01;
+    else if (adjusted <= 700000) res = (adjusted - 300000) * 0.01;
     else if (adjusted <= 1000000) res = 4000 + (adjusted - 700000) * 0.003;
     else if (adjusted <= 1200000) res = 4900 + (adjusted - 1000000) * 0.002;
     else if (adjusted <= 1400000) res = 5300 + (adjusted - 1200000) * 0.001;
