@@ -54,6 +54,12 @@ function setCalcType(type) {
             ? '目標ランク別 必要ラウンド2スコア'
             : '目標ランク別 必要最終スコア';
     }
+    const preParamsTitle = document.getElementById('preParamsTitle');
+    if (preParamsTitle) {
+        preParamsTitle.textContent = type === 'hif'
+            ? 'ラウンド2前パラメータ'
+            : '最終試験前パラメータ';
+    }
     updateCalculation();
 }
 
