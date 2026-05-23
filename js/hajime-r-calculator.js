@@ -63,6 +63,26 @@ function setCalcType(type) {
     updateCalculation();
 }
 
+function toggleRound1ScoreHelp() {
+    const panel = document.getElementById('round1ScoreHelp');
+    const btn = document.getElementById('round1ScoreHelpBtn');
+    if (!panel || !btn) return;
+    const open = panel.hidden;
+    panel.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+}
+
+function updateRound1ScoreHelpVisibility(mode) {
+    const btn = document.getElementById('round1ScoreHelpBtn');
+    const panel = document.getElementById('round1ScoreHelp');
+    const show = mode === 'split';
+    if (btn) {
+        btn.hidden = !show;
+        btn.setAttribute('aria-expanded', 'false');
+    }
+    if (panel) panel.hidden = true;
+}
+
 function setScoreInputMode(mode) {
     const prevMode = scoreInputMode;
     scoreInputMode = mode;
@@ -83,6 +103,7 @@ function setScoreInputMode(mode) {
         // No change in value when switching modes if not explicitly set by the user
     }
 
+    updateRound1ScoreHelpVisibility(mode);
     updateCalculation();
 }
 

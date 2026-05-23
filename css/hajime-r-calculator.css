@@ -170,6 +170,58 @@ h1 {
     color: #444;
 }
 
+.input-label-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+
+.input-label-row label {
+    margin-bottom: 0;
+}
+
+.info-icon-btn {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #4364f7;
+    background: #f4f7ff;
+    color: #4364f7;
+    font-size: 0.72rem;
+    font-weight: bold;
+    font-style: italic;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.info-icon-btn:hover {
+    background: #4364f7;
+    color: #fff;
+}
+
+.score-help-panel {
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    border-left: 3px solid #4364f7;
+    background: #f8faff;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.score-help-panel p {
+    margin: 0;
+}
+
+.score-help-panel p + p {
+    margin-top: 6px;
+}
+
 .input-field input, .input-field select {
     padding: 10px;
     border: 1px solid #ccc;

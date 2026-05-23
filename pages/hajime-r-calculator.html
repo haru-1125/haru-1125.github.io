@@ -77,7 +77,16 @@
                 </div>
                 <div class="grid-2">
                     <div class="input-field">
-                        <label id="leftScoreLabel">合計スコア</label>
+                        <div class="input-label-row">
+                            <label id="leftScoreLabel">合計スコア</label>
+                            <button type="button" id="round1ScoreHelpBtn" class="info-icon-btn"
+                                aria-label="ラウンド1(補正後)の説明" aria-expanded="false"
+                                onclick="toggleRound1ScoreHelp()" hidden>i</button>
+                        </div>
+                        <div id="round1ScoreHelp" class="score-help-panel" hidden>
+                            <p>ラウンド1は1位の場合ボーナスがあり、<br>スコアが1.2倍になります</p>
+                            <p>順位発表画面で表示される、<br>1位ボーナス込の値を入力してください</p>
+                        </div>
                         <input type="number" id="hifTotalScore" min="0" max="4080000" placeholder="0">
                         <button class="max-btn" onclick="setMaxLeft()">上限</button>
                         <p id="hifDerivedScore" class="hif-round2-star-gain">ラウンド1(補正後)=0</p>
