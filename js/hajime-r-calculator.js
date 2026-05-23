@@ -98,7 +98,7 @@ function setScoreInputMode(mode) {
         if (leftInput) leftInput.max = 4080000;
         // No change in value when switching modes if not explicitly set by the user
     } else {
-        if (leftLabel) leftLabel.textContent = 'ラウンド1(補正後)';
+        if (leftLabel) leftLabel.textContent = 'R1(補正後)';
         if (leftInput) leftInput.max = 1680000;
         // No change in value when switching modes if not explicitly set by the user
     }
@@ -209,7 +209,7 @@ function updateHifDerivedScoreDisplay() {
     const hifTotalScore = parseInt(document.getElementById('hifTotalScore')?.value) || 0;
     const hifRound2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
     if (scoreInputMode === 'total') {
-        el.textContent = `ラウンド1(補正後)=${hifTotalScore - hifRound2}`;
+        el.textContent = `R1(補正後)=${hifTotalScore - hifRound2}`;
     } else {
         el.textContent = `合計スコア=${hifTotalScore + hifRound2}`;
     }
