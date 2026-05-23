@@ -220,8 +220,8 @@ function updateFinalRankParamBonusDisplay(rank) {
     if (!el) return;
     const labels = {
         1: 'パラメータ+160',
-        2: 'パラメータ+60(不明な為未更新)',
-        3: 'パラメータ+30(不明な為未更新)',
+        2: 'パラメータ+80',
+        3: 'パラメータ+40',
     };
     el.textContent = labels[rank] || 'パラメータ+0';
 }
@@ -268,8 +268,8 @@ function updateCalculation() {
     if (calcType === 'hajime') {
         let rankAdd = 0;
         if (finalRank === 1) rankAdd = 160;
-        else if (finalRank === 2) rankAdd = 60;
-        else if (finalRank === 3) rankAdd = 30;
+        else if (finalRank === 2) rankAdd = 80;
+        else if (finalRank === 3) rankAdd = 40;
 
         const finalStatTotal = Math.min(3000, preVo + abiVo) + Math.min(3000, preDa + abiDa) + Math.min(3000, preVi + abiVi);
         document.getElementById('preTotal').textContent = finalStatTotal.toLocaleString();
