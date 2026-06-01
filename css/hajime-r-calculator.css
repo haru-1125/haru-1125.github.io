@@ -122,6 +122,40 @@ h1 {
     text-align: left;
 }
 
+.target-title-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.round-score-switch {
+    display: none;
+    gap: 6px;
+}
+
+.score-switch-btn {
+    padding: 6px 10px;
+    border: 1px solid #4364f7;
+    background: #f4f7ff;
+    color: #4364f7;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.score-switch-btn.active {
+    background: #4364f7;
+    color: #fff;
+}
+
+.score-switch-btn:hover {
+    background: #cddbff;
+}
+
 .input-group {
     margin-bottom: 12px;
     padding-bottom: 8px;
@@ -143,6 +177,20 @@ h1 {
     margin-bottom: 4px;
     border-left: 4px solid #4364f7;
     padding-left: 8px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.section-title-with-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .grid-3 {
@@ -276,8 +324,15 @@ h1 {
     padding-bottom: 0;
 }
 
+.hif-star-gains {
+    display: inline-flex;
+    gap: 16px;
+    margin-top: 6px;
+    white-space: nowrap;
+}
+
 .hif-round2-star-gain {
-    margin: 6px 0 0;
+    display: inline-block;
     font-size: 0.8rem;
     font-weight: 600;
     color: #4364f7;

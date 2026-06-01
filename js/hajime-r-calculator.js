@@ -14,7 +14,8 @@
 
 let currentMode = 'normal';
 let calcType = 'hif';
-let scoreInputMode = 'total'; // 'total' or 'split'
+let scoreInputMode = 'r2after'; // 'r1before', 'r2before', or 'r2after'
+let targetScoreView = 'r1'; // 'r1' or 'r2'
 
 function setMode(mode) {
     currentMode = mode;
@@ -75,7 +76,7 @@ function toggleRound1ScoreHelp() {
 function updateRound1ScoreHelpVisibility(mode) {
     const btn = document.getElementById('round1ScoreHelpBtn');
     const panel = document.getElementById('round1ScoreHelp');
-    const show = mode === 'split';
+    const show = mode === 'r1before' || mode === 'r2before';
     if (btn) {
         btn.hidden = !show;
         btn.setAttribute('aria-expanded', 'false');
@@ -84,32 +85,110 @@ function updateRound1ScoreHelpVisibility(mode) {
 }
 
 function setScoreInputMode(mode) {
-    const prevMode = scoreInputMode;
     scoreInputMode = mode;
-    document.getElementById('scoreModeTotal').classList.toggle('active', mode === 'total');
-    document.getElementById('scoreModeSplit').classList.toggle('active', mode === 'split');
+    document.getElementById('scoreModeR1').classList.toggle('active', mode === 'r1before');
+    document.getElementById('scoreModeR2Pre').classList.toggle('active', mode === 'r2before');
+    document.getElementById('scoreModeR2Post').classList.toggle('active', mode === 'r2after');
 
     const leftLabel = document.getElementById('leftScoreLabel');
+    const starLabel = document.getElementById('hifStarLabel');
     const leftInput = document.getElementById('hifTotalScore');
-    const r2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
 
-    if (mode === 'total') {
+    const hifStarInput = document.getElementById('hifStar');
+    if (mode === 'r2after') {
         if (leftLabel) leftLabel.textContent = '合計スコア';
         if (leftInput) leftInput.max = 4080000;
-        // No change in value when switching modes if not explicitly set by the user
+        if (starLabel) starLabel.textContent = 'ラウンド2前 スター性';
+        if (hifStarInput) hifStarInput.max = 1110;
+    } else if (mode === 'r2before') {
+        if (leftLabel) leftLabel.textContent = 'R1(補正後)';
+        if (leftInput) leftInput.max = 1680000;
+        if (starLabel) starLabel.textContent = 'ラウンド2前 スター性';
+        if (hifStarInput) hifStarInput.max = 1110;
     } else {
         if (leftLabel) leftLabel.textContent = 'R1(補正後)';
         if (leftInput) leftInput.max = 1680000;
-        // No change in value when switching modes if not explicitly set by the user
+        if (starLabel) starLabel.textContent = 'ラウンド1前 スター性';
+        if (hifStarInput) hifStarInput.max = 930;
+        if (hifStarInput && parseInt(hifStarInput.value, 10) > 930) {
+            hifStarInput.value = '930';
+        }
+        targetScoreView = 'r1';
+        document.getElementById('showR1ScoreBtn')?.classList.add('active');
+        document.getElementById('showR2ScoreBtn')?.classList.remove('active');
     }
 
     updateRound1ScoreHelpVisibility(mode);
+    updateTargetScoreSwitcherVisibility();
     updateCalculation();
 }
 
 function setMaxLeft() {
-    if (scoreInputMode === 'total') setMax('hifTotalScore', 4080000);
+    if (scoreInputMode === 'r2after') setMax('hifTotalScore', 4080000);
     else setMax('hifTotalScore', 1680000);
+}
+
+function setMaxHifStar() {
+    if (scoreInputMode === 'r1before') setMax('hifStar', 930);
+    else setMax('hifStar', 1110);
+}
+
+function setTargetScoreView(view) {
+    targetScoreView = view;
+    document.getElementById('showR1ScoreBtn')?.classList.toggle('active', view === 'r1');
+    document.getElementById('showR2ScoreBtn')?.classList.toggle('active', view === 'r2');
+    updateCalculation();
+}
+
+function updateTargetScoreSwitcherVisibility() {
+    const switcher = document.getElementById('roundScoreSwitch');
+    const title = document.getElementById('targetScoresTitle');
+    const rows = {
+        s5: document.getElementById('targetRowS5'),
+        s4plus: document.getElementById('targetRowS4Plus'),
+        s4: document.getElementById('targetRowS4'),
+        sssplus: document.getElementById('targetRowSSSPlus'),
+        sss: document.getElementById('targetRowSSS'),
+        ssplus: document.getElementById('targetRowSSPlus'),
+        ss: document.getElementById('targetRowSS'),
+    };
+    if (!switcher || !title) return;
+
+    if (calcType === 'hif' && scoreInputMode === 'r1before') {
+        switcher.hidden = false;
+        switcher.style.display = 'inline-flex';
+        title.textContent = targetScoreView === 'r1'
+            ? '目標ランク別 必要 R1スコア(補正後)'
+            : '目標ランク別 必要 R2スコア';
+        if (targetScoreView === 'r1') {
+            if (rows.s5) rows.s5.style.display = 'none';
+            if (rows.s4plus) rows.s4plus.style.display = 'none';
+            if (rows.s4) rows.s4.style.display = 'none';
+            if (rows.sssplus) rows.sssplus.style.display = 'flex';
+            if (rows.sss) rows.sss.style.display = 'flex';
+            if (rows.ssplus) rows.ssplus.style.display = 'flex';
+            if (rows.ss) rows.ss.style.display = 'flex';
+        } else {
+            if (rows.s5) rows.s5.style.display = 'flex';
+            if (rows.s4plus) rows.s4plus.style.display = 'flex';
+            if (rows.s4) rows.s4.style.display = 'flex';
+            if (rows.sssplus) rows.sssplus.style.display = 'flex';
+            if (rows.sss) rows.sss.style.display = 'flex';
+            if (rows.ssplus) rows.ssplus.style.display = 'flex';
+            if (rows.ss) rows.ss.style.display = 'flex';
+        }
+    } else {
+        switcher.hidden = true;
+        switcher.style.display = 'none';
+        title.textContent = '目標ランク別 必要ラウンド2スコア';
+        if (rows.s5) rows.s5.style.display = 'flex';
+        if (rows.s4plus) rows.s4plus.style.display = 'flex';
+        if (rows.s4) rows.s4.style.display = 'flex';
+        if (rows.sssplus) rows.sssplus.style.display = 'flex';
+        if (rows.sss) rows.sss.style.display = 'flex';
+        if (rows.ssplus) rows.ssplus.style.display = 'flex';
+        if (rows.ss) rows.ss.style.display = 'flex';
+    }
 }
 
 function setMax(id, value) {
@@ -197,9 +276,31 @@ function getHifStarGainFromRound2(round2Score) {
     return Math.ceil(value);
 }
 
+function getHifStarGainFromRound1(round1Score) {
+    const score = round1Score || 0;
+    let value;
+    if (score <= 240000) value = score * 0.00025;
+    else if (score <= 360000) value = 60 + (score - 240000) * 0.0003;
+    else if (score <= 600000) value = 96 + (score - 360000) * 0.0001;
+    else value = 120;
+    return Math.ceil(value);
+}
+
+function updateHifRound1StarGainDisplay(gain) {
+    const el = document.getElementById('hifRound1StarGain');
+    if (!el) return;
+    if (scoreInputMode === 'r1before') {
+        el.style.display = 'block';
+        el.textContent = `R1 スター性+${gain}`;
+    } else {
+        el.style.display = 'none';
+        el.textContent = '';
+    }
+}
+
 function updateHifRound2StarGainDisplay(gain) {
     const el = document.getElementById('hifRound2StarGain');
-    if (el) el.textContent = `スター性+${gain}`;
+    if (el) el.textContent = `R2 スター性+${gain}`;
 }
 
 function updateHifDerivedScoreDisplay() {
@@ -208,7 +309,7 @@ function updateHifDerivedScoreDisplay() {
     if (!el) return;
     const hifTotalScore = parseInt(document.getElementById('hifTotalScore')?.value) || 0;
     const hifRound2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
-    if (scoreInputMode === 'total') {
+    if (scoreInputMode === 'r2after') {
         el.textContent = `R1(補正後)=${hifTotalScore - hifRound2}`;
     } else {
         el.textContent = `合計スコア=${hifTotalScore + hifRound2}`;
@@ -244,7 +345,7 @@ function updateCalculation() {
     if (hifStar > 1110) hifStar = 1110;
 
     let hifRound1 = 0;
-    if (scoreInputMode === 'total') {
+    if (scoreInputMode === 'r2after') {
         hifRound1 = hifTotalScore - hifRound2;
     } else {
         hifRound1 = hifTotalScore;
@@ -252,12 +353,14 @@ function updateCalculation() {
 
     updateHifDerivedScoreDisplay();
     updateFinalRankParamBonusDisplay(finalRank);
+    updateTargetScoreSwitcherVisibility();
 
     const allZero = (preVo===0 && preDa===0 && preVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0);
     if (allZero) {
         document.getElementById('preTotal').textContent = "0";
         document.getElementById('totalEvaluation').textContent = "0";
         document.getElementById('evalRank').textContent = "F";
+        updateHifRound1StarGainDisplay(0);
         updateHifRound2StarGainDisplay(0);
         updateHifDerivedScoreDisplay();
         const tIds = ['targetS5','targetS4Plus','targetS4','targetSSSPlus','targetSSS','targetSSPlus','targetSS'];
@@ -369,10 +472,13 @@ function updateCalculation() {
         const totalStats = g + h + i;
         document.getElementById('preTotal').textContent = totalStats.toLocaleString();
 
-        const round2StarGainBase = getHifStarGainFromRound2(hifRound2);
-        const round2StarGain = Math.floor(round2StarGainBase * 1.5);
+        const round1GainBase = (scoreInputMode === 'r1before') ? getHifStarGainFromRound1(hifRound1) : 0;
+        const round2GainBase = getHifStarGainFromRound2(hifRound2);
+        const round1StarGain = Math.floor(round1GainBase * 1.5);
+        const round2StarGain = Math.floor(round2GainBase * 1.5);
+        updateHifRound1StarGainDisplay(round1StarGain);
         updateHifRound2StarGainDisplay(round2StarGain);
-        const statStarPart = Math.floor(totalStats * 2 + (round2StarGain + hifStar) * 7.5);
+        const statStarPart = Math.floor(totalStats * 2 + (hifStar + round1StarGain + round2StarGain) * 7.5);
         const r1Eval = getHifRound1Eval(hifRound1);
         const r2Eval = getHifRound2Eval(hifRound2);
         const totalEvaluation = statStarPart + r1Eval + r2Eval - 2000;
@@ -384,24 +490,37 @@ function updateCalculation() {
             if (score >= 26000) return 'S4';
             if (score >= 23000) return 'SSS+';
             if (score >= 20000) return 'SSS';
+            if (score >= 18000) return 'SS+';
+            if (score >= 16000) return 'SS';
+            if (score >= 14500) return 'S+';
+            if (score >= 13000) return 'S';
+            if (score >= 11500) return 'A+';
+            if (score >= 10000) return 'A';
+            if (score >= 8000) return 'B+';
+            if (score >= 6000) return 'B';
+            if (score >= 4500) return 'C+';
+            if (score >= 3000) return 'C';
             return 'F';
         };
         document.getElementById('evalRank').textContent = getRank(totalEvaluation);
         document.getElementById('evalRank').style.backgroundColor = totalEvaluation >= 20000 ? '#ffbc00' : '#4364f7';
 
-        const calcTotalEvalAtRound2 = (round2Score) => {
-            const gain = Math.floor(getHifStarGainFromRound2(round2Score) * 1.5);
-            const starPart = Math.floor(totalStats * 2 + (gain + hifStar) * 7.5);
-            return starPart + getHifRound1Eval(hifRound1) + getHifRound2Eval(round2Score) - 2000;
+        updateTargetScoreSwitcherVisibility();
+
+        const calcTotalEvalWithScores = (round1Score, round2Score) => {
+            const round1GainBase = (scoreInputMode === 'r1before') ? getHifStarGainFromRound1(round1Score) : 0;
+            const round1StarGain = Math.floor(round1GainBase * 1.5);
+            const round2Gain = Math.floor(getHifStarGainFromRound2(round2Score) * 1.5);
+            const starPart = Math.floor(totalStats * 2 + (hifStar + round1StarGain + round2Gain) * 7.5);
+            return starPart + getHifRound1Eval(round1Score) + getHifRound2Eval(round2Score) - 2000;
         };
 
-        const calcNeededRound2ScoreForTarget = (targetEval) => {
-            if (calcTotalEvalAtRound2(hifRound2) >= targetEval) return '達成済み';
-
-            let lo = 0, hi = 2400000, ans = -1;
+        const calcNeededR1ScoreForTarget = (targetEval) => {
+            if (calcTotalEvalWithScores(hifRound1, hifRound2) >= targetEval) return '達成済み';
+            let lo = 0, hi = 1680000, ans = -1;
             while (lo <= hi) {
                 const mid = Math.floor((lo + hi) / 2);
-                if (calcTotalEvalAtRound2(mid) >= targetEval) {
+                if (calcTotalEvalWithScores(mid, hifRound2) >= targetEval) {
                     ans = mid;
                     hi = mid - 1;
                 } else {
@@ -410,12 +529,37 @@ function updateCalculation() {
             }
             return ans === -1 ? '不可能' : Math.ceil(ans).toLocaleString() + ' pt';
         };
-        document.getElementById('targetS5') && (document.getElementById('targetS5').textContent = calcNeededRound2ScoreForTarget(35000));
-        document.getElementById('targetS4Plus') && (document.getElementById('targetS4Plus').textContent = calcNeededRound2ScoreForTarget(30000));
-        document.getElementById('targetS4') && (document.getElementById('targetS4').textContent = calcNeededRound2ScoreForTarget(26000));
-        document.getElementById('targetSSSPlus') && (document.getElementById('targetSSSPlus').textContent = calcNeededRound2ScoreForTarget(23000));
-        document.getElementById('targetSSS') && (document.getElementById('targetSSS').textContent = calcNeededRound2ScoreForTarget(20000));
-        document.getElementById('targetSSPlus') && (document.getElementById('targetSSPlus').textContent = calcNeededRound2ScoreForTarget(18000));
-        document.getElementById('targetSS') && (document.getElementById('targetSS').textContent = calcNeededRound2ScoreForTarget(16000));
+
+        const calcNeededR2ScoreForTarget = (targetEval) => {
+            if (calcTotalEvalWithScores(hifRound1, hifRound2) >= targetEval) return '達成済み';
+            let lo = 0, hi = 2400000, ans = -1;
+            while (lo <= hi) {
+                const mid = Math.floor((lo + hi) / 2);
+                if (calcTotalEvalWithScores(hifRound1, mid) >= targetEval) {
+                    ans = mid;
+                    hi = mid - 1;
+                } else {
+                    lo = mid + 1;
+                }
+            }
+            return ans === -1 ? '不可能' : Math.ceil(ans).toLocaleString() + ' pt';
+        };
+
+        const getTargetNeededScore = (targetEval) => {
+            if (scoreInputMode === 'r1before') {
+                return targetScoreView === 'r1'
+                    ? calcNeededR1ScoreForTarget(targetEval)
+                    : calcNeededR2ScoreForTarget(targetEval);
+            }
+            return calcNeededR2ScoreForTarget(targetEval);
+        };
+
+        document.getElementById('targetS5') && (document.getElementById('targetS5').textContent = getTargetNeededScore(35000));
+        document.getElementById('targetS4Plus') && (document.getElementById('targetS4Plus').textContent = getTargetNeededScore(30000));
+        document.getElementById('targetS4') && (document.getElementById('targetS4').textContent = getTargetNeededScore(26000));
+        document.getElementById('targetSSSPlus') && (document.getElementById('targetSSSPlus').textContent = getTargetNeededScore(23000));
+        document.getElementById('targetSSS') && (document.getElementById('targetSSS').textContent = getTargetNeededScore(20000));
+        document.getElementById('targetSSPlus') && (document.getElementById('targetSSPlus').textContent = getTargetNeededScore(18000));
+        document.getElementById('targetSS') && (document.getElementById('targetSS').textContent = getTargetNeededScore(16000));
     }
 }
