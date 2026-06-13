@@ -65,15 +65,23 @@ h1 {
     box-shadow: 0 14px 28px rgba(67, 100, 247, 0.24);
 }
 
+.score-mode-switch {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+}
+
 .score-mode-btn {
     flex: 1;
-    padding: 10px 15px;
+    padding: 10px 8px;
     border: none;
     background: #e0eaff;
     color: #3651d4;
     cursor: pointer;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: clamp(0.78rem, 3.5vw, 0.9rem);
+    white-space: nowrap;
     transition: all 0.2s ease;
 }
 
@@ -136,13 +144,45 @@ h1 {
     gap: 6px;
 }
 
+.round1-type-switch {
+    width: 100%;
+}
+
+.hif-correction-row {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.hif-correction-row + .hif-score-grid {
+    margin-top: 8px;
+}
+
+.hif-score-grid {
+    align-items: start;
+    margin-top: 10px;
+}
+
+.hif-score-grid .input-field {
+    margin-bottom: 0;
+}
+
+.hif-derived-score {
+    margin: 8px 0 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #4364f7;
+}
+
 .score-switch-btn {
     padding: 6px 10px;
     border: 1px solid #4364f7;
     background: #f4f7ff;
     color: #4364f7;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: clamp(0.75rem, 3.2vw, 0.85rem);
+    white-space: nowrap;
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease;
 }
@@ -244,6 +284,11 @@ h1 {
     cursor: pointer;
     padding: 0;
     flex-shrink: 0;
+}
+
+.info-icon-btn.is-hidden {
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .info-icon-btn:hover {
@@ -420,7 +465,41 @@ h1 {
 /* 属性カラー設定 */
 .label-vo { color: #ff4d4d !important; } /* 赤 */
 .label-da { color: #4d79ff !important; } /* 青 */
-.label-vi { color: #ffbc00 !important; } /* 黄（見やすく調整） */
+.label-vi { color: #c98900 !important; } /* 黄 */
+
+.param-stat-grid .input-field {
+    margin-bottom: 0;
+}
+
+.input-vo {
+    color: #ff4d4d;
+    text-align: center;
+}
+
+.input-vo::placeholder {
+    color: #ff4d4d;
+    opacity: 0.45;
+}
+
+.input-da {
+    color: #4d79ff;
+    text-align: center;
+}
+
+.input-da::placeholder {
+    color: #4d79ff;
+    opacity: 0.45;
+}
+
+.input-vi {
+    color: #c98900;
+    text-align: center;
+}
+
+.input-vi::placeholder {
+    color: #c98900;
+    opacity: 0.45;
+}
 
 /* 評価値表示のレイアウト調整 */
 .eval-display {
@@ -430,23 +509,30 @@ h1 {
     flex-shrink: 1; /* 親に合わせて縮むように設定 */
 }
 
-/* ランクバッジのデザイン */
-.rank-badge {
-    background-color: #4364f7;
-    color: white;
-    padding: 2px 12px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: clamp(1rem, 5vw, 1.3rem);
-    min-width: 60px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+/* ランク画像 */
+.rank-badge-img {
+    height: clamp(36px, 9vw, 52px);
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
 }
 
 /* スマホ用微調整：さらに狭い画面（iPhone SE等）の場合 */
 @media screen and (max-width: 480px) {
     .container {
         padding: 0 10px;
+    }
+    #hifInputs .section-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .score-mode-switch {
+        width: 100%;
+    }
+    .score-mode-btn {
+        padding: 10px 6px;
     }
     .calculator-card,
     .result-card {

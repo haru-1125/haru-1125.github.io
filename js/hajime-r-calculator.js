@@ -16,6 +16,7 @@ let currentMode = 'normal';
 let calcType = 'hif';
 let scoreInputMode = 'r2after'; // 'r1before', 'r2before', or 'r2after'
 let targetScoreView = 'r1'; // 'r1' or 'r2'
+let round1ScoreType = 'corrected'; // 'corrected' or 'uncorrected'
 
 function setMode(mode) {
     currentMode = mode;
@@ -64,6 +65,66 @@ function setCalcType(type) {
     updateCalculation();
 }
 
+function toRound1Corrected(score) {
+    const s = score || 0;
+    if (round1ScoreType === 'corrected') return s;
+    return Math.floor(s * 1.2);
+}
+
+function toRound1Uncorrected(score) {
+    const s = score || 0;
+    if (round1ScoreType === 'uncorrected') return s;
+    return Math.floor(s / 1.2);
+}
+
+function getHifLeftScoreMax() {
+    if (scoreInputMode === 'r2after') return 4080000;
+    return round1ScoreType === 'corrected' ? 1680000 : 1400000;
+}
+
+function capHifLeftScoreToMax() {
+    const input = document.getElementById('hifTotalScore');
+    if (!input) return;
+    const max = getHifLeftScoreMax();
+    input.max = max;
+    const val = parseInt(input.value, 10);
+    if (!Number.isNaN(val) && val > max) {
+        input.value = String(max);
+    }
+}
+
+function setRound1ScoreType(type) {
+    if (type === round1ScoreType) return;
+    round1ScoreType = type;
+    updateRound1ScoreTypeUI();
+    capHifLeftScoreToMax();
+    updateCalculation();
+}
+
+function updateRound1ScoreTypeUI() {
+    const row = document.getElementById('round1CorrectionRow');
+    const show = scoreInputMode === 'r1before' || scoreInputMode === 'r2before';
+    if (row) {
+        row.hidden = !show;
+        row.style.display = show ? 'grid' : 'none';
+    }
+    document.getElementById('round1TypeCorrected')?.classList.toggle('active', round1ScoreType === 'corrected');
+    document.getElementById('round1TypeUncorrected')?.classList.toggle('active', round1ScoreType === 'uncorrected');
+
+    const leftLabel = document.getElementById('leftScoreLabel');
+    const leftInput = document.getElementById('hifTotalScore');
+    if (show) {
+        if (leftLabel) {
+            leftLabel.textContent = round1ScoreType === 'corrected' ? 'R1(補正後)' : 'R1(補正前)';
+        }
+        if (leftInput) {
+            leftInput.max = getHifLeftScoreMax();
+        }
+    } else if (scoreInputMode === 'r2after' && leftLabel) {
+        leftLabel.textContent = '合計スコア';
+    }
+}
+
 function toggleRound1ScoreHelp() {
     const panel = document.getElementById('round1ScoreHelp');
     const btn = document.getElementById('round1ScoreHelpBtn');
@@ -78,7 +139,7 @@ function updateRound1ScoreHelpVisibility(mode) {
     const panel = document.getElementById('round1ScoreHelp');
     const show = mode === 'r1before' || mode === 'r2before';
     if (btn) {
-        btn.hidden = !show;
+        btn.classList.toggle('is-hidden', !show);
         btn.setAttribute('aria-expanded', 'false');
     }
     if (panel) panel.hidden = true;
@@ -90,24 +151,20 @@ function setScoreInputMode(mode) {
     document.getElementById('scoreModeR2Pre').classList.toggle('active', mode === 'r2before');
     document.getElementById('scoreModeR2Post').classList.toggle('active', mode === 'r2after');
 
-    const leftLabel = document.getElementById('leftScoreLabel');
     const starLabel = document.getElementById('hifStarLabel');
     const leftInput = document.getElementById('hifTotalScore');
 
     const hifStarInput = document.getElementById('hifStar');
     if (mode === 'r2after') {
-        if (leftLabel) leftLabel.textContent = '合計スコア';
         if (leftInput) leftInput.max = 4080000;
         if (starLabel) starLabel.textContent = 'ラウンド2前 スター性';
         if (hifStarInput) hifStarInput.max = 1110;
     } else if (mode === 'r2before') {
-        if (leftLabel) leftLabel.textContent = 'R1(補正後)';
-        if (leftInput) leftInput.max = 1680000;
+        if (leftInput) leftInput.max = round1ScoreType === 'corrected' ? 1680000 : 1400000;
         if (starLabel) starLabel.textContent = 'ラウンド2前 スター性';
         if (hifStarInput) hifStarInput.max = 1110;
     } else {
-        if (leftLabel) leftLabel.textContent = 'R1(補正後)';
-        if (leftInput) leftInput.max = 1680000;
+        if (leftInput) leftInput.max = round1ScoreType === 'corrected' ? 1680000 : 1400000;
         if (starLabel) starLabel.textContent = 'ラウンド1前 スター性';
         if (hifStarInput) hifStarInput.max = 930;
         if (hifStarInput && parseInt(hifStarInput.value, 10) > 930) {
@@ -118,14 +175,15 @@ function setScoreInputMode(mode) {
         document.getElementById('showR2ScoreBtn')?.classList.remove('active');
     }
 
+    updateRound1ScoreTypeUI();
     updateRound1ScoreHelpVisibility(mode);
     updateTargetScoreSwitcherVisibility();
+    capHifLeftScoreToMax();
     updateCalculation();
 }
 
 function setMaxLeft() {
-    if (scoreInputMode === 'r2after') setMax('hifTotalScore', 4080000);
-    else setMax('hifTotalScore', 1680000);
+    setMax('hifTotalScore', getHifLeftScoreMax());
 }
 
 function setMaxHifStar() {
@@ -158,7 +216,9 @@ function updateTargetScoreSwitcherVisibility() {
         switcher.hidden = false;
         switcher.style.display = 'inline-flex';
         title.textContent = targetScoreView === 'r1'
-            ? '目標ランク別 必要 R1スコア(補正後)'
+            ? (round1ScoreType === 'corrected'
+                ? '目標ランク別 必要 R1スコア(補正後)'
+                : '目標ランク別 必要 R1スコア(補正前)')
             : '目標ランク別 必要 R2スコア';
         if (targetScoreView === 'r1') {
             if (rows.s5) rows.s5.style.display = 'none';
@@ -241,16 +301,24 @@ function validateMax(input) {
     }
 }
 
-function getHifRound1Eval(score) {
-    const adjusted = Math.floor((score || 0) / 1.2);
+function getHifRound1EvalFromAdjusted(adjusted) {
+    const score = adjusted || 0;
     let res = 0;
-    if (adjusted <= 300000) res = 0;
-    else if (adjusted <= 700000) res = (adjusted - 300000) * 0.01;
-    else if (adjusted <= 1000000) res = 4000 + (adjusted - 700000) * 0.003;
-    else if (adjusted <= 1200000) res = 4900 + (adjusted - 1000000) * 0.002;
-    else if (adjusted <= 1400000) res = 5300 + (adjusted - 1200000) * 0.001;
+    if (score <= 300000) res = 0;
+    else if (score <= 700000) res = (score - 300000) * 0.01;
+    else if (score <= 1000000) res = 4000 + (score - 700000) * 0.003;
+    else if (score <= 1200000) res = 4900 + (score - 1000000) * 0.002;
+    else if (score <= 1400000) res = 5300 + (score - 1200000) * 0.001;
     else res = 5500;
     return Math.floor(res);
+}
+
+function getHifRound1EvalFromInput(inputScore) {
+    return getHifRound1EvalFromAdjusted(toRound1Uncorrected(inputScore));
+}
+
+function getHifRound1Eval(score) {
+    return getHifRound1EvalFromAdjusted(Math.floor((score || 0) / 1.2));
 }
 
 function getHifRound2Eval(score) {
@@ -312,8 +380,38 @@ function updateHifDerivedScoreDisplay() {
     if (scoreInputMode === 'r2after') {
         el.textContent = `R1(補正後)=${hifTotalScore - hifRound2}`;
     } else {
-        el.textContent = `合計スコア=${hifTotalScore + hifRound2}`;
+        const r1Corrected = toRound1Corrected(hifTotalScore);
+        el.textContent = `合計スコア=${r1Corrected + hifRound2}`;
     }
+}
+
+function rankToImageFile(rank) {
+    const fileMap = {
+        'S5': 's5.png',
+        'S4+': 's4+.png',
+        'S4': 's4.png',
+        'SSS+': 'sss+.png',
+        'SSS': 'sss.png',
+        'SS+': 'ss+.png',
+        'SS': 'ss.png',
+        'S+': 's+.png',
+        'S': 's.png',
+        'A+': 'a+.png',
+        'A': 'a.png',
+        'B+': 'b+.png',
+        'B': 'b.png',
+        'C+': 'c+.png',
+        'C': 'c.png',
+        'F': 'f.png',
+    };
+    return fileMap[rank] || 'f.png';
+}
+
+function updateEvalRankDisplay(rank) {
+    const el = document.getElementById('evalRank');
+    if (!el) return;
+    el.src = `../assets/sozai/${rankToImageFile(rank)}`;
+    el.alt = rank;
 }
 
 function updateFinalRankParamBonusDisplay(rank) {
@@ -359,7 +457,7 @@ function updateCalculation() {
     if (allZero) {
         document.getElementById('preTotal').textContent = "0";
         document.getElementById('totalEvaluation').textContent = "0";
-        document.getElementById('evalRank').textContent = "F";
+        updateEvalRankDisplay('F');
         updateHifRound1StarGainDisplay(0);
         updateHifRound2StarGainDisplay(0);
         updateHifDerivedScoreDisplay();
@@ -454,8 +552,7 @@ function updateCalculation() {
         };
 
         document.getElementById('totalEvaluation').textContent = totalEvaluation.toLocaleString();
-        document.getElementById('evalRank').textContent = getRank(totalEvaluation);
-        document.getElementById('evalRank').style.backgroundColor = totalEvaluation >= 20000 ? '#ffbc00' : '#4364f7';
+        updateEvalRankDisplay(getRank(totalEvaluation));
         document.getElementById('targetS5') && (document.getElementById('targetS5').textContent = '-');
         document.getElementById('targetS4Plus') && (document.getElementById('targetS4Plus').textContent = '-');
         document.getElementById('targetS4') && (document.getElementById('targetS4').textContent = calcNeededFinalScore(26000));
@@ -472,14 +569,18 @@ function updateCalculation() {
         const totalStats = g + h + i;
         document.getElementById('preTotal').textContent = totalStats.toLocaleString();
 
-        const round1GainBase = (scoreInputMode === 'r1before') ? getHifStarGainFromRound1(hifRound1) : 0;
+        const round1GainBase = (scoreInputMode === 'r1before')
+            ? getHifStarGainFromRound1(toRound1Corrected(hifRound1))
+            : 0;
         const round2GainBase = getHifStarGainFromRound2(hifRound2);
         const round1StarGain = Math.floor(round1GainBase * 1.5);
         const round2StarGain = Math.floor(round2GainBase * 1.5);
         updateHifRound1StarGainDisplay(round1StarGain);
         updateHifRound2StarGainDisplay(round2StarGain);
         const statStarPart = Math.floor(totalStats * 2 + (hifStar + round1StarGain + round2StarGain) * 7.5);
-        const r1Eval = getHifRound1Eval(hifRound1);
+        const r1Eval = (scoreInputMode === 'r2after')
+            ? getHifRound1Eval(hifRound1)
+            : getHifRound1EvalFromInput(hifRound1);
         const r2Eval = getHifRound2Eval(hifRound2);
         const totalEvaluation = statStarPart + r1Eval + r2Eval - 2000;
 
@@ -502,22 +603,25 @@ function updateCalculation() {
             if (score >= 3000) return 'C';
             return 'F';
         };
-        document.getElementById('evalRank').textContent = getRank(totalEvaluation);
-        document.getElementById('evalRank').style.backgroundColor = totalEvaluation >= 20000 ? '#ffbc00' : '#4364f7';
+        updateEvalRankDisplay(getRank(totalEvaluation));
 
         updateTargetScoreSwitcherVisibility();
 
         const calcTotalEvalWithScores = (round1Score, round2Score) => {
-            const round1GainBase = (scoreInputMode === 'r1before') ? getHifStarGainFromRound1(round1Score) : 0;
+            const round1GainBase = (scoreInputMode === 'r1before')
+                ? getHifStarGainFromRound1(toRound1Corrected(round1Score))
+                : 0;
             const round1StarGain = Math.floor(round1GainBase * 1.5);
             const round2Gain = Math.floor(getHifStarGainFromRound2(round2Score) * 1.5);
             const starPart = Math.floor(totalStats * 2 + (hifStar + round1StarGain + round2Gain) * 7.5);
-            return starPart + getHifRound1Eval(round1Score) + getHifRound2Eval(round2Score) - 2000;
+            const r1EvalPart = (scoreInputMode === 'r2after')
+                ? getHifRound1Eval(round1Score)
+                : getHifRound1EvalFromInput(round1Score);
+            return starPart + r1EvalPart + getHifRound2Eval(round2Score) - 2000;
         };
 
         const calcNeededR1ScoreForTarget = (targetEval) => {
-            if (calcTotalEvalWithScores(hifRound1, hifRound2) >= targetEval) return '達成済み';
-            let lo = 0, hi = 1680000, ans = -1;
+            let lo = 0, hi = round1ScoreType === 'corrected' ? 1680000 : 1400000, ans = -1;
             while (lo <= hi) {
                 const mid = Math.floor((lo + hi) / 2);
                 if (calcTotalEvalWithScores(mid, hifRound2) >= targetEval) {
@@ -531,11 +635,14 @@ function updateCalculation() {
         };
 
         const calcNeededR2ScoreForTarget = (targetEval) => {
-            if (calcTotalEvalWithScores(hifRound1, hifRound2) >= targetEval) return '達成済み';
+            const evalAtR2 = (r2) => {
+                const r1 = scoreInputMode === 'r2after' ? hifTotalScore - r2 : hifRound1;
+                return calcTotalEvalWithScores(r1, r2);
+            };
             let lo = 0, hi = 2400000, ans = -1;
             while (lo <= hi) {
                 const mid = Math.floor((lo + hi) / 2);
-                if (calcTotalEvalWithScores(hifRound1, mid) >= targetEval) {
+                if (evalAtR2(mid) >= targetEval) {
                     ans = mid;
                     hi = mid - 1;
                 } else {

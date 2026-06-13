@@ -331,6 +331,11 @@ const supports = [
     file: "../assets/sup/上かッ！！.png", darkFile: "../assets/supan/上かッ！！.png"
   },
   {
+    name: "私を楽しませろ", type: "dance", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/私を楽しませろ.png", darkFile: "../assets/supan/私を楽しませろ.png"
+  },
+  {
     name: "あなたにも作ってあげる！", type: "visual", rarity: "SSR",
     Aability: "初期値", Bability: "", Cability: "レッスン", Dability: "休む", SP: "",
     file: "../assets/sup/あなたにも作ってあげる！.png", darkFile: "../assets/supan/あなたにも作ってあげる！.png"
@@ -499,6 +504,11 @@ const supports = [
     name: "食欲の秋なんです", type: "assist", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/食欲の秋なんです.png", darkFile: "../assets/supan/食欲の秋なんです.png"
+  },
+  {
+    name: "私たちも成長していくぞ！", type: "assist", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/私たちも成長していくぞ！.png", darkFile: "../assets/supan/私たちも成長していくぞ！.png"
   },
   {
     name: "今はあえて、背を向けて", type: "vocal", rarity: "SR",
