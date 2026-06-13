@@ -33,6 +33,10 @@ function setCalcType(type) {
     document.getElementById('calcTypeHIF').classList.toggle('active', type === 'hif');
     const hifInputs = document.getElementById('hifInputs');
     if (hifInputs) hifInputs.style.display = (type === 'hif') ? 'block' : 'none';
+    const hifScoreModeBar = document.getElementById('hifScoreModeBar');
+    if (hifScoreModeBar) hifScoreModeBar.style.display = (type === 'hif') ? 'block' : 'none';
+    const hifStarField = document.getElementById('hifStarField');
+    if (hifStarField) hifStarField.style.display = (type === 'hif') ? 'block' : 'none';
     const modeSelector = document.getElementById('modeSelectorContainer');
     if (modeSelector) modeSelector.style.display = (type === 'hif') ? 'none' : 'flex';
     const abiInputSection = document.getElementById('abiInputSection');
@@ -59,7 +63,7 @@ function setCalcType(type) {
     const preParamsTitle = document.getElementById('preParamsTitle');
     if (preParamsTitle) {
         preParamsTitle.textContent = type === 'hif'
-            ? 'ラウンド2前パラメータ'
+            ? 'パラメータ'
             : '最終試験前パラメータ';
     }
     updateCalculation();
@@ -106,7 +110,7 @@ function updateRound1ScoreTypeUI() {
     const show = scoreInputMode === 'r1before' || scoreInputMode === 'r2before';
     if (row) {
         row.hidden = !show;
-        row.style.display = show ? 'grid' : 'none';
+        row.style.display = show ? 'flex' : 'none';
     }
     document.getElementById('round1TypeCorrected')?.classList.toggle('active', round1ScoreType === 'corrected');
     document.getElementById('round1TypeUncorrected')?.classList.toggle('active', round1ScoreType === 'uncorrected');
@@ -157,15 +161,15 @@ function setScoreInputMode(mode) {
     const hifStarInput = document.getElementById('hifStar');
     if (mode === 'r2after') {
         if (leftInput) leftInput.max = 4080000;
-        if (starLabel) starLabel.textContent = 'ラウンド2前 スター性';
+        if (starLabel) starLabel.textContent = 'スター性';
         if (hifStarInput) hifStarInput.max = 1110;
     } else if (mode === 'r2before') {
         if (leftInput) leftInput.max = round1ScoreType === 'corrected' ? 1680000 : 1400000;
-        if (starLabel) starLabel.textContent = 'ラウンド2前 スター性';
+        if (starLabel) starLabel.textContent = 'スター性';
         if (hifStarInput) hifStarInput.max = 1110;
     } else {
         if (leftInput) leftInput.max = round1ScoreType === 'corrected' ? 1680000 : 1400000;
-        if (starLabel) starLabel.textContent = 'ラウンド1前 スター性';
+        if (starLabel) starLabel.textContent = 'スター性';
         if (hifStarInput) hifStarInput.max = 930;
         if (hifStarInput && parseInt(hifStarInput.value, 10) > 930) {
             hifStarInput.value = '930';
@@ -358,7 +362,7 @@ function updateHifRound1StarGainDisplay(gain) {
     const el = document.getElementById('hifRound1StarGain');
     if (!el) return;
     if (scoreInputMode === 'r1before') {
-        el.style.display = 'block';
+        el.style.display = '';
         el.textContent = `R1 スター性+${gain}`;
     } else {
         el.style.display = 'none';

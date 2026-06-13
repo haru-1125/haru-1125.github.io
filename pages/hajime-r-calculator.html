@@ -43,9 +43,17 @@
                 <button id="modeIntensive" class="mode-btn" onclick="setMode('intensive')">強化月間</button>
             </div>
 
+            <div id="hifScoreModeBar" class="hif-score-mode-bar" style="display:none;">
+                <div class="score-mode-switch">
+                    <button type="button" id="scoreModeR1" class="score-mode-btn" onclick="setScoreInputMode('r1before')">R1前</button>
+                    <button type="button" id="scoreModeR2Pre" class="score-mode-btn" onclick="setScoreInputMode('r2before')">R2前</button>
+                    <button type="button" id="scoreModeR2Post" class="score-mode-btn active" onclick="setScoreInputMode('r2after')">R2後</button>
+                </div>
+            </div>
+
             <section class="input-group">
                 <div class="section-header">
-                    <h3 id="preParamsTitle">ラウンド2前パラメータ</h3>
+                    <h3 id="preParamsTitle">パラメータ</h3>
                     <button type="button" class="toggle-section-btn" onclick="resetPreParams()">リセット</button>
                 </div>
                 <div class="grid-3 param-stat-grid">
@@ -61,34 +69,39 @@
                 </div>
                 <div class="param-total-display">
                     合計: <span id="preTotal">0</span>
+                </div>
+                <div id="hifStarField" class="input-field hif-star-field" style="display:none;">
+                    <label id="hifStarLabel">スター性</label>
+                    <input type="number" id="hifStar" min="0" max="1110" placeholder="0">
+                    <button type="button" class="max-btn max-btn-full" onclick="setMaxHifStar()">上限</button>
+                    <div class="hif-star-gains">
+                        <span id="hifRound1StarGain" class="hif-round2-star-gain">R1 スター性+0</span>
+                        <span id="hifRound2StarGain" class="hif-round2-star-gain">R2 スター性+0</span>
+                    </div>
+                </div>
             </section>
 
             <!-- HIF専用入力 -->
             <section id="hifInputs" class="input-group" style="display:none;">
-                <div class="section-header">
+                <div class="section-header hif-exam-score-header">
                     <div class="section-title-with-info">
                         <h3>試験スコア</h3>
                         <button type="button" id="round1ScoreHelpBtn" class="info-icon-btn is-hidden"
                             aria-label="ラウンド1(補正後)の説明" aria-expanded="false"
                             onclick="toggleRound1ScoreHelp()">i</button>
                     </div>
-                    <div class="score-mode-switch">
-                        <button type="button" id="scoreModeR1" class="score-mode-btn" onclick="setScoreInputMode('r1before')">R1前</button>
-                        <button type="button" id="scoreModeR2Pre" class="score-mode-btn" onclick="setScoreInputMode('r2before')">R2前</button>
-                        <button type="button" id="scoreModeR2Post" class="score-mode-btn active" onclick="setScoreInputMode('r2after')">R2後</button>
+                    <div id="round1CorrectionRow" class="hif-correction-row" hidden>
+                        <div id="round1TypeSwitch" class="round1-type-switch score-mode-switch">
+                            <button type="button" id="round1TypeUncorrected" class="score-mode-btn"
+                                onclick="setRound1ScoreType('uncorrected')">補正前</button>
+                            <button type="button" id="round1TypeCorrected" class="score-mode-btn active"
+                                onclick="setRound1ScoreType('corrected')">補正後</button>
+                        </div>
                     </div>
                 </div>
                 <div id="round1ScoreHelp" class="score-help-panel" hidden>
                     <p>ラウンド1は1位の場合ボーナスがあり、<br>スコアが1.2倍になる補正があります</p>
                     <p>順位発表画面で表示されるのは補正後、<br>ログで表示されるスコアは補正前です</p>
-                </div>
-                <div id="round1CorrectionRow" class="hif-correction-row" hidden>
-                    <div id="round1TypeSwitch" class="round1-type-switch score-mode-switch">
-                        <button type="button" id="round1TypeUncorrected" class="score-mode-btn"
-                            onclick="setRound1ScoreType('uncorrected')">補正前</button>
-                        <button type="button" id="round1TypeCorrected" class="score-mode-btn active"
-                            onclick="setRound1ScoreType('corrected')">補正後</button>
-                    </div>
                 </div>
                 <div class="grid-2 hif-score-grid">
                     <div class="input-field">
@@ -103,16 +116,6 @@
                     </div>
                 </div>
                 <p id="hifDerivedScore" class="hif-derived-score">R1(補正後)=0</p>
-
-                <div class="input-field full-width">
-                    <label id="hifStarLabel">ラウンド2前 スター性</label>
-                    <input type="number" id="hifStar" min="0" max="1110" placeholder="0">
-                    <button type="button" class="max-btn" onclick="setMaxHifStar()">上限</button>
-                    <div class="hif-star-gains">
-                        <span id="hifRound1StarGain" class="hif-round2-star-gain">R1 スター性+0</span>
-                        <span id="hifRound2StarGain" class="hif-round2-star-gain">R2 スター性+0</span>
-                    </div>
-                </div>
             </section>
 
             <section class="input-group" id="abiInputSection">

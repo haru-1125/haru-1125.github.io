@@ -124,10 +124,15 @@ h1 {
 .calculator-card, .result-card {
     background: #fff;
     border-radius: 12px;
-    padding: 14px;
+    padding: 12px 14px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.05);
     margin-bottom: 16px;
     text-align: left;
+}
+
+.calculator-card .input-group {
+    margin-bottom: 8px;
+    padding-bottom: 4px;
 }
 
 .target-title-switcher {
@@ -145,23 +150,29 @@ h1 {
 }
 
 .round1-type-switch {
-    width: 100%;
+    width: auto;
+    flex-shrink: 0;
+}
+
+.hif-exam-score-header {
+    align-items: center;
 }
 
 .hif-correction-row {
     display: none;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    margin-top: 10px;
+    align-items: center;
+    margin: 0;
+    flex-shrink: 0;
 }
 
-.hif-correction-row + .hif-score-grid {
-    margin-top: 8px;
+.hif-exam-score-header .round1-type-switch .score-mode-btn {
+    padding: 5px 10px;
+    font-size: clamp(0.72rem, 3vw, 0.82rem);
 }
 
 .hif-score-grid {
     align-items: start;
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
 .hif-score-grid .input-field {
@@ -169,7 +180,7 @@ h1 {
 }
 
 .hif-derived-score {
-    margin: 8px 0 0;
+    margin: 4px 0 0;
     font-size: 0.8rem;
     font-weight: 600;
     color: #4364f7;
@@ -214,7 +225,7 @@ h1 {
 .input-group h3 {
     font-size: 0.95rem;
     color: #666;
-    margin-bottom: 4px;
+    margin: 0 0 2px;
     border-left: 4px solid #4364f7;
     padding-left: 8px;
 }
@@ -223,7 +234,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
@@ -236,7 +247,7 @@ h1 {
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 1fr 1fr 1fr と同義ですが、より簡潔です */
-    gap: 8px;
+    gap: 6px;
 }
 
 .grid-2 {
@@ -254,7 +265,7 @@ h1 {
 .input-field label {
     font-size: 0.8rem;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     color: #444;
 }
 
@@ -316,7 +327,7 @@ h1 {
 }
 
 .input-field input, .input-field select {
-    padding: 10px;
+    padding: 8px 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1rem;
@@ -339,7 +350,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .toggle-section-btn {
@@ -366,14 +377,24 @@ h1 {
 
 #hifInputs {
     border-bottom: none;
+    margin-bottom: 0;
     padding-bottom: 0;
+}
+
+.hif-score-mode-bar {
+    margin-bottom: 8px;
+}
+
+.hif-score-mode-bar .score-mode-switch {
+    width: 100%;
 }
 
 .hif-star-gains {
     display: inline-flex;
-    gap: 16px;
-    margin-top: 6px;
-    white-space: nowrap;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
 }
 
 .hif-round2-star-gain {
@@ -385,7 +406,7 @@ h1 {
 
 /* 上限ボタン */
 .max-btn {
-    margin-top: 5px;
+    margin-top: 3px;
     padding: 4px 8px;
     background: #4364f7;
     color: white;
@@ -398,6 +419,11 @@ h1 {
 
 .max-btn:hover {
     background: #3651d4;
+}
+
+.max-btn-full {
+    width: 100%;
+    padding: 4px 8px;
 }
 
 /* 結果表示エリア */
@@ -467,6 +493,10 @@ h1 {
 .label-da { color: #4d79ff !important; } /* 青 */
 .label-vi { color: #c98900 !important; } /* 黄 */
 
+.param-stat-grid {
+    margin-top: 10px;
+}
+
 .param-stat-grid .input-field {
     margin-bottom: 0;
 }
@@ -524,10 +554,16 @@ h1 {
     .container {
         padding: 0 10px;
     }
-    #hifInputs .section-header {
-        flex-direction: column;
-        align-items: stretch;
+    #hifInputs .section-header.hif-exam-score-header {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
     }
+    .hif-exam-score-header .round1-type-switch {
+        width: auto;
+        min-width: 0;
+    }
+    .hif-score-mode-bar .score-mode-switch,
     .score-mode-switch {
         width: 100%;
     }
@@ -562,11 +598,16 @@ h1 {
 }
 
 .param-total-display {
-    margin-top: 10px;
+    margin-top: 4px;
     text-align: right;
     font-size: 0.9rem;
     font-weight: bold;
     color: #666;
+}
+
+.hif-star-field {
+    margin-top: 4px;
+    margin-bottom: 0;
 }
 
 #preTotal {
