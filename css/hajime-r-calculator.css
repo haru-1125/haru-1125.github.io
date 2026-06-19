@@ -80,7 +80,7 @@ h1 {
     flex: 1;
     padding: 10px 8px;
     border: none;
-    background: #e0eaff;
+    background: #fff;
     color: #3651d4;
     cursor: pointer;
     font-weight: 600;
@@ -121,7 +121,7 @@ h1 {
 }
 
 .mode-selector .mode-btn {
-    background: #e0eaff;
+    background: #fff;
     color: #3651d4;
     font-weight: 600;
     transition: all 0.2s ease;
@@ -227,7 +227,7 @@ h1 {
     flex: 1;
     padding: 6px 10px;
     border: none;
-    background: #e0eaff;
+    background: #fff;
     color: #3651d4;
     border-radius: 0;
     font-size: clamp(0.75rem, 3.2vw, 0.85rem);
