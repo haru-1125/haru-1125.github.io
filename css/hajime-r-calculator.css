@@ -131,6 +131,11 @@ h1 {
     background: #cddbff;
 }
 
+.mode-selector .mode-btn.active:hover {
+    background: #4364f7;
+    color: #fff;
+}
+
 .mode-btn.active {
     background: #4364f7;
     color: #fff;

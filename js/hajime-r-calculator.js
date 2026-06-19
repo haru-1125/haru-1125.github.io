@@ -462,10 +462,24 @@ function rankToImageFile(rank) {
     return fileMap[rank] || 'f.png';
 }
 
+function getScriptCacheVersion() {
+    const scripts = document.getElementsByTagName('script');
+    for (const script of scripts) {
+        const match = script.src.match(/hajime-r-calculator\.js\?v=([^&]+)/);
+        if (match) return match[1];
+    }
+    return '';
+}
+
+function assetUrlWithCacheBust(path) {
+    const version = getScriptCacheVersion();
+    return version ? `${path}?v=${version}` : path;
+}
+
 function updateEvalRankDisplay(rank) {
     const el = document.getElementById('evalRank');
     if (!el) return;
-    el.src = `../assets/sozai/${rankToImageFile(rank)}`;
+    el.src = assetUrlWithCacheBust(`../assets/sozai/${rankToImageFile(rank)}`);
     el.alt = rank;
 }
 
