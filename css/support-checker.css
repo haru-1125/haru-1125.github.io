@@ -19,7 +19,8 @@
     color: #444;
 }
 
-#visualStats {
+#visualStats,
+#assistStats {
     font-size: 1.3em;
     margin: 0px 0;
     font-weight: 500;

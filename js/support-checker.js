@@ -23,13 +23,33 @@ function togglesupport(div, index) {
     updateStats();
 }
 
+function countTypeStats(type) {
+    let total = 0;
+    let owned = 0;
+
+    usableSupports.forEach((char, i) => {
+        if (char.type === type) {
+            total++;
+            const div = document.querySelector(`.support[data-index='${i}']`);
+            if (div && div.classList.contains("owned")) {
+                owned++;
+            }
+        }
+    });
+
+    const percent = total > 0 ? ((owned / total) * 100).toFixed(1) : "0.0";
+    return { total, owned, percent };
+}
+
+function renderTypeStats(elementId, label, type) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    const { total, owned, percent } = countTypeStats(type);
+    el.innerHTML = `${label}:<span class="red">${total}</span>種中<span class="red">${owned}</span>種（ 所持率<span class="red">${percent}%</span> ）`;
+}
+
 function updateStats() {
     const sstats = document.getElementById("sstats");
-    const vocalStats = document.getElementById("vocalStats");
-    const danceStats = document.getElementById("danceStats");
-    const visualStats = document.getElementById("visualStats");
-
-
 
     const owned = document.querySelectorAll(".support.owned").length;
     const total = usableSupports.length;
@@ -37,60 +57,10 @@ function updateStats() {
 
     sstats.innerHTML = `全<span class="red">${total}</span>種中<span class="red">${owned}</span>種（ 所持率<span class="red">${percent}%</span> ）`;
 
-    // vocalのカードだけを対象にカウント
-    let vocalTotal = 0;
-    let vocalOwned = 0;
-
-    usableSupports.forEach((char, i) => {
-        if (char.type === "vocal") {
-            vocalTotal++;
-            const div = document.querySelector(`.support[data-index='${i}']`);
-            if (div && div.classList.contains("owned")) {
-                vocalOwned++;
-            }
-        }
-    });
-
-    const vocalPercent = vocalTotal > 0 ? ((vocalOwned / vocalTotal) * 100).toFixed(1) : "0.0";
-
-    vocalStats.innerHTML = `vocal:<span class="red">${vocalTotal}</span>種中<span class="red">${vocalOwned}</span>種（ 所持率<span class="red">${vocalPercent}%</span> ）`;
-
-    // danceのカードだけを対象にカウント
-    let danceTotal = 0;
-    let danceOwned = 0;
-
-    usableSupports.forEach((char, i) => {
-        if (char.type === "dance") {
-            danceTotal++;
-            const div = document.querySelector(`.support[data-index='${i}']`);
-            if (div && div.classList.contains("owned")) {
-                danceOwned++;
-            }
-        }
-    });
-
-    const dancePercent = danceTotal > 0 ? ((danceOwned / danceTotal) * 100).toFixed(1) : "0.0";
-
-    danceStats.innerHTML = `dance:<span class="red">${danceTotal}</span>種中<span class="red">${danceOwned}</span>種（ 所持率<span class="red">${dancePercent}%</span> ）`;
-
-    // visualのカードだけを対象にカウント
-    let visualTotal = 0;
-    let visualOwned = 0;
-
-    usableSupports.forEach((char, i) => {
-        if (char.type === "visual") {
-            visualTotal++;
-            const div = document.querySelector(`.support[data-index='${i}']`);
-            if (div && div.classList.contains("owned")) {
-                visualOwned++;
-            }
-        }
-    });
-
-    const visualPercent = visualTotal > 0 ? ((visualOwned / visualTotal) * 100).toFixed(1) : "0.0";
-
-    visualStats.innerHTML = `visual:<span class="red">${visualTotal}</span>種中<span class="red">${visualOwned}</span>種（ 所持率<span class="red">${visualPercent}%</span> ）`;
-
+    renderTypeStats("vocalStats", "vocal", "vocal");
+    renderTypeStats("danceStats", "dance", "dance");
+    renderTypeStats("visualStats", "visual", "visual");
+    renderTypeStats("assistStats", "assist", "assist");
 }
 
 

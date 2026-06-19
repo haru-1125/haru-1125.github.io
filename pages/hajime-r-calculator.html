@@ -78,6 +78,12 @@
                         <span id="hifRound1StarGain" class="hif-round2-star-gain">R1 スター性+0</span>
                         <span id="hifRound2StarGain" class="hif-round2-star-gain">R2 スター性+0</span>
                     </div>
+                    <div id="hifSparkleField" class="input-field hif-sparkle-field" style="display:none;">
+                        <label>ほしのきらめき</label>
+                        <input type="number" id="hifSparkle" min="0" max="420" placeholder="0">
+                        <button type="button" class="max-btn max-btn-full" onclick="setMaxHifSparkle()">上限</button>
+                        <p id="hifSparkleNote" class="hif-sparkle-note">※R1・R2試験での増加量は未確定のため、一律で加算しています（R1前：入力値+110　R2前・R2後：入力値+190）</p>
+                    </div>
                 </div>
             </section>
 
@@ -93,15 +99,15 @@
                     <div id="round1CorrectionRow" class="hif-correction-row" hidden>
                         <div id="round1TypeSwitch" class="round1-type-switch score-mode-switch">
                             <button type="button" id="round1TypeUncorrected" class="score-mode-btn"
-                                onclick="setRound1ScoreType('uncorrected')">補正前</button>
+                                onclick="setRound1ScoreType('uncorrected')">補正<span class="correction-suffix">前</span></button>
                             <button type="button" id="round1TypeCorrected" class="score-mode-btn active"
-                                onclick="setRound1ScoreType('corrected')">補正後</button>
+                                onclick="setRound1ScoreType('corrected')">補正<span class="correction-suffix">後</span></button>
                         </div>
                     </div>
                 </div>
                 <div id="round1ScoreHelp" class="score-help-panel" hidden>
                     <p>ラウンド1は1位の場合ボーナスがあり、<br>スコアが1.2倍になる補正があります</p>
-                    <p>順位発表画面で表示されるのは補正後、<br>ログで表示されるスコアは補正前です</p>
+                    <p>順位発表画面で表示されるのは補正<span class="correction-suffix">後</span>、<br>ログで表示されるスコアは補正<span class="correction-suffix">前</span>です</p>
                 </div>
                 <div class="grid-2 hif-score-grid">
                     <div class="input-field">

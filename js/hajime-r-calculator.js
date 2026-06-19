@@ -23,8 +23,14 @@ function setMode(mode) {
     document.getElementById('modeNormal').classList.toggle('active', mode === 'normal');
     document.getElementById('modeIntensive').classList.toggle('active', mode === 'intensive');
     const sparkleGroup = document.getElementById('sparkleGroup');
-    if (sparkleGroup) sparkleGroup.style.display = (mode === 'intensive') ? 'block' : 'none';
+    if (sparkleGroup) sparkleGroup.style.display = (calcType === 'hajime' && mode === 'intensive') ? 'block' : 'none';
+    updateHifSparkleFieldVisibility();
     updateCalculation();
+}
+
+function updateHifSparkleFieldVisibility() {
+    const field = document.getElementById('hifSparkleField');
+    if (field) field.style.display = (calcType === 'hif' && currentMode === 'intensive') ? 'block' : 'none';
 }
 
 function setCalcType(type) {
@@ -38,13 +44,15 @@ function setCalcType(type) {
     const hifStarField = document.getElementById('hifStarField');
     if (hifStarField) hifStarField.style.display = (type === 'hif') ? 'block' : 'none';
     const modeSelector = document.getElementById('modeSelectorContainer');
-    if (modeSelector) modeSelector.style.display = (type === 'hif') ? 'none' : 'flex';
+    if (modeSelector) modeSelector.style.display = 'flex';
     const abiInputSection = document.getElementById('abiInputSection');
     if (abiInputSection) abiInputSection.style.display = (type === 'hif') ? 'none' : 'block';
     const hajimeExtraSection = document.getElementById('hajimeExtraSection');
     if (hajimeExtraSection) hajimeExtraSection.style.display = (type === 'hif') ? 'none' : 'block';
     const sparkleGroup2 = document.getElementById('sparkleGroup');
     if (sparkleGroup2) sparkleGroup2.style.display = (type === 'hif' ? 'none' : (currentMode === 'intensive' ? 'block' : 'none'));
+    updateHifSparkleFieldVisibility();
+    capHifSparkleToMax();
     const maxStat = (type === 'hif') ? 3200 : 3000;
     ['preVo','preDa','preVi','abiVo','abiDa','abiVi'].forEach(id => {
         const el = document.getElementById(id);
@@ -105,6 +113,15 @@ function setRound1ScoreType(type) {
     updateCalculation();
 }
 
+function correctionSuffixHtml(char) {
+    return `<span class="correction-suffix">${char}</span>`;
+}
+
+function r1CorrectionLabelHtml() {
+    const suffix = round1ScoreType === 'corrected' ? '後' : '前';
+    return `R1(補正${correctionSuffixHtml(suffix)})`;
+}
+
 function updateRound1ScoreTypeUI() {
     const row = document.getElementById('round1CorrectionRow');
     const show = scoreInputMode === 'r1before' || scoreInputMode === 'r2before';
@@ -119,7 +136,7 @@ function updateRound1ScoreTypeUI() {
     const leftInput = document.getElementById('hifTotalScore');
     if (show) {
         if (leftLabel) {
-            leftLabel.textContent = round1ScoreType === 'corrected' ? 'R1(補正後)' : 'R1(補正前)';
+            leftLabel.innerHTML = r1CorrectionLabelHtml();
         }
         if (leftInput) {
             leftInput.max = getHifLeftScoreMax();
@@ -183,6 +200,7 @@ function setScoreInputMode(mode) {
     updateRound1ScoreHelpVisibility(mode);
     updateTargetScoreSwitcherVisibility();
     capHifLeftScoreToMax();
+    capHifSparkleToMax();
     updateCalculation();
 }
 
@@ -193,6 +211,37 @@ function setMaxLeft() {
 function setMaxHifStar() {
     if (scoreInputMode === 'r1before') setMax('hifStar', 930);
     else setMax('hifStar', 1110);
+}
+
+function getHifSparkleMax() {
+    if (scoreInputMode === 'r1before') return 310;
+    return 420;
+}
+
+function capHifSparkleToMax() {
+    const input = document.getElementById('hifSparkle');
+    if (!input) return;
+    const max = getHifSparkleMax();
+    input.max = max;
+    const val = parseInt(input.value, 10);
+    if (!Number.isNaN(val) && val > max) {
+        input.value = String(max);
+    }
+}
+
+function setMaxHifSparkle() {
+    setMax('hifSparkle', getHifSparkleMax());
+}
+
+function getHifEffectiveSparkle(sparkleInput) {
+    const base = sparkleInput || 0;
+    if (scoreInputMode === 'r1before') return base + 110;
+    return base + 190;
+}
+
+function applyHifIntensiveEval(baseEval, sparkleInput) {
+    const effectiveSparkle = getHifEffectiveSparkle(sparkleInput);
+    return Math.floor(baseEval * 0.718 + effectiveSparkle * 9);
 }
 
 function setTargetScoreView(view) {
@@ -219,10 +268,10 @@ function updateTargetScoreSwitcherVisibility() {
     if (calcType === 'hif' && scoreInputMode === 'r1before') {
         switcher.hidden = false;
         switcher.style.display = 'inline-flex';
-        title.textContent = targetScoreView === 'r1'
+        title.innerHTML = targetScoreView === 'r1'
             ? (round1ScoreType === 'corrected'
-                ? '目標ランク別 必要 R1スコア(補正後)'
-                : '目標ランク別 必要 R1スコア(補正前)')
+                ? `目標ランク別 必要 R1スコア(補正${correctionSuffixHtml('後')})`
+                : `目標ランク別 必要 R1スコア(補正${correctionSuffixHtml('前')})`)
             : '目標ランク別 必要 R2スコア';
         if (targetScoreView === 'r1') {
             if (rows.s5) rows.s5.style.display = 'none';
@@ -275,9 +324,11 @@ function resetPreParams() {
     const hifTotalScore = document.getElementById('hifTotalScore');
     const hifRound2 = document.getElementById('hifRound2');
     const hifStar = document.getElementById('hifStar');
+    const hifSparkle = document.getElementById('hifSparkle');
     if (hifTotalScore) hifTotalScore.value = '';
     if (hifRound2) hifRound2.value = '';
     if (hifStar) hifStar.value = '';
+    if (hifSparkle) hifSparkle.value = '';
     updateHifRound2StarGainDisplay(0);
     updateCalculation();
 }
@@ -382,7 +433,7 @@ function updateHifDerivedScoreDisplay() {
     const hifTotalScore = parseInt(document.getElementById('hifTotalScore')?.value) || 0;
     const hifRound2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
     if (scoreInputMode === 'r2after') {
-        el.textContent = `R1(補正後)=${hifTotalScore - hifRound2}`;
+        el.innerHTML = `R1(補正${correctionSuffixHtml('後')})=${hifTotalScore - hifRound2}`;
     } else {
         const r1Corrected = toRound1Corrected(hifTotalScore);
         el.textContent = `合計スコア=${r1Corrected + hifRound2}`;
@@ -443,6 +494,7 @@ function updateCalculation() {
     const hifTotalScore = parseInt(document.getElementById('hifTotalScore')?.value) || 0;
     const hifRound2 = parseInt(document.getElementById('hifRound2')?.value) || 0;
     let hifStar = parseInt(document.getElementById('hifStar')?.value) || 0;
+    const hifSparkle = parseInt(document.getElementById('hifSparkle')?.value) || 0;
 
     if (hifStar > 1110) hifStar = 1110;
 
@@ -457,7 +509,7 @@ function updateCalculation() {
     updateFinalRankParamBonusDisplay(finalRank);
     updateTargetScoreSwitcherVisibility();
 
-    const allZero = (preVo===0 && preDa===0 && preVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0);
+    const allZero = (preVo===0 && preDa===0 && preVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0 && hifSparkle===0);
     if (allZero) {
         document.getElementById('preTotal').textContent = "0";
         document.getElementById('totalEvaluation').textContent = "0";
@@ -586,7 +638,10 @@ function updateCalculation() {
             ? getHifRound1Eval(hifRound1)
             : getHifRound1EvalFromInput(hifRound1);
         const r2Eval = getHifRound2Eval(hifRound2);
-        const totalEvaluation = statStarPart + r1Eval + r2Eval - 2000;
+        const baseEvaluation = statStarPart + r1Eval + r2Eval - 2000;
+        const totalEvaluation = currentMode === 'intensive'
+            ? applyHifIntensiveEval(baseEvaluation, hifSparkle)
+            : baseEvaluation;
 
         document.getElementById('totalEvaluation').textContent = totalEvaluation.toLocaleString();
         const getRank = (score) => {
@@ -621,7 +676,10 @@ function updateCalculation() {
             const r1EvalPart = (scoreInputMode === 'r2after')
                 ? getHifRound1Eval(round1Score)
                 : getHifRound1EvalFromInput(round1Score);
-            return starPart + r1EvalPart + getHifRound2Eval(round2Score) - 2000;
+            const baseEval = starPart + r1EvalPart + getHifRound2Eval(round2Score) - 2000;
+            return currentMode === 'intensive'
+                ? applyHifIntensiveEval(baseEval, hifSparkle)
+                : baseEval;
         };
 
         const calcNeededR1ScoreForTarget = (targetEval) => {
