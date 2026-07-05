@@ -711,10 +711,10 @@ function updateCalculation() {
         };
 
         const calcNeededR2ScoreForTarget = (targetEval) => {
-            const evalAtR2 = (r2) => {
-                const r1 = scoreInputMode === 'r2after' ? hifTotalScore - r2 : hifRound1;
-                return calcTotalEvalWithScores(r1, r2);
-            };
+            const fixedR1 = scoreInputMode === 'r2after'
+                ? hifTotalScore - hifRound2
+                : hifRound1;
+            const evalAtR2 = (r2) => calcTotalEvalWithScores(fixedR1, r2);
             let lo = 0, hi = 2400000, ans = -1;
             while (lo <= hi) {
                 const mid = Math.floor((lo + hi) / 2);

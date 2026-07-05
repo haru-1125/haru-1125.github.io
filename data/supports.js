@@ -496,6 +496,16 @@ const supports = [
     file: "../assets/sup/……騒々しいお祭りね.png", darkFile: "../assets/supan/……騒々しいお祭りね.png"
   },
   {
+    name: "どーなっちゃうの～？", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/どーなっちゃうの～？.png", darkFile: "../assets/supan/どーなっちゃうの～？.png"
+  },
+  {
+    name: "おでん、通りま～すッ！", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/おでん、通りま～すッ！.png", darkFile: "../assets/supan/おでん、通りま～すッ！.png"
+  },
+  {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/きみは、自慢の生徒です.png", darkFile: "../assets/supan/きみは、自慢の生徒です.png"

@@ -51,6 +51,11 @@ const characters = [
     VocalIni: 100, DanceIni: 100, VisualIni: 105, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
   },
   {
+    name: "咲季（ごまえ）", chara: "咲季", file: "../assets/chara/咲季（ごまえ）.png", darkFile: "../assets/charaan/咲季（ごまえ）.png",
+    VocalPercent: 16.5, DancePercent: 16.5, VisualPercent: 20.5, VocalPercent3: 19.5, DancePercent3: 19.5, VisualPercent3: 22.5,
+    VocalIni: 100, DanceIni: 100, VisualIni: 105, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
+  },
+  {
     name: "手毬（LSM）", chara: "手毬", file: "../assets/chara/手毬（LSM）.png", darkFile: "../assets/charaan/手毬（LSM）.png",
     VocalPercent: 24, DancePercent: 21.5, VisualPercent: 8.5, VocalPercent3: 27, DancePercent3: 26.5, VisualPercent3: 8.5,
     VocalIni: 120, DanceIni: 100, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "恒常", suteType:"2極"
@@ -136,6 +141,11 @@ const characters = [
     VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
   },
   {
+    name: "ことね（ごまえ）", chara: "ことね", file: "../assets/chara/ことね（ごまえ）.png", darkFile: "../assets/charaan/ことね（ごまえ）.png",
+    VocalPercent: 8, DancePercent: 24.5, VisualPercent: 22.5, VocalPercent3: 8, DancePercent3: 29.5, VisualPercent3: 25.5,
+    VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
+  },
+  {
     name: "燕（理論武装）", chara: "燕", file: "../assets/chara/燕（理論武装）.png", darkFile: "../assets/charaan/燕（理論武装）.png",
     VocalPercent: 8, DancePercent: 24.5, VisualPercent: 22.5, VocalPercent3: 8, DancePercent3: 29.5, VisualPercent3: 25.5,
     VocalIni: 90, DanceIni: 90, VisualIni: 120, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "限定", suteType:"2極"
@@ -177,6 +187,11 @@ const characters = [
   },
   {
     name: "麻央（見て）", chara: "麻央", file: "../assets/chara/麻央（見て）.png", darkFile: "../assets/charaan/麻央（見て）.png",
+    VocalPercent: 22, DancePercent: 8, VisualPercent: 23, VocalPercent3: 25, DancePercent3: 8, VisualPercent3: 28,
+    VocalIni: 125, DanceIni: 90, VisualIni: 100, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "限定", suteType:"2極"
+  },
+  {
+    name: "麻央（シュガ）", chara: "麻央", file: "../assets/chara/麻央（シュガ）.png", darkFile: "../assets/charaan/麻央（シュガ）.png",
     VocalPercent: 22, DancePercent: 8, VisualPercent: 23, VocalPercent3: 25, DancePercent3: 8, VisualPercent3: 28,
     VocalIni: 125, DanceIni: 90, VisualIni: 100, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "限定", suteType:"2極"
   },
@@ -502,6 +517,11 @@ const characters = [
   },
   {
     name: "莉波（ガロ）", chara: "莉波", file: "../assets/chara/莉波（ガロ）.png", darkFile: "../assets/charaan/莉波（ガロ）.png",
+    VocalPercent: 11, DancePercent: 21.5, VisualPercent: 23.5, VocalPercent3: 11, DancePercent3: 24.5, VisualPercent3: 28.5,
+    VocalIni: 85, DanceIni: 110, VisualIni: 110, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "恒常", suteType:"3極"
+  },
+  {
+    name: "莉波（シュガ）", chara: "莉波", file: "../assets/chara/莉波（シュガ）.png", darkFile: "../assets/charaan/莉波（シュガ）.png",
     VocalPercent: 11, DancePercent: 21.5, VisualPercent: 23.5, VocalPercent3: 11, DancePercent3: 24.5, VisualPercent3: 28.5,
     VocalIni: 85, DanceIni: 110, VisualIni: 110, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "恒常", suteType:"3極"
   }
