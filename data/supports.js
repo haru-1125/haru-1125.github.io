@@ -171,6 +171,16 @@ const supports = [
     file: "../assets/sup/あなたとふたり、電車で.png", darkFile: "../assets/supan/あなたとふたり、電車で.png"
   },
   {
+    name: "	次の曲は～ッあの曲だ！！", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/次の曲は～ッあの曲だ！！.png", darkFile: "../assets/supan/次の曲は～ッあの曲だ！！.png"
+  },
+  {
+    name: "風紀が乱れるぞ！", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/風紀が乱れるぞ！.png", darkFile: "../assets/supan/風紀が乱れるぞ！.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -504,6 +514,11 @@ const supports = [
     name: "おでん、通りま～すッ！", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/おでん、通りま～すッ！.png", darkFile: "../assets/supan/おでん、通りま～すッ！.png"
+  },
+  {
+    name: "インタビューお願いします", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/インタビューお願いします.png", darkFile: "../assets/supan/インタビューお願いします.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",
