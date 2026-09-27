@@ -43,6 +43,8 @@ function setCalcType(type) {
     if (hifScoreModeBar) hifScoreModeBar.style.display = (type === 'hif') ? 'block' : 'none';
     const hifStarField = document.getElementById('hifStarField');
     if (hifStarField) hifStarField.style.display = (type === 'hif') ? 'block' : 'none';
+    const hifAdjustField = document.getElementById('hifAdjustField');
+    if (hifAdjustField) hifAdjustField.style.display = (type === 'hif') ? 'block' : 'none';
     const modeSelector = document.getElementById('modeSelectorContainer');
     if (modeSelector) modeSelector.style.display = 'flex';
     const abiInputSection = document.getElementById('abiInputSection');
@@ -319,6 +321,12 @@ function resetPreParams() {
     document.getElementById('preVo').value = '';
     document.getElementById('preDa').value = '';
     document.getElementById('preVi').value = '';
+    const adjVo = document.getElementById('adjVo');
+    const adjDa = document.getElementById('adjDa');
+    const adjVi = document.getElementById('adjVi');
+    if (adjVo) adjVo.value = '';
+    if (adjDa) adjDa.value = '';
+    if (adjVi) adjVi.value = '';
     document.getElementById('midScore').value = '';
     document.getElementById('finalScore').value = '';
     const hifTotalScore = document.getElementById('hifTotalScore');
@@ -339,6 +347,15 @@ function toggleAbiSection() {
     if (!abiSection || !toggleButton) return;
     const isHidden = abiSection.style.display === 'none';
     abiSection.style.display = isHidden ? 'block' : 'none';
+    toggleButton.textContent = isHidden ? '閉じる' : '表示';
+}
+
+function toggleAdjSection() {
+    const section = document.getElementById('hifAdjustInputs');
+    const toggleButton = document.getElementById('toggleAdjBtn');
+    if (!section || !toggleButton) return;
+    const isHidden = section.style.display === 'none';
+    section.style.display = isHidden ? 'block' : 'none';
     toggleButton.textContent = isHidden ? '閉じる' : '表示';
 }
 
@@ -498,6 +515,9 @@ function updateCalculation() {
     const preVo = parseInt(document.getElementById('preVo').value) || 0;
     const preDa = parseInt(document.getElementById('preDa').value) || 0;
     const preVi = parseInt(document.getElementById('preVi').value) || 0;
+    const adjVo = Math.max(0, parseInt(document.getElementById('adjVo')?.value) || 0);
+    const adjDa = Math.max(0, parseInt(document.getElementById('adjDa')?.value) || 0);
+    const adjVi = Math.max(0, parseInt(document.getElementById('adjVi')?.value) || 0);
     const abiVo = parseInt(document.getElementById('abiVo')?.value) || 0;
     const abiDa = parseInt(document.getElementById('abiDa')?.value) || 0;
     const abiVi = parseInt(document.getElementById('abiVi')?.value) || 0;
@@ -523,7 +543,7 @@ function updateCalculation() {
     updateFinalRankParamBonusDisplay(finalRank);
     updateTargetScoreSwitcherVisibility();
 
-    const allZero = (preVo===0 && preDa===0 && preVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0 && hifSparkle===0);
+    const allZero = (preVo===0 && preDa===0 && preVi===0 && adjVo===0 && adjDa===0 && adjVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0 && hifSparkle===0);
     if (allZero) {
         document.getElementById('preTotal').textContent = "0";
         document.getElementById('totalEvaluation').textContent = "0";
@@ -633,9 +653,9 @@ function updateCalculation() {
 
     } else if (calcType === 'hif') {
         const cap = (v) => Math.min(3200, v);
-        const g = cap(preVo);
-        const h = cap(preDa);
-        const i = cap(preVi);
+        const g = cap(preVo + adjVo);
+        const h = cap(preDa + adjDa);
+        const i = cap(preVi + adjVi);
         const totalStats = g + h + i;
         document.getElementById('preTotal').textContent = totalStats.toLocaleString();
 

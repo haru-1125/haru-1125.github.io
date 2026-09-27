@@ -1,17 +1,32 @@
 header {
-    background-color: #e0f7fa;
     position: fixed;
     top: 0;
-    left: 0; /* ← 明示的に左端に寄せる */
+    left: 0;
     width: 100%;
+    height: 44px;
+    box-sizing: border-box;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background:
+        radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, 0.28), transparent 42%),
+        radial-gradient(80% 140% at 100% 0%, rgba(255, 206, 130, 0.42), transparent 46%),
+        linear-gradient(105deg, #162454 0%, #3154ef 54%, #6d4de3 100%);
+    box-shadow: 0 2px 6px rgba(22, 36, 92, 0.22);
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ffd36a, #fff6d8 35%, #b7d9ff 68%, #ffd36a);
 }
 
 
 body {
     margin: 0;
-    padding-top: 60px; /* ヘッダー分 */
+    padding-top: 44px; /* ヘッダー分 */
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 40px; /* 必要なら */
@@ -22,57 +37,66 @@ body {
 }
 
 
-/* --- 修正：ここから --- */
+.main-nav,
+.main-nav ul {
+    height: 100%;
+}
+
 .main-nav ul {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 8px;
     list-style: none;
     margin: 0;
-    padding: 10px 0;
-    flex-wrap: nowrap; /* 項目が下に落ちないように固定 */
+    padding: 0 10px 2px;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
 }
 
 .main-nav li {
-    margin: 0 10px; /* 20pxから10pxに減らして間隔を詰めやすくする */
+    margin: 0;
 }
 
 .main-nav a {
-    color: #333;
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.92);
     text-decoration: none;
-    font-size: 18px;
-    padding: 10px 15px; /* 左右の余白を少し詰める */
-    border-radius: 6px;
-    transition: background-color 0.3s, color 0.3s;
-    white-space: nowrap; /* テキスト内の改行を禁止 */
-}
-/* --- 修正：ここまで --- */
-
-/* --- 追加：画面が狭い時のためのレスポンシブ設定 --- */
-@media screen and (max-width: 650px) {
-    .main-nav li {
-        margin: 0 5px; /* 項目間の余白をさらに詰める */
-    }
-    .main-nav a {
-        font-size: 15px; /* 文字サイズを下げる */
-        padding: 10px 8px; /* 内側の余白をさらに詰める */
-    }
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    padding: 2px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 480px) {
+    .main-nav ul {
+        gap: 6px;
+    }
     .main-nav a {
-        font-size: 13px; /* スマホ向けにさらに小さく */
-        padding: 10px 5px;
+        font-size: 13px;
+        padding: 3px 10px;
     }
 }
-/* --- 追加：ここまで --- */
 
-/* 以下、a:hover と a.active の設定は変更なしでOKです */
 .main-nav a:hover {
-    color: #d84315;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-1px);
 }
 
 .main-nav a.active {
-    color: #ff9800;
+    color: #243fae;
+    background: linear-gradient(180deg, #ffffff 0%, #e7edff 100%);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 1px 0 #fff;
+    transform: none;
 }
 
 
@@ -81,7 +105,7 @@ body {
     font-family: 'Noto Sans JP', sans-serif;
     background: linear-gradient(to bottom, #f5f7fa, #e4ebf1);
     color: #333;
-    padding: 40px;
+    padding: 44px 40px 40px;
     text-align: center;
 }
 
@@ -96,6 +120,174 @@ h1 {
     color: #e74c3c;
     font-weight: bold;
 }
+
+.ownership-board {
+    max-width: 980px;
+    margin: 8px auto 18px;
+}
+
+.ownership-total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin: 0 auto 14px;
+    padding: 10px 16px;
+    border-radius: 16px;
+    background: linear-gradient(105deg, #ffffff 0%, #f4f7ff 100%);
+    border: 1px solid #d7e2ff;
+    box-shadow: 0 8px 18px rgba(49, 84, 239, 0.08);
+}
+
+.ownership-total-label {
+    font-weight: 800;
+    color: #3154ef;
+    letter-spacing: 0.08em;
+}
+
+.ownership-total-count {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.ownership-total-rate {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #e74c3c;
+    line-height: 1;
+}
+
+.ownership-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    gap: 10px;
+}
+
+.ownership-grid-types {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.ownership-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 10px 8px 12px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #eef1f8;
+    box-shadow: 0 4px 14px rgba(30, 40, 80, 0.08);
+}
+
+.ownership-card img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.ownership-name {
+    font-weight: 800;
+    color: #333;
+}
+
+.ownership-count {
+    font-size: 0.82rem;
+    color: #667;
+}
+
+.ownership-bar {
+    width: 100%;
+    height: 6px;
+    margin-top: 4px;
+    border-radius: 999px;
+    background: #eef1f6;
+    overflow: hidden;
+}
+
+.ownership-bar > span {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #8aa4ff, #3154ef);
+}
+
+.ownership-card-vocal .ownership-bar > span {
+    background: linear-gradient(90deg, #ff9ab8, #ff4d88);
+}
+
+.ownership-card-dance .ownership-bar > span {
+    background: linear-gradient(90deg, #9eb6ff, #4d79ff);
+}
+
+.ownership-card-visual .ownership-bar > span {
+    background: linear-gradient(90deg, #ffe08a, #e0a000);
+}
+
+.ownership-card-assist .ownership-bar > span {
+    background: linear-gradient(90deg, #8ee0b0, #2fa86a);
+}
+
+.ownership-rate {
+    font-weight: 800;
+    color: #e74c3c;
+    font-size: 0.95rem;
+}
+
+.picker-group {
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px;
+    border: 1px solid #e8edf8;
+    box-shadow: 0 4px 14px rgba(30, 40, 80, 0.06);
+    text-align: left;
+}
+
+.picker-group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eef1f6;
+}
+
+.picker-group-header img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.picker-group-title {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #24324a;
+}
+
+.picker-group-count {
+    margin-left: auto;
+    font-weight: 800;
+    color: #3154ef;
+    white-space: nowrap;
+}
+
+.picker-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+    gap: 12px;
+}
+
+.picker-cards-wide {
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+}
+
+.picker-group-vocal { border-top: 4px solid #ff4d88; }
+.picker-group-dance { border-top: 4px solid #4d79ff; }
+.picker-group-visual { border-top: 4px solid #e0a000; }
+.picker-group-assist { border-top: 4px solid #2fa86a; }
 
 .buttons {
     margin-bottom: 30px;

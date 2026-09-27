@@ -1,19 +1,69 @@
 const sgrid = document.getElementById("supportGrid");
-const sstats = document.getElementById("sstats");
 const usableSupports = supports.filter(c =>
     !c.isDummy && (c.rarity === "SSR" || c.rarity === "配布SSR")
 );
 
-usableSupports.forEach((char, index) => {
-    const div = document.createElement("div");
-    div.className = "support";
-    div.dataset.index = index;
-    div.innerHTML = `
-    <img src="${char.darkFile}" alt="${char.name}">
-    <div class="support-name">${char.name}</div>
-  `;
-    div.addEventListener("click", () => togglesupport(div, index));
-    sgrid.appendChild(div);
+const supportTypes = [
+    { name: "Vocal", type: "vocal" },
+    { name: "Dance", type: "dance" },
+    { name: "Visual", type: "visual" },
+    { name: "Assist", type: "assist" },
+];
+
+const ownershipBoard = document.createElement("section");
+ownershipBoard.className = "ownership-board";
+document.querySelector("h1").insertAdjacentElement("afterend", ownershipBoard);
+
+const ownershipTotal = document.createElement("div");
+ownershipTotal.className = "ownership-total";
+ownershipBoard.appendChild(ownershipTotal);
+
+const ownershipGrid = document.createElement("div");
+ownershipGrid.className = "ownership-grid ownership-grid-types";
+ownershipBoard.appendChild(ownershipGrid);
+
+const supportCards = supportTypes.map(item => {
+    const card = document.createElement("article");
+    card.className = `ownership-card ownership-card-${item.type}`;
+    card.innerHTML = `
+        <img src="../assets/sozai/${item.type}.png" alt="${item.name}">
+        <div class="ownership-name">${item.name}</div>
+        <div class="ownership-count"></div>
+        <div class="ownership-bar"><span></span></div>
+        <div class="ownership-rate"></div>
+    `;
+    ownershipGrid.appendChild(card);
+    return card;
+});
+
+supportTypes.forEach(item => {
+    const section = document.createElement("section");
+    section.className = `picker-group picker-group-${item.type}`;
+    const header = document.createElement("div");
+    header.className = "picker-group-header";
+    header.innerHTML = `
+        <img src="../assets/sozai/${item.type}.png" alt="">
+        <div class="picker-group-title">${item.name}</div>
+        <div class="picker-group-count"></div>
+    `;
+    const cards = document.createElement("div");
+    cards.className = "picker-cards picker-cards-wide";
+    usableSupports.forEach((card, index) => {
+        if (card.type !== item.type) return;
+        const div = document.createElement("div");
+        div.className = "support";
+        div.dataset.index = index;
+        div.innerHTML = `
+            <img src="${card.darkFile}" alt="${card.name}">
+            <div class="support-name">${card.name}</div>
+        `;
+        div.addEventListener("click", () => togglesupport(div, index));
+        cards.appendChild(div);
+    });
+    section.appendChild(header);
+    section.appendChild(cards);
+    sgrid.appendChild(section);
+    item.countEl = header.querySelector(".picker-group-count");
 });
 
 function togglesupport(div, index) {
@@ -41,33 +91,33 @@ function countTypeStats(type) {
     return { total, owned, percent };
 }
 
-function renderTypeStats(elementId, label, type) {
-    const el = document.getElementById(elementId);
-    if (!el) return;
-    const { total, owned, percent } = countTypeStats(type);
-    el.innerHTML = `${label}:<span class="red">${total}</span>種中<span class="red">${owned}</span>種（ 所持率<span class="red">${percent}%</span> ）`;
+function paintOwnershipCard(card, owned, total) {
+    const percent = total > 0 ? ((owned / total) * 100).toFixed(1) : "0.0";
+    card.querySelector(".ownership-count").textContent = `${owned} / ${total}`;
+    card.querySelector(".ownership-rate").textContent = `${percent}%`;
+    card.querySelector(".ownership-bar > span").style.width = `${percent}%`;
 }
 
 function updateStats() {
-    const sstats = document.getElementById("sstats");
-
     const owned = document.querySelectorAll(".support.owned").length;
     const total = usableSupports.length;
-    const percent = ((owned / total) * 100).toFixed(1);
+    const percent = total > 0 ? ((owned / total) * 100).toFixed(1) : "0.0";
 
-    sstats.innerHTML = `全<span class="red">${total}</span>種中<span class="red">${owned}</span>種（ 所持率<span class="red">${percent}%</span> ）`;
+    ownershipTotal.innerHTML = `<span class="ownership-total-label">全体</span><span class="ownership-total-count">全<span class="red">${total}</span>種中<span class="red">${owned}</span>種</span><span class="ownership-total-rate">${percent}%</span>`;
 
-    renderTypeStats("vocalStats", "vocal", "vocal");
-    renderTypeStats("danceStats", "dance", "dance");
-    renderTypeStats("visualStats", "visual", "visual");
-    renderTypeStats("assistStats", "assist", "assist");
+    supportTypes.forEach((item, index) => {
+        const stats = countTypeStats(item.type);
+        paintOwnershipCard(supportCards[index], stats.owned, stats.total);
+        if (item.countEl) item.countEl.textContent = `${stats.owned} / ${stats.total}`;
+    });
 }
 
 
 
 
 function selectAll(flag) {
-    document.querySelectorAll(".support").forEach((div, index) => {
+    document.querySelectorAll(".support").forEach(div => {
+        const index = Number(div.dataset.index);
         const isOwned = div.classList.contains("owned");
         if (flag && !isOwned) {
             div.classList.add("owned");

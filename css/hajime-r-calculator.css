@@ -1,6 +1,6 @@
 .container {
     max-width: 600px;
-    margin: 16px auto;
+    margin: 6px auto 16px;
 
 h1 {
     /* clampを使って、画面幅に合わせて文字サイズを適切に調整します */
@@ -45,24 +45,28 @@ h1 {
     padding: 13px 26px;
     min-width: 120px;
     border-radius: 999px;
-    border: 1px solid rgba(67, 100, 247, 0.18);
-    background: #f4f7ff;
+    border: 1px solid #c5d2fb;
+    background: linear-gradient(180deg, #ffffff 0%, #e4ebff 100%);
     color: #4364f7;
-    box-shadow: 0 8px 18px rgba(67, 100, 247, 0.12);
+    box-shadow: inset 0 1px 0 #fff, 0 4px 0 #b9c8f6, 0 8px 14px rgba(67, 100, 247, 0.16);
     font-weight: 700;
     font-size: 0.98rem;
     letter-spacing: 0.03em;
-    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
 .calc-type-selector .mode-btn:hover {
-    transform: translateY(-1px);
+    transform: translateY(1px);
+    box-shadow: inset 0 1px 0 #fff, 0 3px 0 #b9c8f6, 0 6px 10px rgba(67, 100, 247, 0.14);
 }
 
 .calc-type-selector .mode-btn.active {
-    background: #4364f7;
+    background: linear-gradient(180deg, #243fae 0%, #4364f7 42%, #6a84f8 100%);
     color: #fff;
-    box-shadow: 0 14px 28px rgba(67, 100, 247, 0.24);
+    border-color: #243fae;
+    transform: translateY(4px);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.35);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .score-mode-switch {
@@ -80,13 +84,14 @@ h1 {
     flex: 1;
     padding: 10px 8px;
     border: none;
-    background: #fff;
+    background: linear-gradient(180deg, #ffffff 0%, #e3eaff 100%);
     color: #3651d4;
     cursor: pointer;
     font-weight: 600;
     font-size: clamp(0.78rem, 3.5vw, 0.9rem);
     white-space: nowrap;
-    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 0 #fff, inset 0 -3px 0 #c5d1f7;
+    transition: all 0.15s ease;
 }
 
 .score-mode-btn:first-child {
@@ -100,13 +105,15 @@ h1 {
 }
 
 .score-mode-btn:hover {
-    background: #cddbff;
+    background: linear-gradient(180deg, #f7f9ff 0%, #d5e0ff 100%);
 }
 
-.score-mode-btn.active {
-    background: #4364f7;
+.score-mode-btn.active,
+.score-mode-btn.active:hover {
+    background: linear-gradient(180deg, #1e389f 0%, #3d5bef 38%, #6d86f8 100%);
     color: #fff;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: inset 0 4px 7px rgba(0, 0, 0, 0.42);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
 }
 
 .mode-btn {
@@ -121,19 +128,15 @@ h1 {
 }
 
 .mode-selector .mode-btn {
-    background: #fff;
+    background: linear-gradient(180deg, #ffffff 0%, #e3eaff 100%);
     color: #3651d4;
     font-weight: 600;
-    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 0 #fff, inset 0 -3px 0 #c5d1f7;
+    transition: all 0.15s ease;
 }
 
 .mode-selector .mode-btn:hover {
-    background: #cddbff;
-}
-
-.mode-selector .mode-btn.active:hover {
-    background: #4364f7;
-    color: #fff;
+    background: linear-gradient(180deg, #f7f9ff 0%, #d5e0ff 100%);
 }
 
 .mode-btn.active {
@@ -141,8 +144,12 @@ h1 {
     color: #fff;
 }
 
-.mode-selector .mode-btn.active {
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+.mode-selector .mode-btn.active,
+.mode-selector .mode-btn.active:hover {
+    background: linear-gradient(180deg, #1e389f 0%, #3d5bef 38%, #6d86f8 100%);
+    color: #fff;
+    box-shadow: inset 0 4px 7px rgba(0, 0, 0, 0.42);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
 }
 
 .calculator-card, .result-card {
@@ -227,28 +234,27 @@ h1 {
     flex: 1;
     padding: 6px 10px;
     border: none;
-    background: #fff;
+    background: linear-gradient(180deg, #ffffff 0%, #e3eaff 100%);
     color: #3651d4;
     border-radius: 0;
     font-size: clamp(0.75rem, 3.2vw, 0.85rem);
     font-weight: 600;
     white-space: nowrap;
     cursor: pointer;
-    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 0 #fff, inset 0 -3px 0 #c5d1f7;
+    transition: all 0.15s ease;
 }
 
-.score-switch-btn.active {
-    background: #4364f7;
+.score-switch-btn.active,
+.score-switch-btn.active:hover {
+    background: linear-gradient(180deg, #1e389f 0%, #3d5bef 38%, #6d86f8 100%);
     color: #fff;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 4px 7px rgba(0, 0, 0, 0.42);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
 }
 
 .score-switch-btn:hover {
-    background: #cddbff;
-}
-
-.score-switch-btn.active:hover {
-    background: #4364f7;
+    background: linear-gradient(180deg, #f7f9ff 0%, #d5e0ff 100%);
 }
 
 .input-group {
@@ -372,18 +378,20 @@ h1 {
 
 .input-field input, .input-field select {
     padding: 8px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #d5d8de;
     border-radius: 6px;
     font-size: 1rem;
     box-sizing: border-box; /* これを追加: paddingとborderを幅に含める */
     width: 100%; /* これを追加: 親要素の幅いっぱいに広げる */
+    background-color: #e9ebf0;
 }
 
 .input-field input:focus,
 .input-field select:focus {
     outline: none;
+    background-color: #fff;
     border-color: #4364f7;
-    box-shadow: 0 0 0 2px rgba(67, 100, 247, 0.1);
+    box-shadow: 0 0 0 3px rgba(67, 100, 247, 0.28);
 }
 
 .input-field.full-width {
@@ -447,6 +455,14 @@ h1 {
 
 .hif-score-mode-bar .score-mode-switch {
     width: 100%;
+    gap: 3px;
+    padding: 3px;
+    background: #1a2f86;
+    border-color: #1a2f86;
+}
+
+.hif-score-mode-bar .score-mode-btn {
+    border-radius: 6px;
 }
 
 .hif-star-gains {
@@ -561,9 +577,11 @@ h1 {
     margin-bottom: 0;
 }
 
-.input-vo {
+.input-field .input-vo {
     color: #ff4d4d;
     text-align: center;
+    background-color: #ffe3ec;
+    border-color: #f3c3d1;
 }
 
 .input-vo::placeholder {
@@ -571,9 +589,11 @@ h1 {
     opacity: 0.45;
 }
 
-.input-da {
+.input-field .input-da {
     color: #4d79ff;
     text-align: center;
+    background-color: #e4ecff;
+    border-color: #c5d4fb;
 }
 
 .input-da::placeholder {
@@ -581,9 +601,11 @@ h1 {
     opacity: 0.45;
 }
 
-.input-vi {
+.input-field .input-vi {
     color: #c98900;
     text-align: center;
+    background-color: #fff3d4;
+    border-color: #ead7a4;
 }
 
 .input-vi::placeholder {
@@ -663,6 +685,35 @@ h1 {
     font-size: 0.9rem;
     font-weight: bold;
     color: #666;
+}
+
+.hif-adjust-field {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.hif-adjust-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.hif-adjust-header label {
+    margin-bottom: 0;
+}
+
+.hif-adjust-header .toggle-section-btn {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+}
+
+#hifAdjustInputs {
+    margin-top: 6px;
+}
+
+.hif-adjust-field .hif-adjust-grid {
+    margin-top: 0;
 }
 
 .hif-star-field {

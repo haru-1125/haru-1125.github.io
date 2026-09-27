@@ -22,9 +22,9 @@
     <header>
         <nav class="main-nav">
             <ul>
-                <li><a href="hajime-r-calculator.html" class="nav-link active" id="harcal-link">評価値計算機</a></li>
-                <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ所持率</a></li>
-                <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ所持率</a></li>
+                <li><a href="hajime-r-calculator.html" class="nav-link active" id="harcal-link">計算機</a></li>
+                <li><a href="character-checker.html" class="nav-link" id="char-link">キャラ</a></li>
+                <li><a href="support-checker.html" class="nav-link" id="support-link">サポカ</a></li>
             </ul>
         </nav>
     </header>
@@ -69,6 +69,25 @@
                 </div>
                 <div class="param-total-display">
                     合計: <span id="preTotal">0</span>
+                </div>
+                <div id="hifAdjustField" class="input-field hif-adjust-field" style="display:none;">
+                    <div class="hif-adjust-header">
+                        <label>調整用ステータス</label>
+                        <button type="button" id="toggleAdjBtn" class="toggle-section-btn" onclick="toggleAdjSection()">表示</button>
+                    </div>
+                    <div id="hifAdjustInputs" style="display:none;">
+                        <div class="grid-3 param-stat-grid hif-adjust-grid">
+                            <div class="input-field">
+                                <input type="number" id="adjVo" class="input-vo" min="0" max="3200" placeholder="Vo">
+                            </div>
+                            <div class="input-field">
+                                <input type="number" id="adjDa" class="input-da" min="0" max="3200" placeholder="Da">
+                            </div>
+                            <div class="input-field">
+                                <input type="number" id="adjVi" class="input-vi" min="0" max="3200" placeholder="Vi">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="hifStarField" class="input-field hif-star-field" style="display:none;">
                     <label id="hifStarLabel">スター性</label>

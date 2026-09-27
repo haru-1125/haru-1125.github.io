@@ -181,6 +181,21 @@ const supports = [
     file: "../assets/sup/風紀が乱れるぞ！.png", darkFile: "../assets/supan/風紀が乱れるぞ！.png"
   },
   {
+    name: "食レポ、得意かも！", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/食レポ、得意かも！.png", darkFile: "../assets/supan/食レポ、得意かも！.png"
+  },
+  {
+    name: "大切な思い出、またひとつ", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/大切な思い出、またひとつ.png", darkFile: "../assets/supan/大切な思い出、またひとつ.png"
+  },
+  {
+    name: "わたしに、まかせて", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/わたしに、まかせて.png", darkFile: "../assets/supan/わたしに、まかせて.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -519,6 +534,16 @@ const supports = [
     name: "インタビューお願いします", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/インタビューお願いします.png", darkFile: "../assets/supan/インタビューお願いします.png"
+  },
+  {
+    name: "イクラ～♪　ウニ～♪", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/イクラ～♪　ウニ～♪.png", darkFile: "../assets/supan/イクラ～♪　ウニ～♪.png"
+  },
+  {
+    name: "もうすぐ本番ですね", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/もうすぐ本番ですね.png", darkFile: "../assets/supan/もうすぐ本番ですね.png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",
