@@ -107,6 +107,7 @@ function updateStats() {
         paintOwnershipCard(characterCards[index], ownedCount, group.indexes.length);
         if (group.countEl) group.countEl.textContent = `${ownedCount} / ${group.indexes.length}`;
     });
+    OwnershipShare.absoluteUrl(ownedFlags(), usableCharacters.map(char => char.name));
 }
 
 function selectAll(flag) {
@@ -128,14 +129,59 @@ function selectAll(flag) {
 
 
 
-function shareOnTwitter() {
-    const owned = document.querySelectorAll(".character.owned").length;
-    const total = usableCharacters.length;
-    const percent = ((owned / total) * 100).toFixed(1);
-    const text = `学マスSSRキャラ所持率チェッカー\n全${total}種中${owned}種（ 所持率${percent}% ）\n`;
-    const url = location.href;
-    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-    window.open(tweetUrl, "_blank");
+function ownedFlags() {
+    return usableCharacters.map((_, index) => {
+        const div = document.querySelector(`.character[data-index='${index}']`);
+        return !!(div && div.classList.contains("owned"));
+    });
 }
 
+function ownedNames(flags) {
+    return usableCharacters.filter((_, index) => flags[index]).map(char => char.name);
+}
+
+function shareSnapshot() {
+    const flags = ownedFlags();
+    const url = OwnershipShare.absoluteUrl(flags, usableCharacters.map(char => char.name));
+    const owned = flags.filter(Boolean).length;
+    const total = usableCharacters.length;
+    const percent = total > 0 ? ((owned / total) * 100).toFixed(1) : "0.0";
+    return { flags, url, owned, total, percent };
+}
+
+function shareOnTwitter() {
+    const snap = shareSnapshot();
+    const text = `学マスSSRキャラ所持率チェッカー\n全${snap.total}種中${snap.owned}種（ 所持率${snap.percent}% ）\n`;
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(snap.url)}`;
+    window.open(tweetUrl, "_blank", "noopener");
+    OwnershipShare.report({
+        kind: "character",
+        owned: snap.owned,
+        total: snap.total,
+        percent: snap.percent,
+        names: ownedNames(snap.flags),
+    });
+}
+
+function copyShareUrl() {
+    const snap = shareSnapshot();
+    OwnershipShare.copy(snap.url).then(() => {
+        const button = document.querySelector(".action-copy");
+        const label = button && button.querySelector("span");
+        if (!button || !label) return;
+        label.textContent = "コピーしました";
+        button.classList.add("is-copied");
+        setTimeout(() => {
+            label.textContent = "URLコピー";
+            button.classList.remove("is-copied");
+        }, 1600);
+    }).catch(() => {});
+}
+
+OwnershipShare.apply(usableCharacters.map(char => char.name), index => {
+    const div = document.querySelector(`.character[data-index='${index}']`);
+    if (!div) return;
+    div.classList.add("owned");
+    div.querySelector("img").src = usableCharacters[index].file;
+});
 updateStats();

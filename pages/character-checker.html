@@ -15,14 +15,21 @@
         gtag('config', 'G-Z6489YQ95Q');
     </script>
 
-    <link rel="stylesheet" href="../css/style.css?v=5" />
-    <link rel="stylesheet" href="../css/character-checker.css?v=5" />
+    <link rel="stylesheet" href="../css/style.css?v=6" />
+    <link rel="stylesheet" href="../css/character-checker.css?v=6" />
 
-    <!-- ▼ Twitterカードの設定 ▼ -->
+    <!-- ▼ Twitter / Discord などのリンクプレビュー ▼ -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="学マスSSRキャラ所持率チェッカー">
     <meta name="twitter:description" content="全◯種中◯種（所持率◯％）をチェックできるツール">
     <meta name="twitter:image" content="https://haru-1125.github.io/assets/sozai/cchecker.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="学マスSSRキャラ所持率チェッカー">
+    <meta property="og:description" content="全◯種中◯種（所持率◯％）をチェックできるツール">
+    <meta property="og:image" content="https://haru-1125.github.io/assets/sozai/cchecker.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="712">
 
 </head>
 
@@ -40,24 +47,35 @@
 
     <h1>学マスSSRキャラ所持率チェッカー</h1>
 
-    <div class="buttons">
-        <button class="twitter-share-button" onclick="shareOnTwitter()">Twitterでシェア</button>
-    </div>
-
-    <div class="buttons">
-        <button onclick="selectAll(true)">すべてチェック</button>
-        <button onclick="selectAll(false)">すべてチェックを外す</button>
+    <div class="checker-actions">
+        <button type="button" class="action-btn action-check" onclick="selectAll(true)">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M6.2 11.4 2.8 8l1.1-1.1 2.3 2.3 5.9-5.9L13.2 4.4z"/></svg>
+            <span>すべてチェック</span>
+        </button>
+        <button type="button" class="action-btn action-clear" onclick="selectAll(false)">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M3.4 3.4 8 8l4.6-4.6 1 1L9 9l4.6 4.6-1 1L8 10l-4.6 4.6-1-1L7 9 2.4 4.4z"/></svg>
+            <span>すべてチェックを外す</span>
+        </button>
+        <button type="button" class="action-btn action-twitter" onclick="shareOnTwitter()">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M12.6 2H14.7L9.9 7.1 15.5 14h-4.3L8.1 9.8 4.3 14H2.1l5.2-5.6L1 2h4.4l3 4.5zm-.8 10.8h1.2L4.3 3.1H3z"/></svg>
+            <span>Twitterでシェア</span>
+        </button>
+        <button type="button" class="action-btn action-copy" onclick="copyShareUrl()">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M6.2 11.5H4.4A3.4 3.4 0 0 1 4.6 4.7l.2-.1h1.4v1.4H4.8a2 2 0 0 0-.1 4h1.5zm1.1-2.2H8.7V6.7H7.3zM11.6 4.6h-1.4V3.2h1.4l.2.1a3.4 3.4 0 0 1-.2 6.8h-1.4v-1.4h1.4a2 2 0 0 0 .1-4z"/></svg>
+            <span>URLコピー</span>
+        </button>
     </div>
 
     <div class="grid" id="characterGrid"></div>
 
     <!-- ↓ ページ下部に画像を追加 -->
     <div class="footer-image">
-        <img src="../assets/sozai/cchecker.jpg?v=5" alt="キャラ所持率チェッカー" />
+        <img src="../assets/sozai/cchecker.jpg?v=6" alt="キャラ所持率チェッカー" />
     </div>
 
-    <script src="../data/characters.js?v=5"></script>
-    <script src="../js/character-checker.js?v=5"></script>
+    <script src="../data/characters.js?v=6"></script>
+    <script src="../js/ownership-share.js?v=6"></script>
+    <script src="../js/character-checker.js?v=6"></script>
 
     <script>
         const path = window.location.pathname;
