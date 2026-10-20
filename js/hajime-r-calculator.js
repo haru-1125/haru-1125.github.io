@@ -241,10 +241,10 @@ function getHifEffectiveSparkle(sparkleInput) {
     return base + 190;
 }
 
-/** HIF強化月間: floor(通常評価値 × 0.825 + きらめき × 11.23)。通常評価値は -2000 したあとの値 */
+/** HIF強化月間: floor(通常評価値 × 0.829 + きらめき × 11)。通常評価値は -2000 したあとの値 */
 function applyHifIntensiveEval(normalEval, sparkleInput) {
     const effectiveSparkle = getHifEffectiveSparkle(sparkleInput);
-    return Math.floor((normalEval * 165 + effectiveSparkle * 2246) / 200);
+    return Math.floor((normalEval * 829 + effectiveSparkle * 11000) / 1000);
 }
 
 function setTargetScoreView(view) {
