@@ -241,9 +241,10 @@ function getHifEffectiveSparkle(sparkleInput) {
     return base + 190;
 }
 
-function applyHifIntensiveEval(baseEval, sparkleInput) {
+/** HIF強化月間: floor(通常評価値 × 0.825 + きらめき × 11.23)。通常評価値は -2000 したあとの値 */
+function applyHifIntensiveEval(normalEval, sparkleInput) {
     const effectiveSparkle = getHifEffectiveSparkle(sparkleInput);
-    return Math.floor(baseEval * 0.718 + effectiveSparkle * 9);
+    return Math.floor((normalEval * 165 + effectiveSparkle * 2246) / 200);
 }
 
 function setTargetScoreView(view) {
@@ -672,7 +673,8 @@ function updateCalculation() {
             ? getHifRound1Eval(hifRound1)
             : getHifRound1EvalFromInput(hifRound1);
         const r2Eval = getHifRound2Eval(hifRound2);
-        const baseEvaluation = statStarPart + r1Eval + r2Eval - 2000;
+        const normalEvaluation = statStarPart + r1Eval + r2Eval;
+        const baseEvaluation = normalEvaluation - 2000;
         const totalEvaluation = currentMode === 'intensive'
             ? applyHifIntensiveEval(baseEvaluation, hifSparkle)
             : baseEvaluation;
@@ -710,7 +712,8 @@ function updateCalculation() {
             const r1EvalPart = (scoreInputMode === 'r2after')
                 ? getHifRound1Eval(round1Score)
                 : getHifRound1EvalFromInput(round1Score);
-            const baseEval = starPart + r1EvalPart + getHifRound2Eval(round2Score) - 2000;
+            const normalEval = starPart + r1EvalPart + getHifRound2Eval(round2Score);
+            const baseEval = normalEval - 2000;
             return currentMode === 'intensive'
                 ? applyHifIntensiveEval(baseEval, hifSparkle)
                 : baseEval;
