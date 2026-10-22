@@ -10,13 +10,47 @@
     });
     setCalcType('hif');
     updateCalculation();
+    placeSegmentIndicators(true);
 });
+
+window.addEventListener('resize', () => placeSegmentIndicators(true));
 
 let currentMode = 'normal';
 let calcType = 'hif';
 let scoreInputMode = 'r2after'; // 'r1before', 'r2before', or 'r2after'
 let targetScoreView = 'r1'; // 'r1' or 'r2'
 let round1ScoreType = 'corrected'; // 'corrected' or 'uncorrected'
+
+function placeSegmentIndicators(instant) {
+    document.querySelectorAll('.calc-type-selector, .mode-selector, .score-mode-switch, .round-score-switch').forEach(container => {
+        container.classList.add('seg-switch');
+        if (container.offsetWidth === 0) return;
+        const active = container.querySelector(':scope > .active');
+        if (!active) return;
+        let indicator = container.querySelector(':scope > .seg-indicator');
+        if (!indicator) {
+            indicator = document.createElement('span');
+            indicator.className = 'seg-indicator';
+            indicator.setAttribute('aria-hidden', 'true');
+            container.prepend(indicator);
+        }
+        const c = container.getBoundingClientRect();
+        const b = active.getBoundingClientRect();
+        const cs = getComputedStyle(container);
+        const x = b.left - c.left - (parseFloat(cs.borderLeftWidth) || 0);
+        const y = b.top - c.top - (parseFloat(cs.borderTopWidth) || 0);
+        if (instant || !indicator.dataset.ready) indicator.style.transition = 'none';
+        indicator.style.width = `${b.width}px`;
+        indicator.style.height = `${b.height}px`;
+        indicator.style.borderRadius = getComputedStyle(active).borderRadius;
+        indicator.style.transform = `translate(${x}px, ${y}px)`;
+        if (instant || !indicator.dataset.ready) {
+            indicator.getBoundingClientRect();
+            indicator.style.transition = '';
+            indicator.dataset.ready = '1';
+        }
+    });
+}
 
 function setMode(mode) {
     currentMode = mode;
@@ -26,6 +60,7 @@ function setMode(mode) {
     if (sparkleGroup) sparkleGroup.style.display = (calcType === 'hajime' && mode === 'intensive') ? 'block' : 'none';
     updateHifSparkleFieldVisibility();
     updateCalculation();
+    placeSegmentIndicators();
 }
 
 function updateHifSparkleFieldVisibility() {
@@ -77,6 +112,7 @@ function setCalcType(type) {
             : '最終試験前パラメータ';
     }
     updateCalculation();
+    placeSegmentIndicators();
 }
 
 function toRound1Corrected(score) {
@@ -113,6 +149,7 @@ function setRound1ScoreType(type) {
     updateRound1ScoreTypeUI();
     capHifLeftScoreToMax();
     updateCalculation();
+    placeSegmentIndicators();
 }
 
 function correctionSuffixHtml(char) {
@@ -204,6 +241,7 @@ function setScoreInputMode(mode) {
     capHifLeftScoreToMax();
     capHifSparkleToMax();
     updateCalculation();
+    placeSegmentIndicators();
 }
 
 function setMaxLeft() {
@@ -252,6 +290,7 @@ function setTargetScoreView(view) {
     document.getElementById('showR1ScoreBtn')?.classList.toggle('active', view === 'r1');
     document.getElementById('showR2ScoreBtn')?.classList.toggle('active', view === 'r2');
     updateCalculation();
+    placeSegmentIndicators();
 }
 
 function updateTargetScoreSwitcherVisibility() {
@@ -358,6 +397,8 @@ function toggleAdjSection() {
     const isHidden = section.style.display === 'none';
     section.style.display = isHidden ? 'block' : 'none';
     toggleButton.textContent = isHidden ? '閉じる' : '表示';
+    const field = document.getElementById('hifAdjustField');
+    if (field) field.classList.toggle('is-open', isHidden);
 }
 
 /** HIF試験スコアのみ上限超過でも入力値を書き換えない（上限ボタンのみで設定） */
@@ -444,7 +485,17 @@ function updateHifRound2StarGainDisplay(gain) {
     if (el) el.textContent = `R2 スター性+${gain}`;
 }
 
+function updateHifTotalScoreWarning() {
+    const el = document.getElementById('hifTotalScoreWarning');
+    if (!el) return;
+    const hifTotalScore = parseInt(document.getElementById('hifTotalScore')?.value, 10) || 0;
+    const hifRound2 = parseInt(document.getElementById('hifRound2')?.value, 10) || 0;
+    const show = calcType === 'hif' && scoreInputMode === 'r2after' && hifTotalScore < hifRound2;
+    el.classList.toggle('is-visible', show);
+}
+
 function updateHifDerivedScoreDisplay() {
+    updateHifTotalScoreWarning();
     if (calcType !== 'hif') return;
     const el = document.getElementById('hifDerivedScore');
     if (!el) return;

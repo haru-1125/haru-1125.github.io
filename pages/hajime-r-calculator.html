@@ -14,8 +14,8 @@
         gtag('config', 'G-Z6489YQ95Q');
     </script>
 
-    <link rel="stylesheet" href="../css/style.css?v=9" />
-    <link rel="stylesheet" href="../css/hajime-r-calculator.css?v=9" />
+    <link rel="stylesheet" href="../css/style.css?v=10" />
+    <link rel="stylesheet" href="../css/hajime-r-calculator.css?v=10" />
 </head>
 
 <body>
@@ -32,7 +32,7 @@
     <main class="container">
 
 
-        <div class="calc-type-selector" style="margin-bottom:12px;">
+        <div class="calc-type-selector">
             <button id="calcTypeHajime" class="mode-btn" onclick="setCalcType('hajime')">初レジェ</button>
             <button id="calcTypeHIF" class="mode-btn active" onclick="setCalcType('hif')">HIF</button>
         </div>
@@ -126,7 +126,7 @@
                 </div>
                 <div id="round1ScoreHelp" class="score-help-panel" hidden>
                     <p>ラウンド1は1位の場合ボーナスがあり、<br>スコアが1.2倍になる補正があります</p>
-                    <p>順位発表画面で表示されるのは補正<span class="correction-suffix">後</span>、<br>ログで表示されるスコアは補正<span class="correction-suffix">前</span>です</p>
+                    <p>順位発表画面で表示されるのは補正<span class="correction-suffix">後</span>、<br>ログで表示されるスコアは補正<span class="correction-suffix">前</span>です<br>プロデュース履歴のリプレイで表示されるのは補正<span class="correction-suffix">前</span>です</p>
                 </div>
                 <div class="grid-2 hif-score-grid">
                     <div class="input-field">
@@ -141,6 +141,7 @@
                     </div>
                 </div>
                 <p id="hifDerivedScore" class="hif-derived-score">R1(補正後)=0</p>
+                <p id="hifTotalScoreWarning" class="hif-total-score-warning">合計スコア にはR1とR2を足した値を入力してください</p>
             </section>
 
             <section class="input-group" id="abiInputSection">
@@ -203,7 +204,7 @@
             <div class="total-eval">
                 <span class="label">現在の評価値</span>
                 <div class="eval-display">
-                    <img id="evalRank" class="rank-badge-img" src="../assets/sozai/f.png?v=9" alt="F">
+                    <img id="evalRank" class="rank-badge-img" src="../assets/sozai/f.png?v=10" alt="F">
                     <span id="totalEvaluation" class="value">0</span>
                 </div>
             </div>
@@ -250,7 +251,7 @@
         </div>
     </main>
 
-    <script src="../js/hajime-r-calculator.js?v=9"></script>
+    <script src="../js/hajime-r-calculator.js?v=10"></script>
 </body>
 
 </html>
