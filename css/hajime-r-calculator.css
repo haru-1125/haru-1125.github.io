@@ -52,7 +52,7 @@ h1 {
 
 .calc-type-selector .mode-btn {
     flex: none;
-    padding: 12px 28px;
+    padding: 8px 28px;
     min-width: 120px;
     border-radius: 999px;
     border: 2px solid transparent;
@@ -530,6 +530,11 @@ h1 {
     box-sizing: border-box;
 }
 
+.hif-score-mode-bar .score-mode-btn {
+    padding: 8px;
+    font-size: 13.3333px;
+}
+
 .hif-star-gains {
     display: inline-flex;
     flex-wrap: wrap;
@@ -716,6 +721,9 @@ h1 {
     }
     .score-mode-btn {
         padding: 10px 6px;
+    }
+    .hif-score-mode-bar .score-mode-btn {
+        padding: 7px 6px;
     }
     .calculator-card,
     .result-card {
