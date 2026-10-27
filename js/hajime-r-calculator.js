@@ -273,15 +273,55 @@ function setMaxHifSparkle() {
     setMax('hifSparkle', getHifSparkleMax());
 }
 
-function getHifEffectiveSparkle(sparkleInput) {
+function floorDiv(n, d) {
+    return Number(BigInt(n) / BigInt(d));
+}
+
+/** ラウンド1きらめき獲得量。x は素スコア（補正前）。区間ごとに切り捨て */
+function getHifRound1SparkleGain(rawScore) {
+    const x = rawScore || 0;
+    if (x < 53000) return 0;
+    if (x < 95000) return floorDiv(567 * x, 1000000);
+    if (x < 150000) return 26 + floorDiv(29 * x, 100000);
+    if (x < 250000) return 42 + floorDiv(19 * x, 100000);
+    if (x < 500000) return 70 + floorDiv(81 * x, 1000000);
+    return 110;
+}
+
+/** ラウンド2きらめき獲得量。区間ごとに切り捨て */
+function getHifRound2SparkleGain(score) {
+    const x = score || 0;
+    if (x < 108000) return 0;
+    if (x < 175000) return floorDiv(568 * x, 1000000) - 31;
+    if (x < 300000) return 11 + floorDiv(331 * x, 1000000);
+    if (x < 520000) return 56 + floorDiv(181 * x, 1000000);
+    if (x < 1000000) return 107 + floorDiv(837 * x, 10000000);
+    return 190;
+}
+
+function getHifEffectiveSparkle(sparkleInput, round1Score, round2Score) {
     const base = sparkleInput || 0;
-    if (scoreInputMode === 'r1before') return base + 110;
-    return base + 190;
+    if (scoreInputMode === 'r1before') {
+        return base + getHifRound1SparkleGain(toRound1Uncorrected(round1Score));
+    }
+    return base + getHifRound2SparkleGain(round2Score);
+}
+
+function updateHifSparkleNote(round1Score, round2Score) {
+    const el = document.getElementById('hifSparkleNote');
+    if (!el) return;
+    if (scoreInputMode === 'r1before') {
+        const gain = getHifRound1SparkleGain(toRound1Uncorrected(round1Score));
+        el.textContent = `※R1試験のきらめき獲得量を加算しています（入力値+${gain}）`;
+    } else {
+        const gain = getHifRound2SparkleGain(round2Score);
+        el.textContent = `※R2試験のきらめき獲得量を加算しています（入力値+${gain}）`;
+    }
 }
 
 /** HIF強化月間: floor(通常評価値 × 0.829 + きらめき × 11)。通常評価値は -2000 したあとの値 */
-function applyHifIntensiveEval(normalEval, sparkleInput) {
-    const effectiveSparkle = getHifEffectiveSparkle(sparkleInput);
+function applyHifIntensiveEval(normalEval, sparkleInput, round1Score, round2Score) {
+    const effectiveSparkle = getHifEffectiveSparkle(sparkleInput, round1Score, round2Score);
     return Math.floor((normalEval * 829 + effectiveSparkle * 11000) / 1000);
 }
 
@@ -594,6 +634,7 @@ function updateCalculation() {
     updateHifDerivedScoreDisplay();
     updateFinalRankParamBonusDisplay(finalRank);
     updateTargetScoreSwitcherVisibility();
+    if (calcType === 'hif') updateHifSparkleNote(hifRound1, hifRound2);
 
     const allZero = (preVo===0 && preDa===0 && preVi===0 && adjVo===0 && adjDa===0 && adjVi===0 && abiVo===0 && abiDa===0 && abiVi===0 && midScore===0 && finalScore===0 && sparkle===0 && hifTotalScore===0 && hifRound2===0 && hifStar===0 && hifSparkle===0);
     if (allZero) {
@@ -727,7 +768,7 @@ function updateCalculation() {
         const normalEvaluation = statStarPart + r1Eval + r2Eval;
         const baseEvaluation = normalEvaluation - 2000;
         const totalEvaluation = currentMode === 'intensive'
-            ? applyHifIntensiveEval(baseEvaluation, hifSparkle)
+            ? applyHifIntensiveEval(baseEvaluation, hifSparkle, hifRound1, hifRound2)
             : baseEvaluation;
 
         document.getElementById('totalEvaluation').textContent = totalEvaluation.toLocaleString();
@@ -766,7 +807,7 @@ function updateCalculation() {
             const normalEval = starPart + r1EvalPart + getHifRound2Eval(round2Score);
             const baseEval = normalEval - 2000;
             return currentMode === 'intensive'
-                ? applyHifIntensiveEval(baseEval, hifSparkle)
+                ? applyHifIntensiveEval(baseEval, hifSparkle, round1Score, round2Score)
                 : baseEval;
         };
 
