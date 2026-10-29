@@ -518,13 +518,6 @@ h1 {
     margin-bottom: 0;
 }
 
-.hif-sparkle-note {
-    margin: 6px 0 0;
-    font-size: 0.75rem;
-    line-height: 1.45;
-    color: #666;
-}
-
 .hif-score-mode-bar .score-mode-switch {
     width: 100%;
     box-sizing: border-box;

@@ -14,8 +14,8 @@
         gtag('config', 'G-Z6489YQ95Q');
     </script>
 
-    <link rel="stylesheet" href="../css/style.css?v=12" />
-    <link rel="stylesheet" href="../css/hajime-r-calculator.css?v=12" />
+    <link rel="stylesheet" href="../css/style.css?v=13" />
+    <link rel="stylesheet" href="../css/hajime-r-calculator.css?v=13" />
 </head>
 
 <body>
@@ -101,7 +101,10 @@
                         <label>ほしのきらめき</label>
                         <input type="number" id="hifSparkle" min="0" max="420" placeholder="0">
                         <button type="button" class="max-btn max-btn-full" onclick="setMaxHifSparkle()">上限</button>
-                        <p id="hifSparkleNote" class="hif-sparkle-note">※試験スコアに応じたきらめき獲得量を加算します</p>
+                        <div class="hif-star-gains">
+                            <span id="hifRound1SparkleGain" class="hif-round2-star-gain">R1 きらめき+0</span>
+                            <span id="hifRound2SparkleGain" class="hif-round2-star-gain">R2 きらめき+0</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -204,7 +207,7 @@
             <div class="total-eval">
                 <span class="label">現在の評価値</span>
                 <div class="eval-display">
-                    <img id="evalRank" class="rank-badge-img" src="../assets/sozai/f.png?v=12" alt="F">
+                    <img id="evalRank" class="rank-badge-img" src="../assets/sozai/f.png?v=13" alt="F">
                     <span id="totalEvaluation" class="value">0</span>
                 </div>
             </div>
@@ -251,7 +254,7 @@
         </div>
     </main>
 
-    <script src="../js/hajime-r-calculator.js?v=12"></script>
+    <script src="../js/hajime-r-calculator.js?v=13"></script>
 </body>
 
 </html>

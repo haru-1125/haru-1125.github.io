@@ -61,6 +61,11 @@ const characters = [
     VocalIni: 100, DanceIni: 100, VisualIni: 105, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
   },
   {
+    name: "咲季（agi）", chara: "咲季", file: "../assets/chara/咲季（agi）.png", darkFile: "../assets/charaan/咲季（agi）.png",
+    VocalPercent: 16.5, DancePercent: 16.5, VisualPercent: 20.5, VocalPercent3: 19.5, DancePercent3: 19.5, VisualPercent3: 22.5,
+    VocalIni: 100, DanceIni: 100, VisualIni: 105, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
+  },
+  {
     name: "手毬（LSM）", chara: "手毬", file: "../assets/chara/手毬（LSM）.png", darkFile: "../assets/charaan/手毬（LSM）.png",
     VocalPercent: 24, DancePercent: 21.5, VisualPercent: 8.5, VocalPercent3: 27, DancePercent3: 26.5, VisualPercent3: 8.5,
     VocalIni: 120, DanceIni: 100, VisualIni: 80, FirstType: "Vocal", SecondType: "Dance", ThirdType: "Visual", series: "恒常", suteType:"2極"
@@ -266,6 +271,11 @@ const characters = [
     VocalIni: 80, DanceIni: 100, VisualIni: 115, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
   },
   {
+    name: "リーリヤ（agi）", chara: "リーリヤ", file: "../assets/chara/リーリヤ（agi）.png", darkFile: "../assets/charaan/リーリヤ（agi）.png",
+    VocalPercent: 18, DancePercent: 20, VisualPercent: 18, VocalPercent3: 18, DancePercent3: 25, VisualPercent3: 21,
+    VocalIni: 80, DanceIni: 100, VisualIni: 115, FirstType: "Visual", SecondType: "Dance", ThirdType: "Vocal", series: "限定", suteType:"3極"
+  },
+  {
     name: "千奈（ワンスケ）", chara: "千奈", file: "../assets/chara/千奈（ワンスケ）.png", darkFile: "../assets/charaan/千奈（ワンスケ）.png",
     VocalPercent: 10, DancePercent: 24, VisualPercent: 20.5, VocalPercent3: 10, DancePercent3: 29, VisualPercent3: 23.5,
     VocalIni: 75, DanceIni: 115, VisualIni: 125, FirstType: "Dance", SecondType: "Visual", ThirdType: "Vocal", series: "恒常", suteType:"2極"
@@ -456,6 +466,11 @@ const characters = [
     VocalIni: 175, DanceIni: 125, VisualIni: 140, FirstType: "Visual", SecondType: "Vocal", ThirdType: "Dance", series: "限定", suteType:"3極"
   },
   {
+    name: "星南（Roar）", chara: "星南", file: "../assets/chara/星南（Roar）.png", darkFile: "../assets/charaan/星南（Roar）.png",
+    VocalPercent: 15, DancePercent: 8, VisualPercent: 20.5, VocalPercent3: 17, DancePercent3: 8, VisualPercent3: 24.5,
+    VocalIni: 175, DanceIni: 125, VisualIni: 140, FirstType: "Visual", SecondType: "Vocal", ThirdType: "Dance", series: "限定", suteType:"3極"
+  },
+  {
     name: "美鈴（ツキノカメ）", chara: "美鈴", file: "../assets/chara/美鈴（ツキノカメ）.png", darkFile: "../assets/charaan/美鈴（ツキノカメ）.png",
     VocalPercent: 26, DancePercent: 10, VisualPercent: 16, VocalPercent3: 30, DancePercent3: 10, VisualPercent3: 18,
     VocalIni: 85, DanceIni: 115, VisualIni: 125, FirstType: "Vocal", SecondType: "Visual", ThirdType: "Dance", series: "恒常", suteType:"3極"
@@ -527,6 +542,11 @@ const characters = [
   },
   {
     name: "佑芽（ごまえ）", chara: "佑芽", file: "../assets/chara/佑芽（ごまえ）.png", darkFile: "../assets/charaan/佑芽（ごまえ）.png",
+    VocalPercent: 20, DancePercent: 23, VisualPercent: 15, VocalPercent3: 23, DancePercent3: 28, VisualPercent3: 15,
+    VocalIni: 90, DanceIni: 95, VisualIni: 100, FirstType: "Dance", SecondType: "Vocal", ThirdType: "Visual", series: "限定", suteType:"3極"
+  },
+  {
+    name: "佑芽（agi）", chara: "佑芽", file: "../assets/chara/佑芽（agi）.png", darkFile: "../assets/charaan/佑芽（agi）.png",
     VocalPercent: 20, DancePercent: 23, VisualPercent: 15, VocalPercent3: 23, DancePercent3: 28, VisualPercent3: 15,
     VocalIni: 90, DanceIni: 95, VisualIni: 100, FirstType: "Dance", SecondType: "Vocal", ThirdType: "Visual", series: "限定", suteType:"3極"
   },

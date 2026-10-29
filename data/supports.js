@@ -196,6 +196,11 @@ const supports = [
     file: "../assets/sup/わたしに、まかせて.png", darkFile: "../assets/supan/わたしに、まかせて.png"
   },
   {
+    name: "デ、デートのお誘い！？", type: "vocal", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "",
+    file: "../assets/sup/デ、デートのお誘い！？.png", darkFile: "../assets/supan/デ、デートのお誘い！？.png"
+  },
+  {
     name: "ぐぬぬぬぬ…………！", type: "dance", rarity: "SSR",
     Aability: "レスボ", Bability: "", Cability: "活動支給", Dability: "M獲得", SP: "",
     file: "../assets/sup/ぐぬぬぬぬ…………！.png", darkFile: "../assets/supan/ぐぬぬぬぬ…………！.png"
@@ -544,6 +549,16 @@ const supports = [
     name: "もうすぐ本番ですね", type: "visual", rarity: "SSR",
     Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
     file: "../assets/sup/もうすぐ本番ですね.png", darkFile: "../assets/supan/もうすぐ本番ですね.png"
+  },
+  {
+    name: "小悪魔になっちゃえ♪", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/小悪魔になっちゃえ♪.png", darkFile: "../assets/supan/小悪魔になっちゃえ♪.png"
+  },
+  {
+    name: "これがあのかぼちゃ……", type: "visual", rarity: "SSR",
+    Aability: "", Bability: "", Cability: "", Dability: "", SP: "全SP",
+    file: "../assets/sup/これがあのかぼちゃ…….png", darkFile: "../assets/supan/これがあのかぼちゃ…….png"
   },
   {
     name: "きみは、自慢の生徒です", type: "assist", rarity: "SSR",

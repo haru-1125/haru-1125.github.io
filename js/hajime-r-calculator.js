@@ -308,15 +308,18 @@ function getHifEffectiveSparkle(sparkleInput, round1Score, round2Score) {
 }
 
 function updateHifSparkleNote(round1Score, round2Score) {
-    const el = document.getElementById('hifSparkleNote');
-    if (!el) return;
-    if (scoreInputMode === 'r1before') {
-        const gain = getHifRound1SparkleGain(toRound1Uncorrected(round1Score));
-        el.textContent = `※R1試験のきらめき獲得量を加算しています（入力値+${gain}）`;
-    } else {
-        const gain = getHifRound2SparkleGain(round2Score);
-        el.textContent = `※R2試験のきらめき獲得量を加算しています（入力値+${gain}）`;
+    const r1 = document.getElementById('hifRound1SparkleGain');
+    const r2 = document.getElementById('hifRound2SparkleGain');
+    if (r1) {
+        if (scoreInputMode === 'r1before') {
+            r1.style.display = '';
+            r1.textContent = `R1 きらめき+${getHifRound1SparkleGain(toRound1Uncorrected(round1Score))}`;
+        } else {
+            r1.style.display = 'none';
+            r1.textContent = '';
+        }
     }
+    if (r2) r2.textContent = `R2 きらめき+${getHifRound2SparkleGain(round2Score)}`;
 }
 
 /** HIF強化月間: floor(通常評価値 × 0.829 + きらめき × 11)。通常評価値は -2000 したあとの値 */
